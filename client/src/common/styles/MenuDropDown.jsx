@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const DropDownWrapper = styled.div`
@@ -23,11 +24,20 @@ const DropDownMenu = styled.li`
   padding-bottom: 1.8rem;
 `;
 
-const MenuDropDown = () => {
+const MenuDropDown = ({ handleDropDown }) => {
+  const navigate = useNavigate();
+
   return (
     <DropDownWrapper>
       <DropDown>
-        <DropDownMenu>Loans</DropDownMenu>
+        <DropDownMenu
+          onClick={() => {
+            navigate("/loan/listings");
+            handleDropDown();
+          }}
+        >
+          Loans
+        </DropDownMenu>
         <DropDownMenu>Trades</DropDownMenu>
         <DropDownMenu>Trade App</DropDownMenu>
         <DropDownMenu>Stake</DropDownMenu>

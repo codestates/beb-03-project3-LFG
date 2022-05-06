@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Logo } from "../common/styles";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -10,7 +11,7 @@ const NavBarWrapper = styled.nav`
   position: fixed;
   top: 0;
   left: 0;
-  height: 79px;
+  height: var(--nav-bar-height);
   width: 100%;
   padding: 1rem 1.25rem 1rem 1.25rem;
 
@@ -64,12 +65,20 @@ const Menu = styled.div`
 `;
 
 const Navigation = ({ dropdown, handleDropDown }) => {
+  const navigate = useNavigate();
+
   return (
     <NavBarWrapper>
       <NavBar>
         <Logo>LFG</Logo>
         <Navs>
-          <Nav>LOANS</Nav>
+          <Nav
+            onClick={() => {
+              navigate("/loan/listings");
+            }}
+          >
+            LOANS
+          </Nav>
           <Nav>TRADES</Nav>
           <Nav>TRADE APP</Nav>
           <Nav>STAKE</Nav>

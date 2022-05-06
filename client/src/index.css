@@ -1,6 +1,7 @@
 :root {
   --main-theme: #ff9632;
   --nav-font-size: 16px;
+  --nav-bar-height: 79px;
 }
 
 * {
@@ -19,6 +20,10 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+button {
+  cursor: pointer;
 }
 
 h2 {

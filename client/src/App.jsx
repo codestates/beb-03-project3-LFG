@@ -1,9 +1,10 @@
 import { useState } from "react";
+import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
-import Footer from "./components/Footer";
+import LoanList from "./pages/LoanList";
 import Navigation from "./components/Navigation";
+import { MenuDropDown } from "./common/styles";
 import styled from "styled-components";
-import MenuDropDown from "./common/styles/MenuDropDown";
 
 const Rootdiv = styled.main`
   display: flex;
@@ -26,10 +27,10 @@ const App = () => {
       {dropdown ? (
         <MenuDropDown handleDropDown={handleDropDown} />
       ) : (
-        <>
-          <Home />
-          <Footer />
-        </>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/loan/listings" element={<LoanList />} />
+        </Routes>
       )}
     </Rootdiv>
   );

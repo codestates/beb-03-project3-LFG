@@ -1,4 +1,5 @@
 import React from "react";
+import Footer from "../components/Footer";
 import styled from "styled-components";
 
 const Main = styled.div`
@@ -34,22 +35,25 @@ const NFT = styled.div`
 
 const Home = () => {
   return (
-    <Main>
-      <MainDescription>
-        <Description>
-          <p>
-            Collateralize
-            <br />
-            & Trade
-            <br />
-            Klaytn NFTs
-            <br />
-          </p>
-          The safest place on Klaytn to Collateralize & Trade your NFTs
-        </Description>
-        <NFT />
-      </MainDescription>
-    </Main>
+    <>
+      <Main>
+        <MainDescription>
+          <Description>
+            <p>
+              Collateralize
+              <br />
+              & Trade
+              <br />
+              Klaytn NFTs
+              <br />
+            </p>
+            The safest place on Klaytn to Collateralize & Trade your NFTs
+          </Description>
+          <NFT />
+        </MainDescription>
+      </Main>
+      <Footer />
+    </>
   );
 };
 
