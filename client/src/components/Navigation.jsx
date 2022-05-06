@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import Logo from "../common/styles/Logo";
 import MenuIcon from "@mui/icons-material/Menu";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
@@ -21,11 +22,6 @@ const NavBar = styled.div`
   justify-content: space-between;
   align-items: center;
   height: 100%;
-`;
-
-const LogoWrapper = styled.div`
-  font-size: 2rem;
-  cursor: pointer;
 `;
 
 const Navs = styled.ul`
@@ -70,7 +66,7 @@ const Navigation = () => {
   return (
     <NavBarWrapper>
       <NavBar>
-        <LogoWrapper>LFG</LogoWrapper>
+        <Logo>LFG</Logo>
         <Navs>
           <Nav>LOANS</Nav>
           <Nav>TRADES</Nav>
