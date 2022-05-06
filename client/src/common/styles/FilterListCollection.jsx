@@ -2,26 +2,44 @@ import React, { useRef, useState } from "react";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import { FilterList, FilterTitle } from "./FilterList";
+import Collection from "./Collection";
 import styled from "styled-components";
 
 const FilterInfo = styled.div`
   display: flex;
   flex-direction: column;
+  background-color: red;
+  padding: 0.3rem 0.6rem 0.3rem 0.6rem;
 
   display: none;
 `;
 
-const SearchWrapper = styled.div``;
-const Search = styled.input``;
+const SearchWrapper = styled.div`
+  width: 100%;
+  padding: 0.5rem;
+`;
+const Search = styled.input.attrs((props) => ({
+  value: props.value,
+  onChange: props.onChange,
+}))`
+  width: 100%;
+  outline: none;
+  padding: 0.5rem;
+  border: 1px solid black;
+  border-radius: 0.3rem;
+`;
 const CollectionsWrapper = styled.div``;
 const Collections = styled.ul`
   display: flex;
   flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
 `;
-const Collection = styled.li``;
 
 const FilterListCollection = ({ title }) => {
   const [show, setShow] = useState(false);
+  const [searchInput, setSearchInput] = useState("");
+
   const ref = useRef();
 
   const collections = [
@@ -34,6 +52,11 @@ const FilterListCollection = ({ title }) => {
     ref.current.classList.toggle("active");
     setShow((prev) => !prev);
   };
+
+  const filterCollections = (input) => {
+    return collections.filter((c) => c.name.includes(input));
+  };
+
   return (
     <FilterList>
       <FilterTitle onClick={filterTitleClick}>
@@ -42,13 +65,18 @@ const FilterListCollection = ({ title }) => {
       </FilterTitle>
       <FilterInfo ref={ref}>
         <SearchWrapper>
-          <Search />
+          <Search
+            value={searchInput}
+            onChange={(e) => {
+              setSearchInput(e.target.value);
+            }}
+          />
         </SearchWrapper>
         <CollectionsWrapper>
           <Collections>
-            {collections.map((col, idx) => (
-              <Collection key={idx}>{col.name}</Collection>
-            ))}
+            {filterCollections(searchInput).map((col, idx) => {
+              return <Collection key={idx} name={col.name} />;
+            })}
           </Collections>
         </CollectionsWrapper>
       </FilterInfo>
