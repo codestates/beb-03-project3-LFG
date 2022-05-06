@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Logo } from "../common/styles";
 import MenuIcon from "@mui/icons-material/Menu";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import { Close } from "@mui/icons-material";
 
 const NavBarWrapper = styled.nav`
   background-color: var(--main-theme);
@@ -62,7 +63,7 @@ const Menu = styled.div`
   }
 `;
 
-const Navigation = () => {
+const Navigation = ({ dropdown, handleDropDown }) => {
   return (
     <NavBarWrapper>
       <NavBar>
@@ -78,9 +79,9 @@ const Navigation = () => {
           </Nav>
         </Navs>
         <Login>Login</Login>
-        <Menu>
+        <Menu onClick={handleDropDown}>
           Menu
-          <MenuIcon />
+          {dropdown ? <Close /> : <MenuIcon />}
         </Menu>
       </NavBar>
     </NavBarWrapper>

@@ -7,7 +7,6 @@ const FooterWrapper = styled.footer`
   width: 100%;
   height: 20rem;
   background-color: var(--main-theme);
-  align-self: end;
 
   padding: 4rem 20rem 3rem 20rem;
 
