@@ -10,9 +10,27 @@ const MainDescription = styled.section`
   height: 100vh;
   width: 100%;
   display: flex;
+  gap: 5rem;
+  justify-content: center;
+
+  @media (max-width: 1000px) {
+    flex-direction: column;
+    justify-content: stretch;
+  }
 `;
 
 const Description = styled.div``;
+const NFT = styled.div`
+  width: 20rem;
+  height: 20rem;
+  background-image: url("azukimain.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  transform: rotate(15deg);
+  z-index: -100;
+`;
 
 const Home = () => {
   return (
@@ -29,6 +47,7 @@ const Home = () => {
           </p>
           The safest place on Klaytn to Collateralize & Trade your NFTs
         </Description>
+        <NFT />
       </MainDescription>
     </Main>
   );
