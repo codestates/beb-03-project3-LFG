@@ -3,13 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import LoanList from "./pages/LoanList";
 import Navigation from "./components/Navigation";
-import { MenuDropDown } from "./common/styles";
-import styled from "styled-components";
-
-const Rootdiv = styled.main`
-  display: flex;
-  flex-direction: column;
-`;
+import { MenuDropDown, Rootdiv } from "./common/styles";
 
 const App = () => {
   const [dropdown, setDropdown] = useState(false);
