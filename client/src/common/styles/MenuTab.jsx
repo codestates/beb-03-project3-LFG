@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-const TabWrapper = styled.div``;
+const TabWrapper = styled.div`
+  margin-top: 1rem;
+`;
 const Tabs = styled.ul`
   display: flex;
   .focused {

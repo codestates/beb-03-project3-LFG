@@ -25,6 +25,10 @@ const Filters = styled.ul`
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
+  @media (max-width: 700px) {
+    display: flex;
+  }
 `;
 
 const Filter = () => {

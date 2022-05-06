@@ -13,9 +13,11 @@ const FilterTitle = styled.div`
   cursor: pointer;
   align-items: center;
 
-  border-top-left-radius: 0.5rem;
-  border-top-right-radius: 0.5rem;
+  border-radius: 0.5rem;
   padding: 0.5rem 0.5rem 0.7rem 0.5rem;
+
+  border-bottom-left-radius: ${(props) => (props.show ? "0rem" : "0.5rem")};
+  border-bottom-right-radius: ${(props) => (props.show ? "0rem" : "0.5rem")};
 `;
 
 export { FilterList, FilterTitle };

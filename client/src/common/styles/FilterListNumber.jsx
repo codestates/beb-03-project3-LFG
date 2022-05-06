@@ -46,7 +46,7 @@ const FilterListNumber = ({ title }) => {
   };
   return (
     <FilterList>
-      <FilterTitle onClick={filterTitleClick}>
+      <FilterTitle onClick={filterTitleClick} show={show}>
         {title}
         {show ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
       </FilterTitle>
