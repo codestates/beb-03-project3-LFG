@@ -16,6 +16,13 @@ const LDWrapper = styled.div`
 `;
 
 const LoanDescription = () => {
+  const tabArr = [
+    { name: "LISTINGS" },
+    { name: "HISTORY" },
+    { name: "MY LISTED LOANS" },
+    { name: "MY FUNDED LOANS" },
+    { name: "HELP / FAQ" },
+  ];
   return (
     <LDWrapper>
       <h3>NFT Collateralized Loans</h3>
@@ -24,7 +31,7 @@ const LoanDescription = () => {
         <br /> Lenders can fund loans with a single click
       </p>
       <LoanListingBtn />
-      <MenuTab />
+      <MenuTab menus={tabArr} />
     </LDWrapper>
   );
 };
