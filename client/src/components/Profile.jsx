@@ -1,8 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { MenuTab } from "../common/styles";
-import ContentPasteGoIcon from "@mui/icons-material/ContentPasteGo";
-import EditIcon from "@mui/icons-material/Edit";
+import { Button, EditIcon, ContentPasteGoIcon } from "../common";
+import MenuTab from "./MenuTab";
 
 const ProfileWrapper = styled.div`
   margin: auto;
@@ -22,7 +21,7 @@ const ProfileDiv = styled.div`
 `;
 
 const Avatar = styled.img.attrs({
-  src: "/profile.png",
+  src: "/test/profile.png",
   alt: "profile",
 })`
   width: 128px;
@@ -58,21 +57,7 @@ const Description = styled.div`
 const ButtonWrapper = styled.div`
   display: flex;
 `;
-const Button = styled.button`
-  border: none;
-  outline: none;
-  border-radius: 3rem;
-  padding: 0.75rem;
-  font-family: "Knewave-Regular";
-  display: flex;
-  align-items: center;
-  opacity: 0.9;
-  transition: 0.1s all ease-in;
 
-  &:hover {
-    opacity: 1;
-  }
-`;
 const CopyProfileBtn = styled(Button)`
   background-color: salmon;
 `;
@@ -87,7 +72,7 @@ const JoinDiscordBtn = styled(Button)`
 `;
 
 const Discord = styled.img.attrs({
-  src: "/Discord-Logo-White.svg",
+  src: "/test/Discord-Logo-White.svg",
   alt: "discord",
 })`
   width: 20px;

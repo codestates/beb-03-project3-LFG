@@ -1,9 +1,8 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
-import { Rootdiv } from "../common/styles";
-import AttributeCard from "../common/styles/AttributeCard";
+import { Rootdiv, VerifiedUserIcon } from "../common";
+import AttributeCard from "./AttributeCard";
 
 const DetailDiv = styled(Rootdiv)`
   align-items: center;
@@ -25,7 +24,7 @@ const Verified = styled.div`
   align-itmes: center;
 `;
 const NFTImage = styled.img.attrs({
-  src: "/lfgcard.png",
+  src: "/test/lfgcard.png",
 })`
   width: 375px;
   height: 375px;

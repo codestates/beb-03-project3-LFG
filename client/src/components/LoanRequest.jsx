@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import Request from "../common/styles/Request";
-import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
+import { HelpOutline } from "../common";
+import Request from "./Request";
 import Login from "./Login";
 
 const RequestWrapper = styled.div`
@@ -82,7 +82,7 @@ const LoanRequest = () => {
         </Info>
         <Help>
           <span>
-            <HelpOutlineIcon />
+            <HelpOutline />
           </span>
           Loans can be paid back early with minimum of 30% of total interest.
           Loans have 24h grace after loan period ends.

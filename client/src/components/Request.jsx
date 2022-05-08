@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
+import { HelpOutline } from "../common";
 
 const RequestDiv = styled.div``;
 const Property = styled.div`
@@ -27,7 +27,7 @@ const Request = ({ property, value }) => {
     <RequestDiv>
       <Property>
         <span>{property}</span>
-        <HelpOutlineIcon />
+        <HelpOutline />
       </Property>
       <Value>
         {typeof value === "number"
@@ -35,7 +35,7 @@ const Request = ({ property, value }) => {
               <img
                 key={0}
                 src="https://s2.coinmarketcap.com/static/img/coins/64x64/4256.png"
-                alt="solana"
+                alt="klaytn"
               />,
               value,
             ]

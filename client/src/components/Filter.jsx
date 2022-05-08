@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { FilterListCollection, FilterListNumber } from "../common/styles";
+import FilterListCollection from "./FilterListCollection";
+import FilterListNumber from "./FilterListNumber";
 
 const FilterWrapper = styled.section`
   display: flex;

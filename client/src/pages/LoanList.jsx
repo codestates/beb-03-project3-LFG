@@ -2,7 +2,7 @@ import React from "react";
 import LoanDescription from "../components/LoanDescription";
 import Filter from "../components/Filter";
 import NFTCards from "../components/NFTCards";
-import { Rootdiv } from "../common/styles";
+import { Rootdiv } from "../common";
 import styled from "styled-components";
 
 const Gallery = styled.div`

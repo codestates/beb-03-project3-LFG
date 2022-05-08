@@ -1,5 +1,5 @@
 import React from "react";
-import { Rootdiv } from "../common/styles";
+import { Rootdiv } from "../common";
 import Profile from "../components/Profile";
 import MyNFTs from "../components/MyNFTs";
 

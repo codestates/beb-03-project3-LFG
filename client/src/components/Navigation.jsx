@@ -1,10 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { Logo } from "../common/styles";
-import MenuIcon from "@mui/icons-material/Menu";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import { Close } from "@mui/icons-material";
+import { Close, MenuIcon, KeyboardArrowDownIcon } from "../common";
+import Logo from "./Logo";
 import Login from "./Login";
 
 const NavBarWrapper = styled.nav`

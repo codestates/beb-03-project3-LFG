@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
+import { Rootdiv } from "./common";
+import Navigation from "./components/Navigation";
+import MenuDropDown from "./components/MenuDropDown";
 import Home from "./pages/Home";
 import LoanList from "./pages/LoanList";
-import Navigation from "./components/Navigation";
-import { MenuDropDown, Rootdiv } from "./common/styles";
 import LoanDetail from "./pages/LoanDetail";
 import MyPage from "./pages/MyPage";
 

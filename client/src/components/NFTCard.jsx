@@ -1,8 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import CreditScoreIcon from "@mui/icons-material/CreditScore";
 import { useNavigate } from "react-router-dom";
+import { AccessTimeIcon, CreditScoreIcon } from "../common";
 
 const CardWrapper = styled.div`
   background-color: var(--main-theme);
@@ -17,9 +16,9 @@ const FigureWrapper = styled.div`
   border-bottom: 1px solid tomato;
   padding-bottom: 0.75rem;
 `;
-const Figure = styled.img.attrs((props) => ({
-  src: props.src,
-}))`
+const Figure = styled.img.attrs({
+  src: "/test/lfgcard.png",
+})`
   width: 100%;
 `;
 const FigCaption = styled.div``;
@@ -42,6 +41,15 @@ const LoanInfo = styled.div`
   }
 
   & > span:last-child {
+    margin-left: 0.5rem;
+  }
+
+  & > svg {
+    color: white;
+    margin-right: 0.5rem;
+  }
+
+  & > svg:last-child {
     margin-left: 0.5rem;
   }
 `;
@@ -75,7 +83,7 @@ const NFTCard = ({ idx }) => {
       }}
     >
       <FigureWrapper>
-        <Figure src={"/lfgcard.png"} />
+        <Figure />
         <FigCaption>
           <Title>LFGTrader #{idx}</Title>
           <Name>LFGTrader</Name>
@@ -83,13 +91,9 @@ const NFTCard = ({ idx }) => {
       </FigureWrapper>
       <InformationWrapper>
         <LoanInfo>
-          <span>
-            <AccessTimeIcon />
-          </span>
+          <AccessTimeIcon />
           9 Days
-          <span>
-            <CreditScoreIcon />
-          </span>
+          <CreditScoreIcon />
           1.4%
         </LoanInfo>
         <LoanInfo>
