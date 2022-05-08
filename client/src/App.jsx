@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import { Rootdiv } from "./common";
 import Navigation from "./components/Navigation";
 import MenuDropDown from "./components/MenuDropDown";
+import LoadingSpinner from "./components/LoadingSpinner";
 import Home from "./pages/Home";
 import LoanList from "./pages/LoanList";
 import LoanDetail from "./pages/LoanDetail";
@@ -29,6 +30,7 @@ const App = () => {
           <Route path="/loan/listings" element={<LoanList />} />
           <Route path="/loan/:hash" element={<LoanDetail />} />
           <Route path="/profile/wallet" element={<MyPage />} />
+          <Route path="/loading" element={<LoadingSpinner />} />
         </Routes>
       )}
     </Rootdiv>
