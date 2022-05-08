@@ -11,6 +11,7 @@ const Gallery = styled.div`
   padding-left: 10rem;
   padding-right: 5rem;
   gap: 4rem;
+  align-items: start;
 
   @media (max-width: 1000px) {
     flex-direction: column;
