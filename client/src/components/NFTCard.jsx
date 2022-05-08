@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import CreditScoreIcon from "@mui/icons-material/CreditScore";
+import { useNavigate } from "react-router-dom";
 
 const CardWrapper = styled.div`
   background-color: var(--main-theme);
@@ -49,8 +50,14 @@ const LoanReturnWrapper = styled.div`
     color: white;
   }
 
+  & > div:last-child {
+    display: flex;
+    align-items: center;
+  }
+
   & > div:last-child > img {
     margin-right: 0.5rem;
+    width: 20px;
   }
   & > div:last-child > span {
     color: red;
@@ -59,8 +66,14 @@ const LoanReturnWrapper = styled.div`
 `;
 
 const NFTCard = ({ idx }) => {
+  const navigate = useNavigate();
+
   return (
-    <CardWrapper>
+    <CardWrapper
+      onClick={() => {
+        navigate(`/loan/${idx}`);
+      }}
+    >
       <FigureWrapper>
         <Figure src={"/lfgcard.png"} />
         <FigCaption>
@@ -86,7 +99,7 @@ const NFTCard = ({ idx }) => {
           <div>Loan + Return</div>
           <div>
             <img
-              src="https://static.opensea.io/solana-just-s-symbol-colored.svg"
+              src="https://s2.coinmarketcap.com/static/img/coins/64x64/4256.png"
               alt="solana"
             />
             125.2 + <span>1.8</span>

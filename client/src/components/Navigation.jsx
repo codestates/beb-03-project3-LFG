@@ -5,6 +5,7 @@ import { Logo } from "../common/styles";
 import MenuIcon from "@mui/icons-material/Menu";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { Close } from "@mui/icons-material";
+import Login from "./Login";
 
 const NavBarWrapper = styled.nav`
   background-color: var(--main-theme);
@@ -46,8 +47,7 @@ const Nav = styled.li`
   }
 `;
 
-const Login = styled.div`
-  cursor: pointer;
+const LoginWrapper = styled.div`
   @media (max-width: 1000px) {
     display: none;
   }
@@ -87,7 +87,9 @@ const Navigation = ({ dropdown, handleDropDown }) => {
             MORE
           </Nav>
         </Navs>
-        <Login>Login</Login>
+        <LoginWrapper>
+          <Login>Login</Login>
+        </LoginWrapper>
         <Menu onClick={handleDropDown}>
           Menu
           {dropdown ? <Close /> : <MenuIcon />}

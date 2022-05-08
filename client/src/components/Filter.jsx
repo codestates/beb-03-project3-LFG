@@ -6,11 +6,10 @@ const FilterWrapper = styled.section`
   display: flex;
   flex-direction: column;
   background-color: var(--main-theme);
-  top: var(--nav-bar-height);
+  top: 85px;
   position: sticky;
   padding: 0.5rem;
   width: 20rem;
-  z-index: -999;
 
   @media (max-width: 1000px) {
     width: 100%;
