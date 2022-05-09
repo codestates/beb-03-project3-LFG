@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, createContext, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { Rootdiv } from "./common";
 import Navigation from "./components/Navigation";
@@ -8,9 +8,31 @@ import Home from "./pages/Home";
 import LoanList from "./pages/LoanList";
 import LoanDetail from "./pages/LoanDetail";
 import MyPage from "./pages/MyPage";
+import LoanCreate from "./pages/LoanCreate";
+
+export const UserContext = createContext({
+  user: null,
+  setUser: () => {},
+});
 
 const App = () => {
   const [dropdown, setDropdown] = useState(false);
+  const [user, setUser] = useState(null);
+
+  const isUnlocked = async () => {
+    const ok = await window.klaytn._kaikas.isUnlocked();
+    return ok;
+  };
+
+  useEffect(() => {
+    isUnlocked().then(() => {
+      setUser((prev) => window.klaytn.selectedAddress);
+    });
+
+    window.klaytn.on("accountsChanged", (accounts) => {
+      setUser((prev) => accounts[0]);
+    });
+  }, []);
 
   const handleDropDown = () => {
     setDropdown((prev) => {
@@ -19,21 +41,25 @@ const App = () => {
   };
 
   return (
-    <Rootdiv>
-      <Navigation dropdown={dropdown} handleDropDown={handleDropDown} />
+    <UserContext.Provider value={{ user, setUser }}>
+      <Rootdiv>
+        <Navigation dropdown={dropdown} handleDropDown={handleDropDown} />
 
-      {dropdown ? (
-        <MenuDropDown handleDropDown={handleDropDown} />
-      ) : (
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/loan/listings" element={<LoanList />} />
-          <Route path="/loan/:hash" element={<LoanDetail />} />
-          <Route path="/profile/wallet" element={<MyPage />} />
-          <Route path="/loading" element={<LoadingSpinner />} />
-        </Routes>
-      )}
-    </Rootdiv>
+        {dropdown ? (
+          <MenuDropDown handleDropDown={handleDropDown} />
+        ) : (
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/loans/listings" element={<LoanList />} />
+            <Route path="/loans/:hash" element={<LoanDetail />} />
+            <Route path="/loans/create" element={<LoanCreate />} />
+            <Route path="/profile/wallet" element={<MyPage />} />
+
+            <Route path="/loading" element={<LoadingSpinner />} />
+          </Routes>
+        )}
+      </Rootdiv>
+    </UserContext.Provider>
   );
 };
 

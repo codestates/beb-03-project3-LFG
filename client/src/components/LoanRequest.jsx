@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { HelpOutline } from "../common";
+import { UserContext } from "../App";
 import Request from "./Request";
 import Login from "./Login";
 
@@ -57,6 +58,8 @@ const Connect = styled.div`
 `;
 
 const LoanRequest = () => {
+  const { user } = useContext(UserContext);
+
   return (
     <RequestWrapper>
       <TitleWrapper>
@@ -88,10 +91,14 @@ const LoanRequest = () => {
           Loans have 24h grace after loan period ends.
         </Help>
         <Connect>
-          <p>
-            Connect your wallet to fund, pay back, claim or cancel this Loan
-          </p>
-          <Login />
+          {user === null ? (
+            <>
+              <p>
+                Connect your wallet to fund, pay back, claim or cancel this Loan
+              </p>
+              <Login />
+            </>
+          ) : null}
         </Connect>
       </LoanInfos>
     </RequestWrapper>

@@ -32,7 +32,7 @@ const MenuDropDown = ({ handleDropDown }) => {
       <DropDown>
         <DropDownMenu
           onClick={(e) => {
-            navigate("/loan/listings");
+            navigate("/loans/listings");
             handleDropDown();
             e.stopPropagation();
           }}
