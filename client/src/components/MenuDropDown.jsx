@@ -28,12 +28,13 @@ const MenuDropDown = ({ handleDropDown }) => {
   const navigate = useNavigate();
 
   return (
-    <DropDownWrapper>
+    <DropDownWrapper onClick={handleDropDown}>
       <DropDown>
         <DropDownMenu
-          onClick={() => {
+          onClick={(e) => {
             navigate("/loan/listings");
             handleDropDown();
+            e.stopPropagation();
           }}
         >
           Loans
