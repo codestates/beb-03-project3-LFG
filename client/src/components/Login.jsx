@@ -12,7 +12,7 @@ const Login = () => {
   const { user, setUser } = useContext(UserContext);
 
   const handleLogin = async () => {
-    if (user === null) {
+    if (!user) {
       if (typeof window.klaytn !== "undefined") {
         const accounts = await window.klaytn.enable();
         setUser((prev) => accounts[0]);
@@ -26,7 +26,7 @@ const Login = () => {
 
   return (
     <LoginWrapper onClick={handleLogin}>
-      {user === null ? "Login" : `${user.slice(2, 5)}...${user.slice(-3)}`}
+      {!user ? "Login" : `${user.slice(2, 5)}...${user.slice(-3)}`}
     </LoginWrapper>
   );
 };
