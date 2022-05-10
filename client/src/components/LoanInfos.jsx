@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { HelpOutline } from "../common";
+import { HelpOutline, Button } from "../common";
 import Request from "./Request";
 import Login from "./Login";
 
@@ -26,6 +26,11 @@ const Connect = styled.div`
   margin-top: 1rem;
 `;
 
+const Fund = styled(Button)`
+  background-color: salmon;
+  margin-top: 2rem;
+`;
+
 const LoanInfos = ({ user }) => {
   return (
     <LoanInfosWrapper>
@@ -45,6 +50,8 @@ const LoanInfos = ({ user }) => {
         <Request property={"Maturity Repayment"} value={14} />
         <Request property={"Max Return"} value={1.8} />
       </Info>
+      {/* // to Open Loan Request, not owner */}
+      <Fund>Funded the Loan</Fund>
       <Help>
         <span>
           <HelpOutline />
