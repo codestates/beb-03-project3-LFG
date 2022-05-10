@@ -1,18 +1,20 @@
 import React from "react";
 import styled from "styled-components";
-import { FilterListCollection, FilterListNumber } from "../common/styles";
+import FilterListCollection from "./FilterListCollection";
+import FilterListNumber from "./FilterListNumber";
 
 const FilterWrapper = styled.section`
   display: flex;
   flex-direction: column;
   background-color: var(--main-theme);
-  top: 0px;
+  top: 85px;
   position: sticky;
   padding: 0.5rem;
   width: 20rem;
 
   @media (max-width: 1000px) {
     width: 100%;
+    position: static;
   }
 `;
 

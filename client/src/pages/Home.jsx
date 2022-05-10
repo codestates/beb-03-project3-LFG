@@ -24,7 +24,7 @@ const Description = styled.div``;
 const NFT = styled.div`
   width: 20rem;
   height: 20rem;
-  background-image: url("azukimain.png");
+  background-image: url("/test/azukimain.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;

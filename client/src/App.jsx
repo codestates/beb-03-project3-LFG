@@ -1,9 +1,13 @@
 import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
+import { Rootdiv } from "./common";
+import Navigation from "./components/Navigation";
+import MenuDropDown from "./components/MenuDropDown";
+import LoadingSpinner from "./components/LoadingSpinner";
 import Home from "./pages/Home";
 import LoanList from "./pages/LoanList";
-import Navigation from "./components/Navigation";
-import { MenuDropDown, Rootdiv } from "./common/styles";
+import LoanDetail from "./pages/LoanDetail";
+import MyPage from "./pages/MyPage";
 
 const App = () => {
   const [dropdown, setDropdown] = useState(false);
@@ -24,6 +28,9 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/loan/listings" element={<LoanList />} />
+          <Route path="/loan/:hash" element={<LoanDetail />} />
+          <Route path="/profile/wallet" element={<MyPage />} />
+          <Route path="/loading" element={<LoadingSpinner />} />
         </Routes>
       )}
     </Rootdiv>

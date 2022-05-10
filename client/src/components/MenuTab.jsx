@@ -20,21 +20,13 @@ const Tab = styled.li`
   }
 `;
 
-const MenuTab = () => {
+const MenuTab = ({ menus }) => {
   const [currentTab, setCurrentTab] = useState(0);
-
-  const tabArr = [
-    { name: "LISTINGS" },
-    { name: "HISTORY" },
-    { name: "MY LISTED LOANS" },
-    { name: "MY FUNDED LOANS" },
-    { name: "HELP / FAQ" },
-  ];
 
   return (
     <TabWrapper>
       <Tabs>
-        {tabArr.map((tab, idx) => (
+        {menus.map((tab, idx) => (
           <Tab
             key={idx}
             className={`${currentTab === idx ? "focused" : ""}`}

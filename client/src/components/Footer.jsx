@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { Logo } from "../common/styles";
-import { GitHub } from "@mui/icons-material";
+import { GitHub } from "../common";
+import Logo from "./Logo";
 
 const FooterWrapper = styled.footer`
   width: 100%;
