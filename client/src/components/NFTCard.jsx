@@ -79,7 +79,7 @@ const NFTCard = ({ idx }) => {
   return (
     <CardWrapper
       onClick={() => {
-        navigate(`/loan/${idx}`);
+        navigate(`/loans/${idx}`);
       }}
     >
       <FigureWrapper>

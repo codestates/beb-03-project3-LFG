@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Button, CalendarMonthIcon } from "../common";
 import MenuTab from "./MenuTab";
@@ -21,6 +22,8 @@ const LFGButton = styled(Button)`
 `;
 
 const LoanDescription = () => {
+  const navigate = useNavigate();
+
   const tabArr = [
     { name: "LISTINGS" },
     { name: "HISTORY" },
@@ -35,7 +38,11 @@ const LoanDescription = () => {
         Define your terms and collateralize NFTs at the P2P Loan Marketplace.
         <br /> Lenders can fund loans with a single click
       </p>
-      <LFGButton>
+      <LFGButton
+        onClick={() => {
+          navigate("/loans/create");
+        }}
+      >
         <CalendarMonthIcon />
         Create a Loan Listing
       </LFGButton>

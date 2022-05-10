@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
-import { HelpOutline } from "../common";
-import Request from "./Request";
-import Login from "./Login";
+import { Button } from "../common";
+import { UserContext } from "../App";
+import LoanInfos from "./LoanInfos";
+import LoanForm from "./LoanForm";
 
 const RequestWrapper = styled.div`
   width: 768px;
@@ -25,75 +26,36 @@ const Title = styled.div`
   font-size: 1.2rem;
   color: white;
 `;
-const Listing = styled.button`
+const Listing = styled(Button)`
   background-color: salmon;
-  border-radius: 1rem;
-  outline: none;
-  border: none;
-  padding: 0.5rem;
-  font-family: "Times new Roman";
-`;
-
-const LoanInfos = styled.div`
-  padding: 1rem;
-`;
-
-const Info = styled.div`
-  display: flex;
-  gap: 1rem;
-  margin-top: 1rem;
-`;
-
-const Help = styled.div`
-  margin-top: 2rem;
-  display: flex;
-  align-items: start;
-  & > span {
-    margin-right: 0.6rem;
-  }
-`;
-const Connect = styled.div`
-  margin-top: 1rem;
 `;
 
 const LoanRequest = () => {
+  // 0 is not started
+  // 1 is Open Loan Request
+  // 2 is Funded Loan
+  // 3 is Finished
+  const [loanStatus, setLoanStatus] = useState(0);
+  const [editMode, setEditMode] = useState(false);
+  const { user } = useContext(UserContext);
+  const isOwner = () => {
+    return true;
+  };
+
+  const handleListingClick = () => {
+    setEditMode((editMode) => !editMode);
+  };
+
   return (
     <RequestWrapper>
+      {/* // loanStatus에 따라 다른 TEXT가 들어가야함 */}
       <TitleWrapper>
         <Title>Open Loan Request</Title>
-        <Listing>Loan Listing</Listing>
+        <Listing onClick={handleListingClick}>
+          {editMode ? "Listing" : "Loan Listing"}
+        </Listing>
       </TitleWrapper>
-      <LoanInfos>
-        <div>Fund the loan with this NFT as collateral</div>
-        <Info>
-          <Request property={"Period"} value={"21 Days"} />
-          <Request property={"To fund"} value={12.2} />
-          <Request property={"Floor"} value={5} />
-          <Request property={"LTF"} value={"244%"} />
-          <Request property={"APY"} value={"256.4%"} />
-        </Info>
-        <Info>
-          <Request property={"Early Repayment"} value={12.74} />
-          <Request property={"Min Return"} value={0.54} />
-        </Info>
-        <Info>
-          <Request property={"Maturity Repayment"} value={14} />
-          <Request property={"Max Return"} value={1.8} />
-        </Info>
-        <Help>
-          <span>
-            <HelpOutline />
-          </span>
-          Loans can be paid back early with minimum of 30% of total interest.
-          Loans have 24h grace after loan period ends.
-        </Help>
-        <Connect>
-          <p>
-            Connect your wallet to fund, pay back, claim or cancel this Loan
-          </p>
-          <Login />
-        </Connect>
-      </LoanInfos>
+      {editMode ? <LoanForm /> : <LoanInfos user={user} />}
     </RequestWrapper>
   );
 };

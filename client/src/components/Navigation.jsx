@@ -72,7 +72,7 @@ const Navigation = ({ dropdown, handleDropDown }) => {
         <Navs>
           <Nav
             onClick={() => {
-              navigate("/loan/listings");
+              navigate("/loans/listings");
             }}
           >
             LOANS
