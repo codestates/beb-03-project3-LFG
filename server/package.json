@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "tsc && nodemon --exec ts-node dist/www.js"
+    "prestart": "tsc",
+    "start": "tsc && nodemon --watch dist --exec ts-node dist/www.js"
   },
   "author": "",
   "license": "ISC",
