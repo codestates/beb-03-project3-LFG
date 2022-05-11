@@ -10,7 +10,8 @@ contract Loan is IERC721Receiver, IKIP17Receiver {
     event Fund(address creditor, uint256 startAt);
     event Cancel();
     event Repay();
-    event ON_GRACE();
+    event On_Grace();
+    event Graced();
     event Defaulted();
     event TakeCollateral();
 
@@ -22,8 +23,8 @@ contract Loan is IERC721Receiver, IKIP17Receiver {
         uint256 rateAmount;
     }
 
-    // CREATED, FUNDED, DEFAULT_ON_LOAN, ON_GRACE
-    enum LoanState { CREATED, FUNDED, ON_GRACE, DEFAULTED }
+    // CREATED, FUNDED, ON_GRACE, GRACED, DEFAULTED
+    enum LoanState { CREATED, FUNDED, ON_GRACE, GRACED, DEFAULTED }
 
     uint256 public feeRate = 10;
     address payable public feeContract;
@@ -64,7 +65,7 @@ contract Loan is IERC721Receiver, IKIP17Receiver {
     }
 
     function edit(uint256 _period, uint256 _amount, uint256 _rateAmount) 
-        public checkState(LoanState.CREATED) checkDebtor
+        external checkState(LoanState.CREATED) checkDebtor
     {
         // Term memory tempTerm = term;
         if (term.period != _period) {
@@ -81,14 +82,14 @@ contract Loan is IERC721Receiver, IKIP17Receiver {
     }
 
     function cancel() 
-        public checkState(LoanState.CREATED) checkDebtor
+        external checkState(LoanState.CREATED) checkDebtor
     {
         emit Cancel();
         selfdestruct(feeContract);
     }
 
     function fund(uint256 _startAt) 
-        public payable checkState(LoanState.CREATED) 
+        external payable checkState(LoanState.CREATED) 
     {
         uint256 amount = term.amount + (term.rateAmount * feeRate / 100);
         require(msg.value == amount, "Invliad amount to fund the loan");
@@ -102,7 +103,7 @@ contract Loan is IERC721Receiver, IKIP17Receiver {
     }
 
     function repay(uint256 time) 
-        public payable checkState(LoanState.FUNDED) checkDebtor
+        external payable checkState(LoanState.FUNDED) checkDebtor
     {
         Term memory _term = term;
         require(time <= _term.startAt + _term.period, "time expired");
@@ -131,35 +132,42 @@ contract Loan is IERC721Receiver, IKIP17Receiver {
         selfdestruct(feeContract);
     }
 
-    
     function on_grace(uint256 time) 
-        public checkState(LoanState.FUNDED)
+        external checkState(LoanState.FUNDED)
     {
         require(time > term.startAt + term.period, "it hasn't expired yet");
 
         term.state = LoanState.ON_GRACE;
 
-        emit ON_GRACE();
+        emit On_Grace();
     }
 
-    // onlyOwners가 들어와야함.
-    function defaulted(uint256 time)
-        public checkState(LoanState.ON_GRACE)
+    function graced()
+        external checkState(LoanState.ON_GRACE)
     {
+        term.state = LoanState.GRACED;
+
+        emit Graced();
+    }
+
+    function defaulted(uint256 time)
+        external
+    {
+        require(term.state == LoanState.ON_GRACE || term.state == LoanState.GRACED, "invalid state");
         require(time > term.startAt + term.period + 1 days, "grace period not expired yet");
         term.state = LoanState.DEFAULTED;
         emit Defaulted();
     }
 
-    function repay_on_grace()
-        public payable checkState(LoanState.ON_GRACE) checkDebtor
+    function repay_on_graced()
+        external payable checkState(LoanState.GRACED) checkDebtor
     {
         Term memory _term = term;
         _repay(_term, msg.value, 100);
     }
 
     function takeCollateralByCreditor() 
-        public checkState(LoanState.DEFAULTED){
+        external checkState(LoanState.DEFAULTED){
         require(msg.sender == creditor, "invalid creditor");
 
         ikip17.safeTransferFrom(address(this), creditor, tokenId);
