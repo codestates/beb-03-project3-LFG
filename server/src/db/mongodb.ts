@@ -21,7 +21,3 @@ export const DBinit = () => {
       console.log(`Error connecting to the database : \n${err}`);
     });
 };
-
-// module.exports = {
-//   DBinit,
-// };

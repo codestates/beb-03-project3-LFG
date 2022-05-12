@@ -72,7 +72,6 @@ var getNFT = function (contractAddress, ownerAddress) { return __awaiter(void 0,
                     temp = { tokenId: parseInt(tokenId, 16), tokenUri: tokenUri };
                     arr.push(temp);
                 }
-                console.log(arr);
                 return [2 /*return*/, arr];
         }
     });
