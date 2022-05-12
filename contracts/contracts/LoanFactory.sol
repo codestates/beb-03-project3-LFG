@@ -12,7 +12,7 @@ contract Loan is IERC721Receiver, IKIP17Receiver {
     event Edit(uint256 _period, uint256 _amount, uint256 _rateAmount);
     event Fund(address creditor, uint256 startAt);
     event Cancel();
-    event Repay(uint endAt);
+    event Repay(uint endAt, uint amount);
     event On_Grace();
     event Graced();
     event Defaulted();
@@ -138,7 +138,7 @@ contract Loan is IERC721Receiver, IKIP17Receiver {
         feeContract.transfer(address(this).balance);
         _term.ikip17.safeTransferFrom(address(this), _term.debtor, _term.tokenId);
 
-        emit Repay(block.timestamp);
+        emit Repay(block.timestamp, amount);
         selfdestruct(feeContract);
     }
 
@@ -177,7 +177,7 @@ contract Loan is IERC721Receiver, IKIP17Receiver {
     }
 
     function takeCollateralByCreditor() 
-        external checkState(LoanState.DEFAULTED){
+        external checkState(LoanState.DEFAULTED) {
         require(address(uint160(msg.sender)) == term.creditor, "invalid creditor");
 
         term.ikip17.safeTransferFrom(address(this), term.creditor, term.tokenId);
