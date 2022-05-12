@@ -12,18 +12,24 @@ contract Loan is IERC721Receiver, IKIP17Receiver {
     event Edit(uint256 _period, uint256 _amount, uint256 _rateAmount);
     event Fund(address creditor, uint256 startAt);
     event Cancel();
-    event Repay(uint rate);
+    event Repay(uint endAt);
     event On_Grace();
     event Graced();
     event Defaulted();
     event TakeCollateral();
 
     struct Term {
+        address payable debtor;
+        address payable creditor;
+
         LoanState state;
         uint256 startAt;
         uint256 period;
         uint256 amount;
         uint256 rateAmount;
+
+        IKIP17 ikip17;
+        uint256 tokenId;
     }
 
     // CREATED, FUNDED, ON_GRACE, GRACED, DEFAULTED
@@ -31,11 +37,6 @@ contract Loan is IERC721Receiver, IKIP17Receiver {
 
     uint256 public feeRate = 10;
     address payable public feeContract;
-
-    address payable public debtor;
-    address payable public creditor;
-    IKIP17 public ikip17;
-    uint256 public tokenId;
 
     Term public term;
 
@@ -45,17 +46,16 @@ contract Loan is IERC721Receiver, IKIP17Receiver {
     }
 
     modifier checkDebtor() {
-        require(address(uint160(msg.sender)) == debtor, "invalid debtor");
+        require(address(uint160(msg.sender)) == term.debtor, "invalid debtor");
         _;
     }
 
     constructor(address _debtor, IKIP17 _ikip17, uint256 _tokenId, uint256 _period, uint256 _amount, uint256 _rateAmount) 
         public 
     {
-        debtor = address(uint160(_debtor));
-        ikip17 = _ikip17;
-        tokenId = _tokenId;
-
+        term.debtor = address(uint160(_debtor));
+        term.ikip17 = _ikip17;
+        term.tokenId = _tokenId;
         term.state = LoanState.CREATED;
         term.period = _period;
         term.amount = _amount;
@@ -82,7 +82,7 @@ contract Loan is IERC721Receiver, IKIP17Receiver {
     function cancel() 
         external checkState(LoanState.CREATED) checkDebtor
     {
-        ikip17.safeTransferFrom(address(this), address(debtor), tokenId);
+        term.ikip17.safeTransferFrom(address(this), address(term.debtor), term.tokenId);
         emit Cancel();
         selfdestruct(feeContract);
     }
@@ -90,7 +90,7 @@ contract Loan is IERC721Receiver, IKIP17Receiver {
     function fund() 
         external payable checkState(LoanState.CREATED) 
     {
-        require(address(uint160(msg.sender)) != debtor, "debtor attempt to be creditor");
+        require(address(uint160(msg.sender)) != term.debtor, "debtor attempt to be creditor");
 
         uint256 amount = term.amount + (term.rateAmount * feeRate / 100);
         require(msg.value >= amount, "Invliad amount to fund the loan");
@@ -99,10 +99,10 @@ contract Loan is IERC721Receiver, IKIP17Receiver {
 
         term.startAt = _startAt;
         term.state = LoanState.FUNDED;
-        creditor = address(uint160(msg.sender));
+        term.creditor = address(uint160(msg.sender));
 
-        debtor.transfer(term.amount);
-        creditor.transfer(msg.value - amount);
+        term.debtor.transfer(term.amount);
+        term.creditor.transfer(msg.value - amount);
 
         emit Fund(msg.sender, _startAt);
     }
@@ -129,16 +129,16 @@ contract Loan is IERC721Receiver, IKIP17Receiver {
         uint amount = _term.amount.add(fee); // 상환해야하는 돈
 
         require(value >= amount, "klay < amount");
-        debtor.transfer(value - amount);
+        _term.debtor.transfer(value - amount);
 
         require(rate <= 100, "invalid rate");
         uint returnedFee = _term.rateAmount.mul(100 - rate).div(100).div(10);
-        creditor.transfer(amount.add(returnedFee)); // 채권자가 돌려받는 돈
+        _term.creditor.transfer(amount.add(returnedFee)); // 채권자가 돌려받는 돈
 
         feeContract.transfer(address(this).balance);
-        ikip17.safeTransferFrom(address(this), debtor, tokenId);
+        _term.ikip17.safeTransferFrom(address(this), _term.debtor, _term.tokenId);
 
-        emit Repay(rate);
+        emit Repay(block.timestamp);
         selfdestruct(feeContract);
     }
 
@@ -178,9 +178,9 @@ contract Loan is IERC721Receiver, IKIP17Receiver {
 
     function takeCollateralByCreditor() 
         external checkState(LoanState.DEFAULTED){
-        require(address(uint160(msg.sender)) == creditor, "invalid creditor");
+        require(address(uint160(msg.sender)) == term.creditor, "invalid creditor");
 
-        ikip17.safeTransferFrom(address(this), creditor, tokenId);
+        term.ikip17.safeTransferFrom(address(this), term.creditor, term.tokenId);
 
         emit TakeCollateral();
         selfdestruct(feeContract);
