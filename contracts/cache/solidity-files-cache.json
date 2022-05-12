@@ -2,7 +2,7 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/home/gunbos/projects/project3/beb-03-project3-LFG/contracts/contracts/Helper.sol": {
-      "lastModificationDate": 1652339379184,
+      "lastModificationDate": 1652356688958,
       "contentHash": "1e92a5dc1bf75913b9ea09a84914e1de",
       "sourceName": "contracts/Helper.sol",
       "solcConfig": {
@@ -39,8 +39,8 @@
       ]
     },
     "/home/gunbos/projects/project3/beb-03-project3-LFG/contracts/contracts/LoanFactory.sol": {
-      "lastModificationDate": 1652352212021,
-      "contentHash": "0f8aecc2e2eefb277ecb780a68743561",
+      "lastModificationDate": 1652367817949,
+      "contentHash": "fa85f308f490d707f7478ffd6232296b",
       "sourceName": "contracts/LoanFactory.sol",
       "solcConfig": {
         "version": "0.5.12",
