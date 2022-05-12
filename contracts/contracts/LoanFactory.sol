@@ -4,12 +4,15 @@ pragma solidity ^0.5.6;
 import "./klay_contracts/token/KIP17/IKIP17.sol";
 import "./klay_contracts/token/KIP17/IERC721Receiver.sol";
 import "./klay_contracts/token/KIP17/IKIP17Receiver.sol";
+import "./klay_contracts/math/SafeMath.sol";
 
 contract Loan is IERC721Receiver, IKIP17Receiver {
+    using SafeMath for uint256;
+
     event Edit(uint256 _period, uint256 _amount, uint256 _rateAmount);
     event Fund(address creditor, uint256 startAt);
     event Cancel();
-    event Repay();
+    event Repay(uint rate);
     event On_Grace();
     event Graced();
     event Defaulted();
@@ -46,11 +49,6 @@ contract Loan is IERC721Receiver, IKIP17Receiver {
         _;
     }
 
-    // modifier checkSender(address payable sender) {
-    //     require(address(uint160(msg.sender)) == sender);
-    //     _;
-    // }
-
     constructor(address _debtor, IKIP17 _ikip17, uint256 _tokenId, uint256 _period, uint256 _amount, uint256 _rateAmount) 
         public 
     {
@@ -84,58 +82,70 @@ contract Loan is IERC721Receiver, IKIP17Receiver {
     function cancel() 
         external checkState(LoanState.CREATED) checkDebtor
     {
+        ikip17.safeTransferFrom(address(this), address(debtor), tokenId);
         emit Cancel();
         selfdestruct(feeContract);
     }
 
-    function fund(uint256 _startAt) 
+    function fund() 
         external payable checkState(LoanState.CREATED) 
     {
+        require(address(uint160(msg.sender)) != debtor, "debtor attempt to be creditor");
+
         uint256 amount = term.amount + (term.rateAmount * feeRate / 100);
-        require(msg.value == amount, "Invliad amount to fund the loan");
+        require(msg.value >= amount, "Invliad amount to fund the loan");
+
+        uint256 _startAt = block.timestamp;
 
         term.startAt = _startAt;
-        creditor = msg.sender;
+        term.state = LoanState.FUNDED;
+        creditor = address(uint160(msg.sender));
 
         debtor.transfer(term.amount);
+        creditor.transfer(msg.value - amount);
 
         emit Fund(msg.sender, _startAt);
     }
 
-    function repay(uint256 time) 
+    function repay() 
         external payable checkState(LoanState.FUNDED) checkDebtor
     {
         Term memory _term = term;
+        uint256 time = block.timestamp;
         require(time <= _term.startAt + _term.period, "time expired");
 
-        if (time <= _term.startAt + (_term.period * 3 / 10)) {
+        if (time <= _term.startAt.add(_term.period.mul(3).div(10))) { // _term.startAt + (_term.period * 3 / 10)
             _repay(_term, msg.value, 30);
         } else {
-            uint rate = (time - _term.startAt) * 100 / _term.period;
+            uint rate = (time.sub(_term.startAt)).mul(100).div(_term.period); // (time - _term.startAt) * 100 / _term.period;
             _repay(_term, msg.value, rate);
         }
     }
 
     function _repay(Term memory _term, uint256 value, uint256 rate)
-        private
+        internal
     {
-        uint256 amount = _term.amount + (_term.rateAmount * rate / 100);
-        require(value >= amount);
+        uint fee = _term.rateAmount.mul(rate).div(100); // 축적된 이자
+        uint amount = _term.amount.add(fee); // 상환해야하는 돈
 
-        creditor.transfer(amount + address(this).balance * (100 - rate) / 100);
+        require(value >= amount, "klay < amount");
         debtor.transfer(value - amount);
+
+        require(rate <= 100, "invalid rate");
+        uint returnedFee = _term.rateAmount.mul(100 - rate).div(100).div(10);
+        creditor.transfer(amount.add(returnedFee)); // 채권자가 돌려받는 돈
 
         feeContract.transfer(address(this).balance);
         ikip17.safeTransferFrom(address(this), debtor, tokenId);
 
-        emit Repay();
+        emit Repay(rate);
         selfdestruct(feeContract);
     }
 
-    function on_grace(uint256 time) 
+    function on_grace() 
         external checkState(LoanState.FUNDED)
     {
-        require(time > term.startAt + term.period, "it hasn't expired yet");
+        require(block.timestamp > term.startAt + term.period, "it hasn't expired yet");
 
         term.state = LoanState.ON_GRACE;
 
@@ -150,11 +160,11 @@ contract Loan is IERC721Receiver, IKIP17Receiver {
         emit Graced();
     }
 
-    function defaulted(uint256 time)
+    function defaulted()
         external
     {
         require(term.state == LoanState.ON_GRACE || term.state == LoanState.GRACED, "invalid state");
-        require(time > term.startAt + term.period + 1 days, "grace period not expired yet");
+        require(block.timestamp > term.startAt + term.period + 1 days, "grace period not expired yet");
         term.state = LoanState.DEFAULTED;
         emit Defaulted();
     }
@@ -168,7 +178,7 @@ contract Loan is IERC721Receiver, IKIP17Receiver {
 
     function takeCollateralByCreditor() 
         external checkState(LoanState.DEFAULTED){
-        require(msg.sender == creditor, "invalid creditor");
+        require(address(uint160(msg.sender)) == creditor, "invalid creditor");
 
         ikip17.safeTransferFrom(address(this), creditor, tokenId);
 
@@ -201,13 +211,26 @@ contract LoanFactory is IERC721Receiver, IKIP17Receiver {
     constructor() public {}
 
     // msg.sender는 돈을 빌리려는 사람
-    function deploy(IKIP17 _ikip17, uint256 _tokenId, uint256 _period, uint256 _amount, uint256 _rateAmount) 
-        public 
-    {
-        Loan loan = new Loan(msg.sender, _ikip17, _tokenId, _period, _amount, _rateAmount);
-        _ikip17.safeTransferFrom(msg.sender, address(loan), _tokenId);
+    // function deploy(IKIP17 _ikip17, uint256 _tokenId, uint256 _period, uint256 _amount, uint256 _rateAmount) 
+    //     public 
+    // {
+    //     Loan loan = new Loan(msg.sender, _ikip17, _tokenId, _period, _amount, _rateAmount);
+    //     _ikip17.safeTransferFrom(address(this), address(loan), _tokenId);
 
-        emit Deploy(address(loan));
+    //     emit Deploy(address(loan));
+    // }
+    function deploy(bytes memory _code, IKIP17 _ikip17, uint256 _tokenId) public payable returns (address addr) {
+        assembly {
+            // create(v, p, n)
+            // v = amount of ETH to send
+            // p = pointer in memory to start of code
+            // n = size of code
+            addr := create(callvalue(), add(_code, 0x20), mload(_code))
+        }
+        require(addr != address(0), "deploy failed");
+
+        _ikip17.safeTransferFrom(address(this), addr, _tokenId);
+        emit Deploy(addr);
     }
 
     function onERC721Received(
