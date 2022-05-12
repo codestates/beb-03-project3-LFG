@@ -36,10 +36,12 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var axios_1 = require("axios");
+var coingecko_api_v3_1 = require("coingecko-api-v3");
 var express = require("express");
 var user_1 = require("./db/user");
 var kas_1 = require("./utils/kas");
+var sdk = require('api')('@opensea/v1.0#5zrwe3ql2r2e6mn');
+//require와 import의 혼종..?
 var app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -68,7 +70,7 @@ app.get('/kasTest', function (req, res, next) { return __awaiter(void 0, void 0,
     });
 }); });
 app.get('/nftTest', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var contractAddress, ownerAddress, nftArr, _i, nftArr_1, elem, tokenId, tokenUri, uriResult;
+    var contractAddress, ownerAddress, nftArr, _i, nftArr_1, elem, tokenId, tokenUri, projectId, res_1, client, simplePrice, err_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -80,18 +82,38 @@ app.get('/nftTest', function (req, res, next) { return __awaiter(void 0, void 0,
                 _i = 0, nftArr_1 = nftArr;
                 _a.label = 2;
             case 2:
-                if (!(_i < nftArr_1.length)) return [3 /*break*/, 5];
+                if (!(_i < nftArr_1.length)) return [3 /*break*/, 8];
                 elem = nftArr_1[_i];
                 tokenId = elem.tokenId, tokenUri = elem.tokenUri;
-                return [4 /*yield*/, axios_1.default.get(tokenUri)];
+                projectId = 'the-meta-kongz';
+                _a.label = 3;
             case 3:
-                uriResult = _a.sent();
-                console.log(uriResult.data);
-                _a.label = 4;
+                _a.trys.push([3, 6, , 7]);
+                return [4 /*yield*/, sdk['retrieving-collection-stats']({ collection_slug: projectId })];
             case 4:
+                res_1 = _a.sent();
+                //api.coingecko.com/api/v3/simple/price?ids=klay-token&vs_currencies=eth
+                https: client = new coingecko_api_v3_1.CoinGeckoClient({
+                    timeout: 10000,
+                    autoRetry: true,
+                });
+                return [4 /*yield*/, client.simplePrice({
+                        ids: 'klay-token',
+                        vs_currencies: 'eth',
+                    })];
+            case 5:
+                simplePrice = _a.sent();
+                console.log(Number(res_1.stats.floor_price));
+                console.log(Number(res_1.stats.floor_price) / Number(simplePrice['klay-token'].eth));
+                return [3 /*break*/, 7];
+            case 6:
+                err_1 = _a.sent();
+                console.log(err_1);
+                return [3 /*break*/, 7];
+            case 7:
                 _i++;
                 return [3 /*break*/, 2];
-            case 5:
+            case 8:
                 // console.log(blockNumber);
                 res.send('success');
                 return [2 /*return*/];

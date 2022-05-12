@@ -1,7 +1,9 @@
-import axios from 'axios';
+import { CoinGeckoClient } from 'coingecko-api-v3';
 import * as express from 'express';
 import { userModel } from './db/user';
 import { getBlockNumber, getNFT } from './utils/kas';
+const sdk = require('api')('@opensea/v1.0#5zrwe3ql2r2e6mn');
+//require와 import의 혼종..?
 
 const app: express.Application = express();
 
@@ -9,17 +11,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.get('/', (req: express.Request, res: express.Response, next: express.NextFunction) => {
-  // console.log('hello');
   res.send('hello typescript express!');
 });
-
-// declare module 'express' {
-//   interface Request {
-//     body: {
-//       id?: String;
-//     };
-//   }
-// }
 
 app.get(
   '/kasTest',
@@ -38,10 +31,23 @@ app.get(
     const nftArr = await getNFT(contractAddress, ownerAddress);
     for (const elem of nftArr) {
       const { tokenId, tokenUri } = elem;
-      const uriResult = await axios.get(tokenUri);
-      console.log(uriResult.data);
+      let projectId = 'the-meta-kongz';
+      try {
+        const res = await sdk['retrieving-collection-stats']({ collection_slug: projectId });
+        const client = new CoinGeckoClient({
+          timeout: 10000,
+          autoRetry: true,
+        });
+        const simplePrice = await client.simplePrice({
+          ids: 'klay-token',
+          vs_currencies: 'eth',
+        });
+        console.log(Number(res.stats.floor_price));
+        console.log(Number(res.stats.floor_price) / Number(simplePrice['klay-token'].eth));
+      } catch (err) {
+        console.log(err);
+      }
     }
-    // console.log(blockNumber);
     res.send('success');
   }
 );

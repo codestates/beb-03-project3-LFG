@@ -20,9 +20,6 @@ interface nftInfo {
 }
 
 export const getNFT = async (contractAddress: String, ownerAddress: String) => {
-  //   const contractAddress: String = '0x1b0e9a44a4d7e1fa1e321bb6feadeb3ed6a9843a';
-  //   const ownerAddress: String = '0xBEc3ccA3AbF992Ea770671E568BA8c2C90db271b';
-
   const result = await caver.kas.tokenHistory.getNFTListByOwner(contractAddress, ownerAddress);
   const arr: nftInfo[] = [];
   for (const elem of result.items) {
