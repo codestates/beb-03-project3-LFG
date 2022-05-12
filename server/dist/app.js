@@ -36,8 +36,10 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var axios_1 = require("axios");
 var express = require("express");
 var user_1 = require("./db/user");
+var kas_1 = require("./utils/kas");
 var app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -52,6 +54,50 @@ app.get('/', function (req, res, next) {
 //     };
 //   }
 // }
+app.get('/kasTest', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var blockNumber;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, (0, kas_1.getBlockNumber)()];
+            case 1:
+                blockNumber = _a.sent();
+                console.log(blockNumber);
+                res.send(blockNumber);
+                return [2 /*return*/];
+        }
+    });
+}); });
+app.get('/nftTest', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var contractAddress, ownerAddress, nftArr, _i, nftArr_1, elem, tokenId, tokenUri, uriResult;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                contractAddress = '0x1b0e9a44a4d7e1fa1e321bb6feadeb3ed6a9843a';
+                ownerAddress = '0xBEc3ccA3AbF992Ea770671E568BA8c2C90db271b';
+                return [4 /*yield*/, (0, kas_1.getNFT)(contractAddress, ownerAddress)];
+            case 1:
+                nftArr = _a.sent();
+                _i = 0, nftArr_1 = nftArr;
+                _a.label = 2;
+            case 2:
+                if (!(_i < nftArr_1.length)) return [3 /*break*/, 5];
+                elem = nftArr_1[_i];
+                tokenId = elem.tokenId, tokenUri = elem.tokenUri;
+                return [4 /*yield*/, axios_1.default.get(tokenUri)];
+            case 3:
+                uriResult = _a.sent();
+                console.log(uriResult.data);
+                _a.label = 4;
+            case 4:
+                _i++;
+                return [3 /*break*/, 2];
+            case 5:
+                // console.log(blockNumber);
+                res.send('success');
+                return [2 /*return*/];
+        }
+    });
+}); });
 app.post('/test', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var id, user;
     return __generator(this, function (_a) {

@@ -1,5 +1,7 @@
+import axios from 'axios';
 import * as express from 'express';
 import { userModel } from './db/user';
+import { getBlockNumber, getNFT } from './utils/kas';
 
 const app: express.Application = express();
 
@@ -18,6 +20,31 @@ app.get('/', (req: express.Request, res: express.Response, next: express.NextFun
 //     };
 //   }
 // }
+
+app.get(
+  '/kasTest',
+  async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+    const blockNumber: Number = await getBlockNumber();
+    console.log(blockNumber);
+    res.send(blockNumber);
+  }
+);
+
+app.get(
+  '/nftTest',
+  async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+    const contractAddress: String = '0x1b0e9a44a4d7e1fa1e321bb6feadeb3ed6a9843a';
+    const ownerAddress: String = '0xBEc3ccA3AbF992Ea770671E568BA8c2C90db271b';
+    const nftArr = await getNFT(contractAddress, ownerAddress);
+    for (const elem of nftArr) {
+      const { tokenId, tokenUri } = elem;
+      const uriResult = await axios.get(tokenUri);
+      console.log(uriResult.data);
+    }
+    // console.log(blockNumber);
+    res.send('success');
+  }
+);
 
 app.post(
   '/test',
