@@ -13,10 +13,7 @@ contract Loan is IERC721Receiver, IKIP17Receiver {
     event Fund(address creditor, uint256 startAt);
     event Cancel();
     event Repay(uint endAt, uint amount);
-    event On_Grace();
-    event Graced();
     event Defaulted();
-    event TakeCollateral();
 
     struct Term {
         address payable debtor;
@@ -33,7 +30,7 @@ contract Loan is IERC721Receiver, IKIP17Receiver {
     }
 
     // CREATED, FUNDED, ON_GRACE, GRACED, DEFAULTED
-    enum LoanState { CREATED, FUNDED, ON_GRACE, GRACED, DEFAULTED }
+    enum LoanState { CREATED, FUNDED, GRACED }
 
     uint256 public feeRate = 10;
     address payable public feeContract;
@@ -142,47 +139,25 @@ contract Loan is IERC721Receiver, IKIP17Receiver {
         selfdestruct(feeContract);
     }
 
-    function on_grace() 
-        external checkState(LoanState.FUNDED)
-    {
-        require(block.timestamp > term.startAt + term.period, "it hasn't expired yet");
-
-        term.state = LoanState.ON_GRACE;
-
-        emit On_Grace();
-    }
-
-    function graced()
-        external checkState(LoanState.ON_GRACE)
-    {
-        term.state = LoanState.GRACED;
-
-        emit Graced();
-    }
-
-    function defaulted()
-        external
-    {
-        require(term.state == LoanState.ON_GRACE || term.state == LoanState.GRACED, "invalid state");
-        require(block.timestamp > term.startAt + term.period + 1 days, "grace period not expired yet");
-        term.state = LoanState.DEFAULTED;
-        emit Defaulted();
-    }
-
     function repay_on_graced()
         external payable checkState(LoanState.GRACED) checkDebtor
     {
-        Term memory _term = term;
-        _repay(_term, msg.value, 100);
     }
 
-    function takeCollateralByCreditor() 
-        external checkState(LoanState.DEFAULTED) {
+    function defaulted()
+        external checkState(LoanState.FUNDED)
+    {
+        require(block.timestamp > term.startAt + term.period + 1 days, "grace period not expired yet");
         require(address(uint160(msg.sender)) == term.creditor, "invalid creditor");
 
+        _takeCollateralByCreditor();
+    }
+
+    function _takeCollateralByCreditor() 
+        internal {
         term.ikip17.safeTransferFrom(address(this), term.creditor, term.tokenId);
 
-        emit TakeCollateral();
+        emit Defaulted();
         selfdestruct(feeContract);
     }
 
