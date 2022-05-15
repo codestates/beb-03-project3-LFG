@@ -1,6 +1,5 @@
 import React, { useContext, useState } from "react";
 import styled from "styled-components";
-import { Button } from "../common";
 import { UserContext } from "../App";
 import LoanInfos from "./LoanInfos";
 import LoanForm from "./LoanForm";
@@ -26,24 +25,23 @@ const Title = styled.div`
   font-size: 1.2rem;
   color: white;
 `;
-const Listing = styled(Button)`
-  background-color: salmon;
-`;
 
-const LoanRequest = () => {
+const LoanRequest = ({ edit, create }) => {
   // 0 is not started
   // 1 is Open Loan Request
   // 2 is Funded Loan
   // 3 is Finished
   const [loanStatus, setLoanStatus] = useState(0);
-  const [editMode, setEditMode] = useState(false);
   const { user } = useContext(UserContext);
-  const isOwner = () => {
-    return true;
-  };
 
-  const handleListingClick = () => {
-    setEditMode((editMode) => !editMode);
+  const renderLoanComponent = () => {
+    if (edit) {
+      return <LoanForm edit />;
+    }
+    if (create) {
+      return <LoanForm create />;
+    }
+    return <LoanInfos user={user} />;
   };
 
   return (
@@ -51,11 +49,8 @@ const LoanRequest = () => {
       {/* // loanStatus에 따라 다른 TEXT가 들어가야함 */}
       <TitleWrapper>
         <Title>Open Loan Request</Title>
-        <Listing onClick={handleListingClick}>
-          {editMode ? "Listing" : "Loan Listing"}
-        </Listing>
       </TitleWrapper>
-      {editMode ? <LoanForm /> : <LoanInfos user={user} />}
+      {renderLoanComponent()}
     </RequestWrapper>
   );
 };

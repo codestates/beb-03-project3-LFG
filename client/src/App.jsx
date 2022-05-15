@@ -7,8 +7,9 @@ import LoadingSpinner from "./components/LoadingSpinner";
 import Home from "./pages/Home";
 import LoanList from "./pages/LoanList";
 import LoanDetail from "./pages/LoanDetail";
-import MyPage from "./pages/MyPage";
 import LoanCreate from "./pages/LoanCreate";
+import LoanEdit from "./pages/LoanEdit";
+import MyPage from "./pages/MyPage";
 
 export const UserContext = createContext({
   user: null,
@@ -52,9 +53,9 @@ const App = () => {
             <Route path="/" element={<Home />} />
             <Route path="/loans/listings" element={<LoanList />} />
             <Route path="/loans/:hash" element={<LoanDetail />} />
-            <Route path="/loans/create" element={<LoanCreate />} />
+            <Route path="/loans/:hash/create" element={<LoanCreate />} />
+            <Route path="/loans/:hash/edit" element={<LoanEdit />} />
             <Route path="/profile/wallet" element={<MyPage />} />
-
             <Route path="/loading" element={<LoadingSpinner />} />
           </Routes>
         )}

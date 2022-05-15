@@ -15,13 +15,13 @@ const DetailRootDiv = styled.div`
   }
 `;
 
-const LoanCreate = () => {
+const LoanEdit = () => {
   return (
     <DetailRootDiv>
       <NFTDetails />
-      <LoanRequest create={true} />
+      <LoanRequest edit={true} />
     </DetailRootDiv>
   );
 };
 
-export default LoanCreate;
+export default LoanEdit;

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { Button, HelpOutline } from "../common";
 
@@ -36,7 +37,7 @@ const ButtonWrapper = styled.div`
   display: flex;
 `;
 
-const Cancel = styled(Button)`
+const Submit = styled(Button)`
   background-color: salmon;
 `;
 
@@ -47,7 +48,10 @@ const Back = styled(Button)`
 
 const Form = styled.div``;
 
-const LoanForm = () => {
+const LoanForm = ({ edit, create }) => {
+  const params = useParams();
+  const navigate = useNavigate();
+
   const [data, setData] = useState({});
   const onChange = (e) => {
     if (!e.target.value) {
@@ -83,8 +87,24 @@ const LoanForm = () => {
         </InputWrapper>
 
         <ButtonWrapper>
-          <Back>Back</Back>
-          <Cancel>Cancel</Cancel>
+          <Back
+            onClick={() => {
+              if (edit) {
+                navigate(`/loans/${params.hash}`);
+              } else {
+                navigate(`/profile/wallet`);
+              }
+            }}
+          >
+            Back
+          </Back>
+          <Submit
+            onClick={() => {
+              navigate(`/loans/${params.hash}`);
+            }}
+          >
+            Submit
+          </Submit>
         </ButtonWrapper>
       </Form>
       <Help>

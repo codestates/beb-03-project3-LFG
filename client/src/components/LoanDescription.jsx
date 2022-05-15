@@ -40,7 +40,7 @@ const LoanDescription = () => {
       </p>
       <LFGButton
         onClick={() => {
-          navigate("/loans/create");
+          navigate("/profile/wallet");
         }}
       >
         <CalendarMonthIcon />

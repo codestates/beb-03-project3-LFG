@@ -15,6 +15,14 @@ import {
   EditIcon,
   ContentPasteGoIcon,
 } from "./styles/Material.js";
+import {
+  CardWrapper,
+  FigureWrapper,
+  Figure,
+  FigCaption,
+  Title,
+  Name,
+} from "./styles/Card.js";
 
 export {
   Button,
@@ -33,4 +41,10 @@ export {
   VerifiedUserIcon,
   EditIcon,
   ContentPasteGoIcon,
+  CardWrapper,
+  FigureWrapper,
+  Figure,
+  FigCaption,
+  Title,
+  Name,
 };

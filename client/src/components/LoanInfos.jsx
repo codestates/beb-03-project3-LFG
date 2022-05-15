@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { HelpOutline, Button } from "../common";
 import Request from "./Request";
@@ -26,12 +27,23 @@ const Connect = styled.div`
   margin-top: 1rem;
 `;
 
-const Fund = styled(Button)`
+const ButtonWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+`;
+
+const Btn = styled(Button)`
   background-color: salmon;
   margin-top: 2rem;
 `;
 
 const LoanInfos = ({ user }) => {
+  const navigate = useNavigate();
+  const params = useParams();
+
+  console.log(params);
+
   return (
     <LoanInfosWrapper>
       <div>Fund the loan with this NFT as collateral</div>
@@ -50,8 +62,17 @@ const LoanInfos = ({ user }) => {
         <Request property={"Maturity Repayment"} value={14} />
         <Request property={"Max Return"} value={1.8} />
       </Info>
-      {/* // to Open Loan Request, not owner */}
-      <Fund>Funded the Loan</Fund>
+      <ButtonWrapper>
+        <Btn
+          onClick={() => {
+            navigate(`/loans/${params.hash}/edit`);
+          }}
+        >
+          Edit
+        </Btn>
+        <Btn>Cancel</Btn>
+      </ButtonWrapper>
+
       <Help>
         <span>
           <HelpOutline />
