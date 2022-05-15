@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { HelpOutline, Button } from "../common";
 import Request from "./Request";
@@ -37,7 +38,12 @@ const Btn = styled(Button)`
   margin-top: 2rem;
 `;
 
-const LoanInfos = ({ user, handleEdit }) => {
+const LoanInfos = ({ user }) => {
+  const navigate = useNavigate();
+  const params = useParams();
+
+  console.log(params);
+
   return (
     <LoanInfosWrapper>
       <div>Fund the loan with this NFT as collateral</div>
@@ -59,7 +65,7 @@ const LoanInfos = ({ user, handleEdit }) => {
       <ButtonWrapper>
         <Btn
           onClick={() => {
-            handleEdit(true);
+            navigate(`/loans/${params.hash}/edit`);
           }}
         >
           Edit

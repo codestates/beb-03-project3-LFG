@@ -1,6 +1,5 @@
 import React, { useContext, useState } from "react";
 import styled from "styled-components";
-import { Button } from "../common";
 import { UserContext } from "../App";
 import LoanInfos from "./LoanInfos";
 import LoanForm from "./LoanForm";
@@ -27,16 +26,22 @@ const Title = styled.div`
   color: white;
 `;
 
-const LoanRequest = () => {
+const LoanRequest = ({ edit, create }) => {
   // 0 is not started
   // 1 is Open Loan Request
   // 2 is Funded Loan
   // 3 is Finished
   const [loanStatus, setLoanStatus] = useState(0);
-  const [editMode, setEditMode] = useState(false);
   const { user } = useContext(UserContext);
-  const isOwner = () => {
-    return true;
+
+  const renderLoanComponent = () => {
+    if (edit) {
+      return <LoanForm edit />;
+    }
+    if (create) {
+      return <LoanForm create />;
+    }
+    return <LoanInfos user={user} />;
   };
 
   return (
@@ -45,11 +50,7 @@ const LoanRequest = () => {
       <TitleWrapper>
         <Title>Open Loan Request</Title>
       </TitleWrapper>
-      {editMode ? (
-        <LoanForm handleEdit={setEditMode} />
-      ) : (
-        <LoanInfos user={user} handleEdit={setEditMode} />
-      )}
+      {renderLoanComponent()}
     </RequestWrapper>
   );
 };
