@@ -33,12 +33,16 @@ const Gallery = styled.div`
   }
 `;
 
-const MyNFTs = () => {
+const MyNFTs = ({ setIsOpen }) => {
   return (
     <ListWrapper>
       <Title>My Wallet</Title>
       <Gallery>
-        <MyNFT />
+        {Array(10)
+          .fill(0)
+          .map((_, idx) => (
+            <MyNFT key={idx} setIsOpen={setIsOpen} />
+          ))}
       </Gallery>
     </ListWrapper>
   );

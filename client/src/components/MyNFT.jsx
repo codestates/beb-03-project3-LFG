@@ -18,16 +18,20 @@ const ButtonWrapper = styled.div`
   justify-content: center;
 `;
 
-const MyNFT = () => {
+const MyNFT = ({ setIsOpen }) => {
   const navigate = useNavigate();
 
   const onCreateLoanClick = (event) => {
     navigate("/loans/0/create");
   };
 
+  const openModal = () => {
+    setIsOpen(true);
+  };
+
   return (
     <CardWrapper>
-      <FigureWrapper>
+      <FigureWrapper onClick={openModal}>
         <Figure />
         <FigCaption>
           <Title>LFGTrader #0</Title>
