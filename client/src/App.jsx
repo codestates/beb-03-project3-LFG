@@ -8,7 +8,6 @@ import Home from "./pages/Home";
 import LoanList from "./pages/LoanList";
 import LoanDetail from "./pages/LoanDetail";
 import MyPage from "./pages/MyPage";
-import LoanCreate from "./pages/LoanCreate";
 
 export const UserContext = createContext({
   user: null,
@@ -52,7 +51,6 @@ const App = () => {
             <Route path="/" element={<Home />} />
             <Route path="/loans/listings" element={<LoanList />} />
             <Route path="/loans/:hash" element={<LoanDetail />} />
-            <Route path="/loans/create" element={<LoanCreate />} />
             <Route path="/profile/wallet" element={<MyPage />} />
 
             <Route path="/loading" element={<LoadingSpinner />} />
