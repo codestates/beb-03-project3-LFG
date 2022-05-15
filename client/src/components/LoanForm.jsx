@@ -36,7 +36,7 @@ const ButtonWrapper = styled.div`
   display: flex;
 `;
 
-const Cancel = styled(Button)`
+const Submit = styled(Button)`
   background-color: salmon;
 `;
 
@@ -47,7 +47,7 @@ const Back = styled(Button)`
 
 const Form = styled.div``;
 
-const LoanForm = () => {
+const LoanForm = ({ handleEdit }) => {
   const [data, setData] = useState({});
   const onChange = (e) => {
     if (!e.target.value) {
@@ -83,8 +83,20 @@ const LoanForm = () => {
         </InputWrapper>
 
         <ButtonWrapper>
-          <Back>Back</Back>
-          <Cancel>Cancel</Cancel>
+          <Back
+            onClick={() => {
+              handleEdit(false);
+            }}
+          >
+            Back
+          </Back>
+          <Submit
+            onClick={() => {
+              handleEdit(false);
+            }}
+          >
+            Submit
+          </Submit>
         </ButtonWrapper>
       </Form>
       <Help>

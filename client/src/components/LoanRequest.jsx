@@ -26,9 +26,6 @@ const Title = styled.div`
   font-size: 1.2rem;
   color: white;
 `;
-const Listing = styled(Button)`
-  background-color: salmon;
-`;
 
 const LoanRequest = () => {
   // 0 is not started
@@ -42,20 +39,17 @@ const LoanRequest = () => {
     return true;
   };
 
-  const handleListingClick = () => {
-    setEditMode((editMode) => !editMode);
-  };
-
   return (
     <RequestWrapper>
       {/* // loanStatus에 따라 다른 TEXT가 들어가야함 */}
       <TitleWrapper>
         <Title>Open Loan Request</Title>
-        <Listing onClick={handleListingClick}>
-          {editMode ? "Listing" : "Loan Listing"}
-        </Listing>
       </TitleWrapper>
-      {editMode ? <LoanForm /> : <LoanInfos user={user} />}
+      {editMode ? (
+        <LoanForm handleEdit={setEditMode} />
+      ) : (
+        <LoanInfos user={user} handleEdit={setEditMode} />
+      )}
     </RequestWrapper>
   );
 };

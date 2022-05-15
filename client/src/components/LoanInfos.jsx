@@ -26,12 +26,18 @@ const Connect = styled.div`
   margin-top: 1rem;
 `;
 
-const Fund = styled(Button)`
+const ButtonWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+`;
+
+const Btn = styled(Button)`
   background-color: salmon;
   margin-top: 2rem;
 `;
 
-const LoanInfos = ({ user }) => {
+const LoanInfos = ({ user, handleEdit }) => {
   return (
     <LoanInfosWrapper>
       <div>Fund the loan with this NFT as collateral</div>
@@ -50,8 +56,17 @@ const LoanInfos = ({ user }) => {
         <Request property={"Maturity Repayment"} value={14} />
         <Request property={"Max Return"} value={1.8} />
       </Info>
-      {/* // to Open Loan Request, not owner */}
-      <Fund>Funded the Loan</Fund>
+      <ButtonWrapper>
+        <Btn
+          onClick={() => {
+            handleEdit(true);
+          }}
+        >
+          Edit
+        </Btn>
+        <Btn>Cancel</Btn>
+      </ButtonWrapper>
+
       <Help>
         <span>
           <HelpOutline />
