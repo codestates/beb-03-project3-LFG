@@ -38,7 +38,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var coingecko_api_v3_1 = require("coingecko-api-v3");
 var express = require("express");
-// import { nftListModel } from './db/nftlist';
+var loanList_1 = require("./db/loanList");
 var user_1 = require("./db/user");
 var loan_1 = require("./router/loan");
 var myPage_1 = require("./router/myPage");
@@ -129,6 +129,31 @@ app.get('/nftTest', function (req, res, next) { return __awaiter(void 0, void 0,
 //     res.send('succeed');
 //   }
 // );
+app.post('/loanTest', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var _a, duration, amount, interestAmount, tokenId, nftAddress, loanAddress, projectTitle, team, tokenURI, status, loanList;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
+            case 0:
+                _a = req.body, duration = _a.duration, amount = _a.amount, interestAmount = _a.interestAmount, tokenId = _a.tokenId, nftAddress = _a.nftAddress, loanAddress = _a.loanAddress, projectTitle = _a.projectTitle, team = _a.team, tokenURI = _a.tokenURI, status = _a.status;
+                loanList = new loanList_1.loanListModel();
+                loanList.duration = duration;
+                loanList.amount = amount;
+                loanList.interestAmount = interestAmount;
+                loanList.tokenId = tokenId;
+                loanList.nftAddress = nftAddress;
+                loanList.loanAddress = loanAddress;
+                loanList.projectTitle = projectTitle;
+                loanList.team = team;
+                loanList.tokenURI = tokenURI;
+                loanList.status = status;
+                return [4 /*yield*/, loanList.save()];
+            case 1:
+                _b.sent();
+                res.send('succeed');
+                return [2 /*return*/];
+        }
+    });
+}); });
 app.post('/userTest', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var id, user;
     return __generator(this, function (_a) {

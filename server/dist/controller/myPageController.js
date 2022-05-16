@@ -57,11 +57,6 @@ var getWhiteListNFT = function (req, res, next) { return __awaiter(void 0, void 
                             case 1:
                                 tempList = _b.sent();
                                 tempList.map(function (nft) { return (nft['nftCA'] = whiteList.nftCA); });
-                                // for (const nft of tempList) {
-                                //   nft['nftCA'] = whiteList.nftCA;
-                                // }
-                                // tempList['nftCA'] = whiteList.nftCA;
-                                //console.log(tempList);
                                 myNftList = myNftList.concat(tempList);
                                 return [2 /*return*/];
                         }

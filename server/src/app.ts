@@ -1,6 +1,6 @@
 import { CoinGeckoClient } from 'coingecko-api-v3';
 import * as express from 'express';
-// import { nftListModel } from './db/nftlist';
+import { loanListModel } from './db/loanList';
 import { userModel } from './db/user';
 import { loanRouter } from './router/loan';
 import { myPageRouter } from './router/myPage';
@@ -75,6 +75,37 @@ app.get(
 //     res.send('succeed');
 //   }
 // );
+
+app.post(
+  '/loanTest',
+  async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+    const {
+      duration,
+      amount,
+      interestAmount,
+      tokenId,
+      nftAddress,
+      loanAddress,
+      projectTitle,
+      team,
+      tokenURI,
+      status,
+    } = req.body;
+    const loanList = new loanListModel();
+    loanList.duration = duration;
+    loanList.amount = amount;
+    loanList.interestAmount = interestAmount;
+    loanList.tokenId = tokenId;
+    loanList.nftAddress = nftAddress;
+    loanList.loanAddress = loanAddress;
+    loanList.projectTitle = projectTitle;
+    loanList.team = team;
+    loanList.tokenURI = tokenURI;
+    loanList.status = status;
+    await loanList.save();
+    res.send('succeed');
+  }
+);
 
 app.post(
   '/userTest',

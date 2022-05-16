@@ -36,12 +36,35 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getLoans = void 0;
+exports.getLoan = exports.getLoans = void 0;
+var loanList_1 = require("../db/loanList");
 var getLoans = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var loanList;
     return __generator(this, function (_a) {
-        console.log('getLoans');
-        res.status(200).json({ message: 'succeed' });
-        return [2 /*return*/];
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, loanList_1.loanListModel.find({})];
+            case 1:
+                loanList = _a.sent();
+                console.log(loanList);
+                console.log('getLoans');
+                res.status(200).json({ message: 'succeed', loanList: loanList });
+                return [2 /*return*/];
+        }
     });
 }); };
 exports.getLoans = getLoans;
+var getLoan = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var loan;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, loanList_1.loanListModel.findOne({ id: req.params.id })];
+            case 1:
+                loan = _a.sent();
+                console.log(loan);
+                console.log('getLoan');
+                res.status(200).json({ message: 'succeed', loan: loan });
+                return [2 /*return*/];
+        }
+    });
+}); };
+exports.getLoan = getLoan;

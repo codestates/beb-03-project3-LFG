@@ -6,3 +6,4 @@ var loanController_1 = require("../controller/loanController");
 var loanRouter = express.Router();
 exports.loanRouter = loanRouter;
 loanRouter.get('/', loanController_1.getLoans);
+loanRouter.get('/:id', loanController_1.getLoan);
