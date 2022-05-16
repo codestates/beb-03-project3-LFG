@@ -15,11 +15,11 @@ const DetailRootDiv = styled.div`
   }
 `;
 
-const LoanDetail = () => {
+const LoanDetail = ({ create, edit }) => {
   return (
     <DetailRootDiv>
       <NFTDetails />
-      <LoanRequest />
+      <LoanRequest create={create} edit={edit} />
     </DetailRootDiv>
   );
 };

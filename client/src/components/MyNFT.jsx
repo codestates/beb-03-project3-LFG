@@ -23,7 +23,7 @@ const MyNFT = ({ data, setIsOpen, setModalData }) => {
   const navigate = useNavigate();
 
   const onCreateLoanClick = (event) => {
-    navigate("/loans/0/create");
+    navigate("/loans/create", { state: data });
   };
 
   const openModal = () => {
