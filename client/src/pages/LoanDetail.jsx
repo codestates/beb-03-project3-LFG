@@ -22,7 +22,7 @@ const LoanDetail = ({ create, edit }) => {
   return (
     <DetailRootDiv>
       <NFTDetails data={location.state} />
-      <LoanRequest create={create} edit={edit} />
+      <LoanRequest create={create} edit={edit} data={location.state} />
     </DetailRootDiv>
   );
 };

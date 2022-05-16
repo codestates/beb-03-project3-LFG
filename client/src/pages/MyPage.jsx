@@ -19,7 +19,18 @@ const MyPage = () => {
       getMetadata(
         "https://ikzttp.mypinata.cloud/ipfs/QmQFkLSQysj94s5GvTHPyzTxrawwtjgiiYS2TBLgrvw8CW/1"
       ),
-    ]).then((result) => setNfts((prev) => result.map((r) => r.data)));
+    ]).then((result) =>
+      setNfts((prev) =>
+        result.map((r, idx) => {
+          return {
+            nftAddress: "0xaE0F3B010cEc518dB205F5BAf849b8865309BF52",
+            tokenId: idx,
+            loanAddress: "",
+            ...r.data,
+          };
+        })
+      )
+    );
   }, []);
 
   return (

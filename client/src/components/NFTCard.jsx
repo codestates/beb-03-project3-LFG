@@ -16,9 +16,9 @@ const FigureWrapper = styled.div`
   border-bottom: 1px solid tomato;
   padding-bottom: 0.75rem;
 `;
-const Figure = styled.img.attrs({
-  src: "/test/lfgcard.png",
-})`
+const Figure = styled.img.attrs((props) => ({
+  src: props.fig,
+}))`
   width: 100%;
 `;
 const FigCaption = styled.div``;
@@ -73,20 +73,20 @@ const LoanReturnWrapper = styled.div`
   }
 `;
 
-const NFTCard = ({ idx }) => {
+const NFTCard = ({ nft }) => {
   const navigate = useNavigate();
 
   return (
     <CardWrapper
       onClick={() => {
-        navigate(`/loans/${idx}`);
+        navigate(`/loans/${nft.nftAddress}/${nft.tokenId}`, { state: nft });
       }}
     >
       <FigureWrapper>
-        <Figure />
+        <Figure fig={nft.image} />
         <FigCaption>
-          <Title>LFGTrader #{idx}</Title>
-          <Name>LFGTrader</Name>
+          <Title>Azuki</Title>
+          <Name>{nft.name}</Name>
         </FigCaption>
       </FigureWrapper>
       <InformationWrapper>

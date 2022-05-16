@@ -49,15 +49,15 @@ const Back = styled(Button)`
 
 const Form = styled.div``;
 
-const LoanForm = ({ edit, create }) => {
+const LoanForm = ({ edit, create, data }) => {
   const params = useParams();
   const navigate = useNavigate();
   const { user, helperContract } = useContext(UserContext);
 
-  const [data, setData] = useState({});
+  const [inputData, setInputData] = useState({});
   const onChange = (e) => {
     if (!e.target.value) {
-      setData((prev) => {
+      setInputData((prev) => {
         return {
           ...prev,
           [e.target.name]: 0,
@@ -67,7 +67,7 @@ const LoanForm = ({ edit, create }) => {
     if (!Number(e.target.value)) {
       return;
     } else
-      setData((prev) => {
+      setInputData((prev) => {
         return {
           ...prev,
           [e.target.name]: e.target.value,
@@ -87,7 +87,7 @@ const LoanForm = ({ edit, create }) => {
             { type: "uint256", name: "_rateAmount" },
           ],
         },
-        [data.days, data.price, data.rate]
+        [inputData.days, inputData.price, inputData.rate]
       );
 
       let receipt = await window.caver.klay.sendTransaction({
@@ -103,11 +103,11 @@ const LoanForm = ({ edit, create }) => {
       const bytecode = await helperContract.methods
         .getBytecode(
           user,
-          "0xe6f023036c06862d9a8e00cea169653f1cb1ab14",
-          2,
-          data.days,
-          data.price,
-          data.rate
+          data.nftAddress,
+          data.tokenId,
+          inputData.days,
+          inputData.price,
+          inputData.rate
         )
         .call();
 
@@ -121,13 +121,17 @@ const LoanForm = ({ edit, create }) => {
             { type: "uint256", name: "tokenId" },
           ],
         },
-        [user, process.env.REACT_APP_LOAN_FACTORY_CONTRACT_ADDRESS, 3]
+        [
+          user,
+          process.env.REACT_APP_LOAN_FACTORY_CONTRACT_ADDRESS,
+          data.tokenId,
+        ]
       );
 
       let receipt = await window.caver.klay.sendTransaction({
         type: "SMART_CONTRACT_EXECUTION",
         from: user,
-        to: "0xe6f023036c06862d9a8e00cea169653f1cb1ab14",
+        to: data.nftAddress,
         data: safeTransferEncoded,
         gas: "10000000",
       });
@@ -143,7 +147,7 @@ const LoanForm = ({ edit, create }) => {
           ],
           outputs: [{ type: "address", name: "addr" }],
         },
-        [bytecode, "0xe6f023036c06862d9a8e00cea169653f1cb1ab14", 3]
+        [bytecode, data.nftAddress, data.tokenId]
       );
 
       receipt = await window.caver.klay.sendTransaction({
@@ -175,7 +179,9 @@ const LoanForm = ({ edit, create }) => {
           <Back
             onClick={() => {
               if (edit) {
-                navigate(`/loans/${params.hash}`);
+                navigate(`/loans/${data.nftAddress}/${data.tokenId}`, {
+                  state: data,
+                });
               } else {
                 navigate(`/profile/wallet`);
               }

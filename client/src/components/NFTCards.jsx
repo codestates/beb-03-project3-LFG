@@ -24,10 +24,12 @@ const CardsWrapper = styled.div`
   }
 `;
 
-const NFTCards = () => {
+const NFTCards = ({ nfts }) => {
   return (
     <CardsWrapper>
-      <NFTCard idx={5} />
+      {nfts?.map((nft, idx) => (
+        <NFTCard key={idx} nft={nft} />
+      ))}
     </CardsWrapper>
   );
 };

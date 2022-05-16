@@ -38,7 +38,7 @@ const Btn = styled(Button)`
   margin-top: 2rem;
 `;
 
-const LoanInfos = ({ user }) => {
+const LoanInfos = ({ user, data }) => {
   const navigate = useNavigate();
   const params = useParams();
 
@@ -63,7 +63,9 @@ const LoanInfos = ({ user }) => {
       <ButtonWrapper>
         <Btn
           onClick={() => {
-            navigate(`/loans/${params.hash}/edit`);
+            navigate(`/loans/${data.nftAddress}/${data.tokenId}/edit`, {
+              state: data,
+            });
           }}
         >
           Edit

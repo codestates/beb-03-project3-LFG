@@ -26,7 +26,7 @@ const Title = styled.div`
   color: white;
 `;
 
-const LoanRequest = ({ edit, create }) => {
+const LoanRequest = ({ edit, create, data }) => {
   // 0 is not started
   // 1 is Open Loan Request
   // 2 is Funded Loan
@@ -36,12 +36,12 @@ const LoanRequest = ({ edit, create }) => {
 
   const renderLoanComponent = () => {
     if (edit) {
-      return <LoanForm edit />;
+      return <LoanForm edit data={data} />;
     }
     if (create) {
-      return <LoanForm create />;
+      return <LoanForm create data={data} />;
     }
-    return <LoanInfos user={user} />;
+    return <LoanInfos user={user} data={data} />;
   };
 
   return (
