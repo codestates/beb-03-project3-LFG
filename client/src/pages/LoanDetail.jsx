@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import NFTDetails from "../components/NFTDetails";
 import LoanRequest from "../components/LoanRequest";
+import { useLocation } from "react-router-dom";
 
 const DetailRootDiv = styled.div`
   display: flex;
@@ -16,9 +17,11 @@ const DetailRootDiv = styled.div`
 `;
 
 const LoanDetail = ({ create, edit }) => {
+  const location = useLocation();
+
   return (
     <DetailRootDiv>
-      <NFTDetails />
+      <NFTDetails data={location.state} />
       <LoanRequest create={create} edit={edit} />
     </DetailRootDiv>
   );

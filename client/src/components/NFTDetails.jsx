@@ -23,9 +23,9 @@ const Verified = styled.div`
   display: flex;
   align-itmes: center;
 `;
-const NFTImage = styled.img.attrs({
-  src: "/test/lfgcard.png",
-})`
+const NFTImage = styled.img.attrs((props) => ({
+  src: props.fig,
+}))`
   width: 375px;
   height: 375px;
   border-radius: 1rem;
@@ -71,66 +71,25 @@ const Scanner = styled.a.attrs({
   }
 `;
 
-const NFTDetails = () => {
-  const { hash } = useParams();
-
-  const attributes = [
-    {
-      property: "SUIT COLOR",
-      value: "Solana",
-    },
-    {
-      property: "VISOR COLOR",
-      value: "White",
-    },
-    {
-      property: "ENVIRONMENT",
-      value: "Solana",
-    },
-    {
-      property: "ORIENTATION",
-      value: "Right",
-    },
-    {
-      property: "RANK PACTH",
-      value: "Commander",
-    },
-    {
-      property: "SPECIAL PATCH",
-      value: "Solana",
-    },
-    {
-      property: "SECONDARY COLOR",
-      value: "Stock",
-    },
-    {
-      property: "MATCH TYPE",
-      value: "None",
-    },
-    {
-      property: "RANK",
-      value: "116",
-    },
-  ];
-
+const NFTDetails = ({ data }) => {
   return (
     <DetailDiv>
       <TitleWrapper>
-        <Title>LFGTrader #{hash}</Title>
-        <Name>LFGTrader</Name>
+        <Title>Azuki</Title>
+        <Name>{data.name}</Name>
         <Verified>
           <VerifiedUserIcon />
           LFG Verified
         </Verified>
       </TitleWrapper>
-      <NFTImage />
+      <NFTImage fig={data.image} />
       <Attributes>
-        <div>Attributes (9)</div>
+        <div>Attributes ({data.attributes.length})</div>
         <AttributeDiv>
-          {attributes.map((attr, idx) => (
+          {data.attributes.map((attr, idx) => (
             <AttributeCard
               key={idx}
-              property={attr.property}
+              property={attr.trait_type}
               value={attr.value}
             />
           ))}
