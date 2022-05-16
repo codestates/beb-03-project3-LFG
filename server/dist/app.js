@@ -38,8 +38,10 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var coingecko_api_v3_1 = require("coingecko-api-v3");
 var express = require("express");
+// import { nftListModel } from './db/nftlist';
 var user_1 = require("./db/user");
 var loan_1 = require("./router/loan");
+var myPage_1 = require("./router/myPage");
 var trade_1 = require("./router/trade");
 var kas_1 = require("./utils/kas");
 var sdk = require('api')('@opensea/v1.0#5zrwe3ql2r2e6mn');
@@ -47,11 +49,12 @@ var sdk = require('api')('@opensea/v1.0#5zrwe3ql2r2e6mn');
 var app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use('/loan', loan_1.loanRouter);
-app.use('/trade', trade_1.tradeRouter);
 app.get('/', function (req, res, next) {
     res.send('hello typescript express!');
 });
+app.use('/loan', loan_1.loanRouter);
+app.use('/trade', trade_1.tradeRouter);
+app.use('/myPage', myPage_1.myPageRouter);
 app.get('/kasTest', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var blockNumber;
     return __generator(this, function (_a) {
@@ -66,7 +69,7 @@ app.get('/kasTest', function (req, res, next) { return __awaiter(void 0, void 0,
     });
 }); });
 app.get('/nftTest', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var contractAddress, ownerAddress, nftArr, _i, nftArr_1, elem, tokenId, tokenUri, projectId, res_1, client, simplePrice, err_1;
+    var contractAddress, ownerAddress, nftArr, _i, nftArr_1, elem, tokenId, tokenURI, projectId, res_1, client, simplePrice, err_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -80,7 +83,7 @@ app.get('/nftTest', function (req, res, next) { return __awaiter(void 0, void 0,
             case 2:
                 if (!(_i < nftArr_1.length)) return [3 /*break*/, 8];
                 elem = nftArr_1[_i];
-                tokenId = elem.tokenId, tokenUri = elem.tokenUri;
+                tokenId = elem.tokenId, tokenURI = elem.tokenURI;
                 projectId = 'the-meta-kongz';
                 _a.label = 3;
             case 3:
@@ -114,7 +117,19 @@ app.get('/nftTest', function (req, res, next) { return __awaiter(void 0, void 0,
         }
     });
 }); });
-app.post('/test', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+// app.post(
+//   '/nftListTest',
+//   async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+//     const { CA, name, team } = req.body;
+//     const nftList = new nftListModel();
+//     nftList.nftCA = CA;
+//     nftList.nftName = name;
+//     nftList.nftTeam = team;
+//     await nftList.save();
+//     res.send('succeed');
+//   }
+// );
+app.post('/userTest', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var id, user;
     return __generator(this, function (_a) {
         switch (_a.label) {

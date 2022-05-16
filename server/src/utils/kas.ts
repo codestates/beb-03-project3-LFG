@@ -4,7 +4,7 @@ dotenv.config();
 
 // Cypress : 8217
 // Baobab : 1001
-const chainId: Number = 1001;
+const chainId: Number = 8217;
 const caver = new CaverExtKAS(chainId, process.env.accessKeyId, process.env.secretAccessKey);
 caver.initKASAPI(chainId, process.env.accessKeyId, process.env.secretAccessKey);
 caver.initTokenHistoryAPI(chainId, process.env.accessKeyId, process.env.secretAccessKey);
@@ -16,7 +16,8 @@ export const getBlockNumber = async () => {
 
 interface nftInfo {
   tokenId: Number;
-  tokenUri: string;
+  tokenURI: string;
+  nftCA: string;
 }
 
 export const getNFT = async (contractAddress: String, ownerAddress: String) => {
@@ -24,7 +25,7 @@ export const getNFT = async (contractAddress: String, ownerAddress: String) => {
   const arr: nftInfo[] = [];
   for (const elem of result.items) {
     const { tokenId, tokenUri } = elem;
-    const temp: nftInfo = { tokenId: parseInt(tokenId, 16), tokenUri };
+    const temp: nftInfo = { tokenId: parseInt(tokenId, 16), tokenURI: tokenUri, nftCA: '' };
     arr.push(temp);
   }
   return arr;

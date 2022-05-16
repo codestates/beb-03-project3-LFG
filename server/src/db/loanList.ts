@@ -6,14 +6,14 @@ const loanListSchema = new mongoose.Schema(
     amount: Number,
     interestAmount: Number,
     tokenId: Number,
-    nftAddr: String,
-    loanAddr: String,
+    nftAddress: String,
+    loanAddress: String,
     projectTitle: String,
     team: String,
-    tokenUri: String,
+    tokenURI: String,
     status: String,
   },
   { timestamps: true }
 );
 
-export const userModel = mongoose.model('loanList', loanListSchema);
+export const loanListModel = mongoose.model('loanList', loanListSchema);

@@ -1,7 +1,9 @@
 import { CoinGeckoClient } from 'coingecko-api-v3';
 import * as express from 'express';
+// import { nftListModel } from './db/nftlist';
 import { userModel } from './db/user';
 import { loanRouter } from './router/loan';
+import { myPageRouter } from './router/myPage';
 import { tradeRouter } from './router/trade';
 import { getBlockNumber, getNFT } from './utils/kas';
 
@@ -19,6 +21,7 @@ app.get('/', (req: express.Request, res: express.Response, next: express.NextFun
 
 app.use('/loan', loanRouter);
 app.use('/trade', tradeRouter);
+app.use('/myPage', myPageRouter);
 
 app.get(
   '/kasTest',
@@ -36,7 +39,7 @@ app.get(
     const ownerAddress: String = '0xBEc3ccA3AbF992Ea770671E568BA8c2C90db271b';
     const nftArr = await getNFT(contractAddress, ownerAddress);
     for (const elem of nftArr) {
-      const { tokenId, tokenUri } = elem;
+      const { tokenId, tokenURI } = elem;
       let projectId = 'the-meta-kongz';
       try {
         const res = await sdk['retrieving-collection-stats']({ collection_slug: projectId });
@@ -58,8 +61,23 @@ app.get(
   }
 );
 
+// app.post(
+//   '/nftListTest',
+//   async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+//     const { CA, name, team } = req.body;
+
+//     const nftList = new nftListModel();
+//     nftList.nftCA = CA;
+//     nftList.nftName = name;
+//     nftList.nftTeam = team;
+
+//     await nftList.save();
+//     res.send('succeed');
+//   }
+// );
+
 app.post(
-  '/test',
+  '/userTest',
   async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     const id = req.body.id;
     const user = new userModel();

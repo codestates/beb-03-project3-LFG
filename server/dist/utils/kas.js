@@ -42,7 +42,7 @@ var dotenv = require("dotenv");
 dotenv.config();
 // Cypress : 8217
 // Baobab : 1001
-var chainId = 1001;
+var chainId = 8217;
 var caver = new CaverExtKAS(chainId, process.env.accessKeyId, process.env.secretAccessKey);
 caver.initKASAPI(chainId, process.env.accessKeyId, process.env.secretAccessKey);
 caver.initTokenHistoryAPI(chainId, process.env.accessKeyId, process.env.secretAccessKey);
@@ -69,7 +69,7 @@ var getNFT = function (contractAddress, ownerAddress) { return __awaiter(void 0,
                 for (_i = 0, _a = result.items; _i < _a.length; _i++) {
                     elem = _a[_i];
                     tokenId = elem.tokenId, tokenUri = elem.tokenUri;
-                    temp = { tokenId: parseInt(tokenId, 16), tokenUri: tokenUri };
+                    temp = { tokenId: parseInt(tokenId, 16), tokenURI: tokenUri, nftCA: '' };
                     arr.push(temp);
                 }
                 return [2 /*return*/, arr];

@@ -36,12 +36,55 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getTrades = void 0;
-var getTrades = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+exports.getWhiteListNFT = void 0;
+var nftList_1 = require("../db/nftList");
+var kas_1 = require("../utils/kas");
+var getWhiteListNFT = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var userAddress, myNftList, whiteLists, _loop_1, _i, whiteLists_1, whiteList;
     return __generator(this, function (_a) {
-        console.log('getTrades');
-        res.status(200).json({ message: 'succeed' });
-        return [2 /*return*/];
+        switch (_a.label) {
+            case 0:
+                userAddress = req.body.userAddress;
+                myNftList = [];
+                return [4 /*yield*/, nftList_1.nftListModel.find({})];
+            case 1:
+                whiteLists = _a.sent();
+                _loop_1 = function (whiteList) {
+                    var tempList;
+                    return __generator(this, function (_b) {
+                        switch (_b.label) {
+                            case 0: return [4 /*yield*/, (0, kas_1.getNFT)(whiteList.nftCA, userAddress)];
+                            case 1:
+                                tempList = _b.sent();
+                                tempList.map(function (nft) { return (nft['nftCA'] = whiteList.nftCA); });
+                                // for (const nft of tempList) {
+                                //   nft['nftCA'] = whiteList.nftCA;
+                                // }
+                                // tempList['nftCA'] = whiteList.nftCA;
+                                //console.log(tempList);
+                                myNftList = myNftList.concat(tempList);
+                                return [2 /*return*/];
+                        }
+                    });
+                };
+                _i = 0, whiteLists_1 = whiteLists;
+                _a.label = 2;
+            case 2:
+                if (!(_i < whiteLists_1.length)) return [3 /*break*/, 5];
+                whiteList = whiteLists_1[_i];
+                return [5 /*yield**/, _loop_1(whiteList)];
+            case 3:
+                _a.sent();
+                _a.label = 4;
+            case 4:
+                _i++;
+                return [3 /*break*/, 2];
+            case 5:
+                console.log(myNftList);
+                console.log('getWhiteListNFT');
+                res.status(200).json({ message: 'succeed' });
+                return [2 /*return*/];
+        }
     });
 }); };
-exports.getTrades = getTrades;
+exports.getWhiteListNFT = getWhiteListNFT;
