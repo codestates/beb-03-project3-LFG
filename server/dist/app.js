@@ -40,6 +40,7 @@ var coingecko_api_v3_1 = require("coingecko-api-v3");
 var express = require("express");
 var loanList_1 = require("./db/loanList");
 var user_1 = require("./db/user");
+var history_1 = require("./router/history");
 var loan_1 = require("./router/loan");
 var myPage_1 = require("./router/myPage");
 var trade_1 = require("./router/trade");
@@ -55,6 +56,7 @@ app.get('/', function (req, res, next) {
 app.use('/loan', loan_1.loanRouter);
 app.use('/trade', trade_1.tradeRouter);
 app.use('/myPage', myPage_1.myPageRouter);
+app.use('/history', history_1.historyRouter);
 app.get('/kasTest', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var blockNumber;
     return __generator(this, function (_a) {

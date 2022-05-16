@@ -3,8 +3,10 @@ import { CoinGeckoClient } from 'coingecko-api-v3';
 import { loanListModel } from '../db/loanList';
 
 export const getLoans = async (req, res, next) => {
-  const loanList = await loanListModel.find({});
+  const loanList = await loanListModel.find({ status: 'CREATED' });
 
+  //TODO
+  //query parameter filter 구현
   console.log(loanList);
   console.log('getLoans');
   res.status(200).json({ message: 'succeed', loanList });

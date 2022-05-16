@@ -12,6 +12,6 @@ var loanListSchema = new mongoose.Schema({
     projectTitle: String,
     team: String,
     tokenURI: String,
-    status: String,
+    status: String, // created, canceled, funded, paidBack, defaulted
 }, { timestamps: true });
 exports.loanListModel = mongoose.model('loanList', loanListSchema);

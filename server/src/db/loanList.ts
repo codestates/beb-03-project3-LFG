@@ -11,7 +11,7 @@ const loanListSchema = new mongoose.Schema(
     projectTitle: String,
     team: String,
     tokenURI: String,
-    status: String,
+    status: String, // created, canceled, funded, paidBack, defaulted 대문자
   },
   { timestamps: true }
 );

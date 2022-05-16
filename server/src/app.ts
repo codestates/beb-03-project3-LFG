@@ -2,6 +2,7 @@ import { CoinGeckoClient } from 'coingecko-api-v3';
 import * as express from 'express';
 import { loanListModel } from './db/loanList';
 import { userModel } from './db/user';
+import { historyRouter } from './router/history';
 import { loanRouter } from './router/loan';
 import { myPageRouter } from './router/myPage';
 import { tradeRouter } from './router/trade';
@@ -22,6 +23,7 @@ app.get('/', (req: express.Request, res: express.Response, next: express.NextFun
 app.use('/loan', loanRouter);
 app.use('/trade', tradeRouter);
 app.use('/myPage', myPageRouter);
+app.use('/history', historyRouter);
 
 app.get(
   '/kasTest',
