@@ -36,44 +36,68 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getNFT = exports.getBlockNumber = void 0;
-var CaverExtKAS = require("caver-js-ext-kas");
-var dotenv = require("dotenv");
-dotenv.config();
-// Cypress : 8217
-// Baobab : 1001
-var chainId = 8217;
-var caver = new CaverExtKAS(chainId, process.env.accessKeyId, process.env.secretAccessKey);
-caver.initKASAPI(chainId, process.env.accessKeyId, process.env.secretAccessKey);
-caver.initTokenHistoryAPI(chainId, process.env.accessKeyId, process.env.secretAccessKey);
-var getBlockNumber = function () { return __awaiter(void 0, void 0, void 0, function () {
-    var blockNumber;
+exports.getLoan = exports.getLoans = void 0;
+var axios_1 = require("axios");
+var coingecko_api_v3_1 = require("coingecko-api-v3");
+var loanList_1 = require("../db/loanList");
+var getLoans = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var loanList;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, caver.rpc.klay.getBlockNumber()];
+            case 0: return [4 /*yield*/, loanList_1.loanListModel.find({ status: 'CREATED' })];
             case 1:
-                blockNumber = _a.sent();
-                return [2 /*return*/, blockNumber];
+                loanList = _a.sent();
+                //TODO
+                //query parameter filter 구현
+                console.log(loanList);
+                console.log('getLoans');
+                res.status(200).json({ message: 'succeed', loanList: loanList });
+                return [2 /*return*/];
         }
     });
 }); };
-exports.getBlockNumber = getBlockNumber;
-var getNFT = function (contractAddress, ownerAddress) { return __awaiter(void 0, void 0, void 0, function () {
-    var result, arr, _i, _a, elem, tokenId, tokenUri, temp;
-    return __generator(this, function (_b) {
-        switch (_b.label) {
-            case 0: return [4 /*yield*/, caver.kas.tokenHistory.getNFTListByOwner(contractAddress, ownerAddress)];
+exports.getLoans = getLoans;
+var sdk = require('api')('@opensea/v1.0#5zrwe3ql2r2e6mn');
+var getLoan = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var loan, data, loanInfo, projectId, res_1, client, simplePrice, err_1;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, loanList_1.loanListModel.findOne({ id: req.params.id })];
             case 1:
-                result = _b.sent();
-                arr = [];
-                for (_i = 0, _a = result.items; _i < _a.length; _i++) {
-                    elem = _a[_i];
-                    tokenId = elem.tokenId, tokenUri = elem.tokenUri;
-                    temp = { tokenId: parseInt(tokenId, 16), tokenURI: tokenUri, nftCA: '' };
-                    arr.push(temp);
-                }
-                return [2 /*return*/, arr];
+                loan = _a.sent();
+                return [4 /*yield*/, axios_1.default.get(loan.tokenURI)];
+            case 2:
+                data = (_a.sent()).data;
+                loanInfo = data;
+                projectId = loan.projectTitle;
+                _a.label = 3;
+            case 3:
+                _a.trys.push([3, 6, , 7]);
+                return [4 /*yield*/, sdk['retrieving-collection-stats']({ collection_slug: projectId })];
+            case 4:
+                res_1 = _a.sent();
+                client = new coingecko_api_v3_1.CoinGeckoClient({
+                    timeout: 10000,
+                    autoRetry: true,
+                });
+                return [4 /*yield*/, client.simplePrice({
+                        ids: 'klay-token',
+                        vs_currencies: 'eth',
+                    })];
+            case 5:
+                simplePrice = _a.sent();
+                loanInfo['floorPrice'] = Number(res_1.stats.floor_price) / Number(simplePrice['klay-token'].eth);
+                return [3 /*break*/, 7];
+            case 6:
+                err_1 = _a.sent();
+                console.log(err_1);
+                return [3 /*break*/, 7];
+            case 7:
+                console.log(loanInfo);
+                console.log('getLoan');
+                res.status(200).json({ message: 'succeed', loanInfo: loanInfo });
+                return [2 /*return*/];
         }
     });
 }); };
-exports.getNFT = getNFT;
+exports.getLoan = getLoan;
