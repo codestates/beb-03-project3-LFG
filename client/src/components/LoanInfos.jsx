@@ -42,8 +42,6 @@ const LoanInfos = ({ user }) => {
   const navigate = useNavigate();
   const params = useParams();
 
-  console.log(params);
-
   return (
     <LoanInfosWrapper>
       <div>Fund the loan with this NFT as collateral</div>
