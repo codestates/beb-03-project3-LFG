@@ -26,6 +26,8 @@ import {
 import LoanFactoryAbi from "./abi/LoanFactory.json";
 import HelperAbi from "./abi/Helper.json";
 import KIP17Abi from "./abi/KIP17.json";
+import { getMetadata } from "./features/getMetadata.js";
+import { getHttpURL } from "./features/getHttpURL.js";
 
 export {
   Button,
@@ -53,4 +55,6 @@ export {
   LoanFactoryAbi,
   HelperAbi,
   KIP17Abi,
+  getMetadata,
+  getHttpURL,
 };

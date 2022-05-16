@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import {
@@ -9,6 +9,7 @@ import {
   Title,
   Name,
   Button,
+  getMetadata,
 } from "../common";
 
 const ButtonWrapper = styled.div`
@@ -18,7 +19,7 @@ const ButtonWrapper = styled.div`
   justify-content: center;
 `;
 
-const MyNFT = ({ setIsOpen }) => {
+const MyNFT = ({ data, setIsOpen, setModalData }) => {
   const navigate = useNavigate();
 
   const onCreateLoanClick = (event) => {
@@ -27,15 +28,16 @@ const MyNFT = ({ setIsOpen }) => {
 
   const openModal = () => {
     setIsOpen(true);
+    setModalData((prev) => data);
   };
 
   return (
     <CardWrapper>
       <FigureWrapper onClick={openModal}>
-        <Figure />
+        <Figure fig={data.image} />
         <FigCaption>
-          <Title>LFGTrader #0</Title>
-          <Name>LFGTrader</Name>
+          <Title>Azuki</Title>
+          <Name>{data.name}</Name>
         </FigCaption>
       </FigureWrapper>
       <ButtonWrapper>

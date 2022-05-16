@@ -33,16 +33,20 @@ const Gallery = styled.div`
   }
 `;
 
-const MyNFTs = ({ setIsOpen }) => {
+const MyNFTs = ({ nfts, setIsOpen, setModalData }) => {
+  // 받은 NFT정보를 MyNFT에 뿌림
   return (
     <ListWrapper>
       <Title>My Wallet</Title>
       <Gallery>
-        {Array(10)
-          .fill(0)
-          .map((_, idx) => (
-            <MyNFT key={idx} setIsOpen={setIsOpen} />
-          ))}
+        {nfts?.map((data, idx) => (
+          <MyNFT
+            key={idx}
+            data={data}
+            setIsOpen={setIsOpen}
+            setModalData={setModalData}
+          />
+        ))}
       </Gallery>
     </ListWrapper>
   );

@@ -49,9 +49,9 @@ const FigureWrapper = styled.div`
     flex-direction: column;
   }
 `;
-const ModalFigure = styled.img.attrs({
-  src: "/test/lfgcard.png",
-})`
+const ModalFigure = styled.img.attrs((props) => ({
+  src: props.fig,
+}))`
   width: 300px;
   height: 300px;
 
@@ -74,60 +74,21 @@ const AttributeDiv = styled.div`
   overflow: auto;
 `;
 
-const NFTAttributeModal = () => {
-  const attributes = [
-    {
-      property: "SUIT COLOR",
-      value: "Solana",
-    },
-    {
-      property: "VISOR COLOR",
-      value: "White",
-    },
-    {
-      property: "ENVIRONMENT",
-      value: "Solana",
-    },
-    {
-      property: "ORIENTATION",
-      value: "Right",
-    },
-    {
-      property: "RANK PACTH",
-      value: "Commander",
-    },
-    {
-      property: "SPECIAL PATCH",
-      value: "Solana",
-    },
-    {
-      property: "SECONDARY COLOR",
-      value: "Stock",
-    },
-    {
-      property: "MATCH TYPE",
-      value: "None",
-    },
-    {
-      property: "RANK",
-      value: "116",
-    },
-  ];
-
+const NFTAttributeModal = ({ data }) => {
   return (
     <Wrapper>
       <Modal>
         <ModalCaption>
-          <Title>LFGTrader #0</Title>
-          <Name>LFGTrader</Name>
+          <Title>Azuki</Title>
+          <Name>{data.name}</Name>
         </ModalCaption>
         <FigureWrapper>
-          <ModalFigure />
+          <ModalFigure fig={data.image} />
           <AttributeDiv>
-            {attributes.map((attr, idx) => (
+            {data.attributes.map((attr, idx) => (
               <AttributeCard
                 key={idx}
-                property={attr.property}
+                property={attr.trait_type}
                 value={attr.value}
               />
             ))}

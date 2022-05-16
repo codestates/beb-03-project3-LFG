@@ -27,9 +27,7 @@ const CardsWrapper = styled.div`
 const NFTCards = () => {
   return (
     <CardsWrapper>
-      {new Array(50).fill(0).map((card, idx) => (
-        <NFTCard key={idx} idx={idx} />
-      ))}
+      <NFTCard idx={5} />
     </CardsWrapper>
   );
 };

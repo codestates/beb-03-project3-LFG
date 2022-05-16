@@ -97,8 +97,6 @@ const LoanForm = ({ edit, create }) => {
         data: editEncoded,
         gas: "10000000",
       });
-
-      console.log(receipt);
     }
 
     if (create) {
@@ -155,10 +153,10 @@ const LoanForm = ({ edit, create }) => {
         data: deployEncoded,
         gas: "10000000",
       });
-
-      console.log(receipt);
     }
   };
+
+  const renderButton = () => {};
 
   return (
     <LoanFormWrapper>
