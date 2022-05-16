@@ -1,7 +1,10 @@
 import { CoinGeckoClient } from 'coingecko-api-v3';
 import * as express from 'express';
 import { userModel } from './db/user';
+import { loanRouter } from './router/loan';
+import { tradeRouter } from './router/trade';
 import { getBlockNumber, getNFT } from './utils/kas';
+
 const sdk = require('api')('@opensea/v1.0#5zrwe3ql2r2e6mn');
 //require와 import의 혼종..?
 
@@ -13,6 +16,9 @@ app.use(express.urlencoded({ extended: true }));
 app.get('/', (req: express.Request, res: express.Response, next: express.NextFunction) => {
   res.send('hello typescript express!');
 });
+
+app.use('/loan', loanRouter);
+app.use('/trade', tradeRouter);
 
 app.get(
   '/kasTest',

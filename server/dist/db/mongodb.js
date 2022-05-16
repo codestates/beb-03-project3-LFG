@@ -22,6 +22,3 @@ var DBinit = function () {
     });
 };
 exports.DBinit = DBinit;
-// module.exports = {
-//   DBinit,
-// };

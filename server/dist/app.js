@@ -39,23 +39,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var coingecko_api_v3_1 = require("coingecko-api-v3");
 var express = require("express");
 var user_1 = require("./db/user");
+var loan_1 = require("./router/loan");
+var trade_1 = require("./router/trade");
 var kas_1 = require("./utils/kas");
 var sdk = require('api')('@opensea/v1.0#5zrwe3ql2r2e6mn');
 //require와 import의 혼종..?
 var app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use('/loan', loan_1.loanRouter);
+app.use('/trade', trade_1.tradeRouter);
 app.get('/', function (req, res, next) {
-    // console.log('hello');
     res.send('hello typescript express!');
 });
-// declare module 'express' {
-//   interface Request {
-//     body: {
-//       id?: String;
-//     };
-//   }
-// }
 app.get('/kasTest', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var blockNumber;
     return __generator(this, function (_a) {
@@ -92,8 +88,7 @@ app.get('/nftTest', function (req, res, next) { return __awaiter(void 0, void 0,
                 return [4 /*yield*/, sdk['retrieving-collection-stats']({ collection_slug: projectId })];
             case 4:
                 res_1 = _a.sent();
-                //api.coingecko.com/api/v3/simple/price?ids=klay-token&vs_currencies=eth
-                https: client = new coingecko_api_v3_1.CoinGeckoClient({
+                client = new coingecko_api_v3_1.CoinGeckoClient({
                     timeout: 10000,
                     autoRetry: true,
                 });
@@ -114,7 +109,6 @@ app.get('/nftTest', function (req, res, next) { return __awaiter(void 0, void 0,
                 _i++;
                 return [3 /*break*/, 2];
             case 8:
-                // console.log(blockNumber);
                 res.send('success');
                 return [2 /*return*/];
         }
