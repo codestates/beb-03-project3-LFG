@@ -1,11 +1,13 @@
 const mongoose = require('mongoose');
 
-const loanListSchema = new mongoose.Schema(
+const loanSchema = new mongoose.Schema(
   {
-    duration: Number,
-    amount: Number,
-    interestAmount: Number,
-    tokenId: Number,
+    debtor: String,
+    creditor: String,
+    duration: String,
+    amount: String,
+    interestAmount: String,
+    tokenId: String,
     nftAddress: String,
     loanAddress: String,
     projectTitle: String,
@@ -16,6 +18,6 @@ const loanListSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const loanListModel = mongoose.model('loanList', loanListSchema);
+const Loan = mongoose.model('loan', loanSchema);
 
-module.exports = loanListModel;
+module.exports = Loan;
