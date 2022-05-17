@@ -1,6 +1,6 @@
 import { useState, createContext, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
-import { Rootdiv, LoanFactoryAbi, HelperAbi } from "./common";
+import { Rootdiv } from "./common";
 import Navigation from "./components/Navigation";
 import MenuDropDown from "./components/MenuDropDown";
 import LoadingSpinner from "./components/LoadingSpinner";
@@ -19,8 +19,6 @@ export const UserContext = createContext({
 const App = () => {
   const [dropdown, setDropdown] = useState(false);
   const [user, setUser] = useState(null);
-  const [deployContract, setDeployContract] = useState(null);
-  const [helperContract, setHelperContract] = useState(null);
 
   const isUnlocked = async () => {
     const ok = await window.klaytn._kaikas.isUnlocked();
@@ -35,24 +33,6 @@ const App = () => {
     window.klaytn.on("accountsChanged", (accounts) => {
       setUser((prev) => accounts[0]);
     });
-
-    setDeployContract((prev) => {
-      const contract = new window.caver.contract(
-        LoanFactoryAbi,
-        process.env.REACT_APP_LOAN_FACTORY_CONTRACT_ADDRESS
-      );
-
-      return contract;
-    });
-
-    setHelperContract((prev) => {
-      const contract = new window.caver.contract(
-        HelperAbi,
-        process.env.REACT_APP_HELPER_CONTRACT_ADDRESS
-      );
-
-      return contract;
-    });
   }, [user]);
 
   const handleDropDown = () => {
@@ -62,9 +42,7 @@ const App = () => {
   };
 
   return (
-    <UserContext.Provider
-      value={{ user, deployContract, helperContract, setUser }}
-    >
+    <UserContext.Provider value={{ user, setUser }}>
       <Rootdiv>
         <Navigation dropdown={dropdown} handleDropDown={handleDropDown} />
 

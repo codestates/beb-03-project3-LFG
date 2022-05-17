@@ -51,7 +51,7 @@ const Form = styled.div``;
 
 const LoanForm = ({ edit, create, data }) => {
   const navigate = useNavigate();
-  const { user, helperContract } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const [inputData, setInputData] = useState({ days: 0, price: 0, rate: 0 });
 
   const onChange = (e) => {
@@ -93,23 +93,44 @@ const LoanForm = ({ edit, create, data }) => {
       await window.caver.klay.sendTransaction({
         type: "SMART_CONTRACT_EXECUTION",
         from: user,
-        to: "0x3ee7a03f6d9adcb1e0c7d00af242a73885b37d56",
+        to: data.loanAddress,
         data: editEncoded,
         gas: "10000000",
       });
     }
 
     if (create) {
-      const bytecode = await helperContract.methods
-        .getBytecode(
+      const getBytecodeEncoded = window.caver.abi.encodeFunctionCall(
+        {
+          name: "getBytecode",
+          type: "function",
+          inputs: [
+            { type: "address", name: "_debtor" },
+            { type: "address", name: "_ikip17" },
+            { type: "uint256", name: "_tokenId" },
+            { type: "uint256", name: "_period" },
+            { type: "uint256", name: "_amount" },
+            { type: "uint256", name: "_rateAmount" },
+          ],
+          outputs: [{ type: "bytes", name: "" }],
+        },
+        [
           user,
           data.nftAddress,
           data.tokenId,
           formData.days,
           formData.price,
-          formData.rate
-        )
-        .call();
+          formData.rate,
+        ]
+      );
+
+      const bytecode = await window.caver.klay.sendTransaction({
+        type: "SMART_CONTRACT_EXECUTION",
+        from: user,
+        to: data.nftAddress,
+        data: getBytecodeEncoded,
+        gas: "10000000",
+      });
 
       const safeTransferEncoded = window.caver.abi.encodeFunctionCall(
         {
