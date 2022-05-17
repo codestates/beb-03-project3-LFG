@@ -29,6 +29,7 @@ import KIP17Abi from "./abi/KIP17.json";
 import { getMetadata } from "./features/getMetadata.js";
 import { getHttpURL } from "./features/getHttpURL.js";
 import { renderButton } from "./features/button.js";
+import { timeStamp } from "./features/timeStamp.js";
 
 export {
   Button,
@@ -59,4 +60,5 @@ export {
   getMetadata,
   getHttpURL,
   renderButton,
+  timeStamp,
 };

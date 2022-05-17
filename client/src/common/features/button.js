@@ -104,8 +104,21 @@ const handleRepayClick = async (user, data) => {
     []
   );
 
-  let { amount, rateAmount, period } = data;
-  let loanAmount;
+  let { amount, rateAmount, period, startAt } = data;
+  let loanAmount = (() => {
+    const time = parseInt((Date.now() + 1800) / 1000) - startAt;
+    const rate = time / period > 1 ? 1 : time / period;
+
+    if (rate <= 0.3) {
+      return (
+        "0x" + (parseInt(amount) + parseInt(rateAmount) * 0.3).toString(16)
+      );
+    } else {
+      return (
+        "0x" + (parseInt(amount) + parseInt(rateAmount) * rate).toString(16)
+      );
+    }
+  })();
 
   await window.caver.klay.sendTransaction({
     type: "SMART_CONTRACT_EXECUTION",

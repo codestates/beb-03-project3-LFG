@@ -21,7 +21,7 @@ const LFGButton = styled(Button)`
   background-color: gray;
 `;
 
-const LoanDescription = (props) => {
+const LoanDescription = ({ user, tabs, setTabs }) => {
   const navigate = useNavigate();
 
   const tabArr = [
@@ -40,13 +40,14 @@ const LoanDescription = (props) => {
       </p>
       <LFGButton
         onClick={() => {
+          if (!user) return;
           navigate("/profile/wallet");
         }}
       >
         <CalendarMonthIcon />
         Create a Loan Listing
       </LFGButton>
-      <MenuTab menus={tabArr} {...props} />
+      <MenuTab menus={tabArr} tabs={tabs} setTabs={setTabs} />
     </LDWrapper>
   );
 };

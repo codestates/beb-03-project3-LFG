@@ -70,6 +70,8 @@ const LoanForm = ({ edit, create, data }) => {
   };
 
   const handleSubmit = async () => {
+    if (!inputData.days || !inputData.price || !inputData.rate) return false;
+
     const formData = {
       days: "0x" + (Number(inputData.days) * 86400).toString(16),
       price: "0x" + (Number(inputData.price) * 1e18).toString(16),
@@ -93,10 +95,12 @@ const LoanForm = ({ edit, create, data }) => {
       await window.caver.klay.sendTransaction({
         type: "SMART_CONTRACT_EXECUTION",
         from: user,
-        to: "0x3ee7a03f6d9adcb1e0c7d00af242a73885b37d56",
+        to: data.loanAddress,
         data: editEncoded,
         gas: "10000000",
       });
+
+      return true;
     }
 
     if (create) {
@@ -157,6 +161,8 @@ const LoanForm = ({ edit, create, data }) => {
         data: deployEncoded,
         gas: "10000000",
       });
+
+      return true;
     }
   };
 
@@ -205,9 +211,9 @@ const LoanForm = ({ edit, create, data }) => {
           </Back>
           <Submit
             onClick={async () => {
-              await handleSubmit();
+              const ok = await handleSubmit();
               // 만들어진 Loan에대한 ObjectId를 가져와서 바로 Detail페이지로 가는 것도 좋을듯 (OpenRequest 상태인 걸로 가져와야함)
-              navigate(`/loans/listings`);
+              if (ok) navigate(`/loans/listings`);
             }}
           >
             Submit

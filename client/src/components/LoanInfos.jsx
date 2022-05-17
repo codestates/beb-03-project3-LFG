@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { HelpOutline, renderButton } from "../common";
+import { HelpOutline, renderButton, timeStamp } from "../common";
 import Request from "./Request";
 import Login from "./Login";
 
 const LoanInfosWrapper = styled.div`
   padding: 1rem;
+
+  & > div > div > span {
+    color: white;
+  }
 `;
 
 const Info = styled.div`
@@ -35,10 +39,32 @@ const ButtonWrapper = styled.div`
 
 const LoanInfos = ({ user, data }) => {
   const navigate = useNavigate();
+  const [timeLeft, setTimeLeft] = useState(0);
+
+  useEffect(() => {
+    const countdown = setInterval(() => {
+      setTimeLeft(timeStamp(data.startAt, data.period));
+    }, 1000);
+
+    return () => clearInterval(countdown);
+  }, [timeLeft, data.startAt, data.period]);
 
   return (
     <LoanInfosWrapper>
-      <div>Fund the loan with this NFT as collateral</div>
+      {data.state === 0 ? (
+        <div>Fund the loan with this NFT as collateral</div>
+      ) : (
+        <div>
+          <div>
+            <span>Loan funded at:</span>{" "}
+            {new Date(data.startAt * 1000).toUTCString()}
+          </div>
+          <div style={{ marginTop: "1rem" }}>
+            <span>Time left</span> {timeLeft}
+          </div>
+        </div>
+      )}
+
       <Info>
         <Request property={"Period"} value={`${data.period / 86400} Days`} />
         <Request property={"To fund"} value={data.amount / 1e18} />
@@ -46,7 +72,10 @@ const LoanInfos = ({ user, data }) => {
         <Request property={"LTF"} value={"244%"} />
         <Request
           property={"APY"}
-          value={`${(data.rateAmount / data.amount) * 100 * 365} %`}
+          value={`${
+            ((data.rateAmount / data.amount) * 100 * 365) /
+            (data.period / 86400)
+          } %`}
         />
       </Info>
       <Info>
