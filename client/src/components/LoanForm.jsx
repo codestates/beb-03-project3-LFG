@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { UserContext } from "../App";
 import { Button, HelpOutline } from "../common";
@@ -50,7 +50,6 @@ const Back = styled(Button)`
 const Form = styled.div``;
 
 const LoanForm = ({ edit, create, data }) => {
-  const params = useParams();
   const navigate = useNavigate();
   const { user, helperContract } = useContext(UserContext);
 
@@ -192,7 +191,7 @@ const LoanForm = ({ edit, create, data }) => {
           <Submit
             onClick={async () => {
               await handleSubmit();
-              navigate(`/loans/${params.hash}`);
+              navigate(`/loans/${data.nftAddress}/${data.tokenId}`);
             }}
           >
             Submit

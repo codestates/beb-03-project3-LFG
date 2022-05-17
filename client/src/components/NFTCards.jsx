@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import LoadingSpinner from "./LoadingSpinner";
 import NFTCard from "./NFTCard";
 
 const CardsWrapper = styled.div`
@@ -27,9 +28,11 @@ const CardsWrapper = styled.div`
 const NFTCards = ({ nfts }) => {
   return (
     <CardsWrapper>
-      {nfts?.map((nft, idx) => (
-        <NFTCard key={idx} nft={nft} />
-      ))}
+      {nfts ? (
+        nfts.map((nft, idx) => <NFTCard key={idx} nft={nft} />)
+      ) : (
+        <LoadingSpinner />
+      )}
     </CardsWrapper>
   );
 };

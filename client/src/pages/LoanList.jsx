@@ -24,24 +24,34 @@ const LoanList = () => {
   const [nfts, setNfts] = useState(null);
 
   useEffect(() => {
-    Promise.all([
-      getMetadata(
-        "https://ikzttp.mypinata.cloud/ipfs/QmQFkLSQysj94s5GvTHPyzTxrawwtjgiiYS2TBLgrvw8CW/0"
-      ),
-    ]).then((result) =>
+    const db = [
+      {
+        debtor: "0x24DaF1e6C925A61D9F186bF5232ed907Cfde15d9",
+        creditor: "",
+        period: 1,
+        amount: 1,
+        rateAmount: 1,
+        state: 0,
+        nftAddress: "0xaE0F3B010cEc518dB205F5BAf849b8865309BF52",
+        tokenId: 0,
+        loanAddress: "0x545a3eAb3b0e7906DaAB8d4846865e90EACBc40e",
+        projectName: "Azuki",
+        tokenURI:
+          "https://ikzttp.mypinata.cloud/ipfs/QmQFkLSQysj94s5GvTHPyzTxrawwtjgiiYS2TBLgrvw8CW/0",
+      },
+    ];
+    const promises = db.map((d) => getMetadata(d.tokenURI));
+    Promise.all(promises).then((result) => {
       setNfts((prev) =>
-        result.map((r, idx) => {
+        result.map((data, idx) => {
           return {
-            nftAddress: "0xaE0F3B010cEc518dB205F5BAf849b8865309BF52",
-            tokenId: idx,
-            state: "Open Loan Request",
-            loanAddress: "0x545a3eab3b0e7906daab8d4846865e90eacbc40e",
-            ...r.data,
+            ...data.data,
+            ...db[idx],
           };
         })
-      )
-    );
-  });
+      );
+    });
+  }, []);
 
   return (
     <Rootdiv>

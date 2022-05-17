@@ -46,19 +46,28 @@ const LoanInfos = ({ user, data }) => {
     <LoanInfosWrapper>
       <div>Fund the loan with this NFT as collateral</div>
       <Info>
-        <Request property={"Period"} value={"21 Days"} />
-        <Request property={"To fund"} value={12.2} />
+        <Request property={"Period"} value={`${data.period} Days`} />
+        <Request property={"To fund"} value={data.amount} />
         <Request property={"Floor"} value={5} />
         <Request property={"LTF"} value={"244%"} />
-        <Request property={"APY"} value={"256.4%"} />
+        <Request
+          property={"APY"}
+          value={`${(data.rateAmount / data.amount) * 100 * 365} %`}
+        />
       </Info>
       <Info>
-        <Request property={"Early Repayment"} value={12.74} />
-        <Request property={"Min Return"} value={0.54} />
+        <Request
+          property={"Early Repayment"}
+          value={data.amount + data.rateAmount * 0.3}
+        />
+        <Request property={"Min Return"} value={data.rateAmount * 0.3} />
       </Info>
       <Info>
-        <Request property={"Maturity Repayment"} value={14} />
-        <Request property={"Max Return"} value={1.8} />
+        <Request
+          property={"Maturity Repayment"}
+          value={data.amount + data.rateAmount}
+        />
+        <Request property={"Max Return"} value={data.rateAmount} />
       </Info>
       <ButtonWrapper>
         <Btn

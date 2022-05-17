@@ -8,29 +8,38 @@ const MyPage = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [nfts, setNfts] = useState(null);
   const [modalData, setModalData] = useState(null);
+
   // 웹서버에서 내 소유 NFT를 전부 가져오고 MyNFTs에 넘겨준다
   //"https://dweb.link/ipfs/QmYDvPAXtiJg7s8JdRBSLWdgSphQdac8j1YuQNNxcGE1hg/0.png"
 
   useEffect(() => {
-    Promise.all([
-      getMetadata(
-        "https://ikzttp.mypinata.cloud/ipfs/QmQFkLSQysj94s5GvTHPyzTxrawwtjgiiYS2TBLgrvw8CW/0"
-      ),
-      getMetadata(
-        "https://ikzttp.mypinata.cloud/ipfs/QmQFkLSQysj94s5GvTHPyzTxrawwtjgiiYS2TBLgrvw8CW/1"
-      ),
-    ]).then((result) =>
+    const db = [
+      {
+        projectName: "Azuki",
+        nftAddress: "0xaE0F3B010cEc518dB205F5BAf849b8865309BF52",
+        tokenId: 0,
+        tokenURI:
+          "https://ikzttp.mypinata.cloud/ipfs/QmQFkLSQysj94s5GvTHPyzTxrawwtjgiiYS2TBLgrvw8CW/0",
+      },
+      {
+        projectName: "Azuki",
+        nftAddress: "0xaE0F3B010cEc518dB205F5BAf849b8865309BF52",
+        tokenId: 1,
+        tokenURI:
+          "https://ikzttp.mypinata.cloud/ipfs/QmQFkLSQysj94s5GvTHPyzTxrawwtjgiiYS2TBLgrvw8CW/1",
+      },
+    ];
+    const promises = db.map((d) => getMetadata(d.tokenURI));
+    Promise.all(promises).then((result) => {
       setNfts((prev) =>
-        result.map((r, idx) => {
+        result.map((data, idx) => {
           return {
-            nftAddress: "0xaE0F3B010cEc518dB205F5BAf849b8865309BF52",
-            tokenId: idx,
-            loanAddress: "",
-            ...r.data,
+            ...data.data,
+            ...db[idx],
           };
         })
-      )
-    );
+      );
+    });
   }, []);
 
   return (

@@ -79,25 +79,26 @@ const NFTCard = ({ nft }) => {
   return (
     <CardWrapper
       onClick={() => {
-        navigate(`/loans/${nft.nftAddress}/${nft.tokenId}`, { state: nft });
+        navigate(`/loans/${nft.nftAddress}/${nft.tokenId}`);
       }}
     >
       <FigureWrapper>
         <Figure fig={nft.image} />
         <FigCaption>
-          <Title>Azuki</Title>
+          <Title>{nft.projectName}</Title>
           <Name>{nft.name}</Name>
         </FigCaption>
       </FigureWrapper>
       <InformationWrapper>
         <LoanInfo>
           <AccessTimeIcon />
-          9 Days
+          {nft.period} Days
           <CreditScoreIcon />
-          1.4%
+          {(nft.rateAmount / nft.amount) * 100} %
         </LoanInfo>
         <LoanInfo>
-          <span>APY</span> 58.3% <span>LTF</span> 74.1%
+          <span>APY</span> {(nft.rateAmount / nft.amount) * 100 * 365} %
+          <span>LTF</span> 74.1%
         </LoanInfo>
         <LoanReturnWrapper>
           <div>Loan + Return</div>
