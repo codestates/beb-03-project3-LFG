@@ -41,9 +41,9 @@ const deploy = async (id) => {
       key.address,
       OASIS_ADDRESS,
       id, //tokenId
-      10, // [sec]
-      1, // [wei]
-      1 // [wei]
+      5, // [sec]
+      caver.utils.convertToPeb(3, 'KLAY'), // [peb]
+      caver.utils.convertToPeb(1, 'KLAY') // [peb]
     )
     .call();
 
@@ -75,14 +75,18 @@ const edit = async (address, period, amount, rateAmount) => {
 const fund = async (address) => {
   const loan = new caver2.contract(loanAbi, address);
 
-  let receipt = await loan.methods.fund().send({ value: 3, from: key2.address, gas: 5000000 });
+  let receipt = await loan.methods
+    .fund()
+    .send({ value: caver.utils.convertToPeb(5, 'KLAY'), from: key2.address, gas: 5000000 });
   console.log(receipt);
 };
 
 const repay = async (address) => {
   const loan = new caver.contract(loanAbi, address);
 
-  let receipt = await loan.methods.repay().send({ value: 10, from: key.address, gas: 5000000 });
+  let receipt = await loan.methods
+    .repay()
+    .send({ value: caver.utils.convertToPeb(15, 'KLAY'), from: key.address, gas: 5000000 });
 
   console.log(receipt);
 };
@@ -117,14 +121,18 @@ const getBlockTimestamp = async () => {
 };
 
 async function main() {
-  deploy(353);
-
-  // const LOAN_ADDRESS = '0x9a7dd9e0f681fc2a07a3351f9f3804ced63ee350'; // 새로 loan 만들 때마다 값 바꿔줘야 함
+  // deploy(341);
+  const LOAN_ADDRESS = '0x9dabcb314d3ccaadc33c943d065694eaa9a779f0'; // 새로 loan 만들 때마다 값 바꿔줘야 함
   // cancel(LOAN_ADDRESS);
-  // edit(LOAN_ADDRESS, 300, 3, 4);
+  // edit(
+  //   LOAN_ADDRESS,
+  //   23323,
+  //   caver.utils.convertToPeb(10, 'KLAY'),
+  //   caver.utils.convertToPeb(3, 'KLAY')
+  // );
   // fund(LOAN_ADDRESS);
   // repay(LOAN_ADDRESS);
-  // defaulted(LOAN_ADDRESS);
+  defaulted(LOAN_ADDRESS);
   // getLoanState(LOAN_ADDRESS);
   // getBlockTimestamp();
   // const TEST_ADDRESS = '0xD2e13022e0195A7A32Eb2C073BB7eEB6e45f0AE5';

@@ -9,7 +9,14 @@ const {
   repayTopic,
   defaultTopic,
 } = require('./config/topics');
-const { openLoanRequest } = require('./service/listenService');
+const {
+  openLoanRequest,
+  cancelLoan,
+  editLoan,
+  fundLoan,
+  repayLoan,
+  liquidateLoan,
+} = require('./service/listenService');
 
 // db 연결 지속 위해 사용
 setInterval(async () => {
@@ -31,23 +38,27 @@ const subscrpition = caver.rpc.klay.subscribe(
       switch (res.topics[0]) {
         case deployTopic:
           console.log(res);
-          const newLoanAddress = '0x' + res.data.slice(-40);
-          openLoanRequest(newLoanAddress);
+          openLoanRequest(res.data);
           break;
         case cancelTopic:
           console.log(res);
+          cancelLoan(res.address);
           break;
         case editTopic:
           console.log(res);
+          editLoan(res.address, res.data);
           break;
         case fundTopic:
           console.log(res);
+          fundLoan(res.address, res.data);
           break;
         case repayTopic:
           console.log(res);
+          repayLoan(res.address, res.data);
           break;
         case defaultTopic:
           console.log(res);
+          liquidateLoan(res.address);
           break;
         default:
           break;
