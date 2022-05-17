@@ -20,19 +20,11 @@ const Tab = styled.li`
   }
 `;
 
-const MenuTab = ({ tabs, setTabs }) => {
-  const tabArr = [
-    { name: "LISTINGS" },
-    { name: "HISTORY" },
-    { name: "MY LISTED LOANS" },
-    { name: "MY FUNDED LOANS" },
-    { name: "HELP / FAQ" },
-  ];
-
+const MenuTab = ({ menus, tabs, setTabs }) => {
   return (
     <TabWrapper>
       <Tabs>
-        {tabArr.map((tab, idx) => (
+        {menus.map((tab, idx) => (
           <Tab
             key={idx}
             className={`${tabs === idx ? "focused" : ""}`}

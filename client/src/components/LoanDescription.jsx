@@ -24,6 +24,13 @@ const LFGButton = styled(Button)`
 const LoanDescription = (props) => {
   const navigate = useNavigate();
 
+  const tabArr = [
+    { name: "LISTINGS" },
+    { name: "HISTORY" },
+    { name: "MY LISTED LOANS" },
+    { name: "MY FUNDED LOANS" },
+    { name: "HELP / FAQ" },
+  ];
   return (
     <LDWrapper>
       <h3>NFT Collateralized Loans</h3>
@@ -39,7 +46,7 @@ const LoanDescription = (props) => {
         <CalendarMonthIcon />
         Create a Loan Listing
       </LFGButton>
-      <MenuTab {...props} />
+      <MenuTab menus={tabArr} {...props} />
     </LDWrapper>
   );
 };

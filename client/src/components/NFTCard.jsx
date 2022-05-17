@@ -12,6 +12,15 @@ const CardWrapper = styled.div`
 
   cursor: pointer;
 `;
+
+const State = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem;
+`;
+
 const FigureWrapper = styled.div`
   border-bottom: 1px solid tomato;
   padding-bottom: 0.75rem;
@@ -76,13 +85,33 @@ const LoanReturnWrapper = styled.div`
 const NFTCard = ({ nft }) => {
   const navigate = useNavigate();
 
+  const loanState = () => {
+    switch (nft.state) {
+      case 0:
+        return "Open Loan Request";
+
+      case 1:
+        return "Funded Loan";
+
+      case 2:
+        return "Paidback Loan";
+
+      case 3:
+        return "Defaulted Loan";
+
+      default:
+        return "Invalid State";
+    }
+  };
+
   return (
-    <CardWrapper
-      onClick={() => {
-        navigate(`/loans/${nft.objectId}`);
-      }}
-    >
-      <FigureWrapper>
+    <CardWrapper>
+      <State>{loanState()}</State>
+      <FigureWrapper
+        onClick={() => {
+          navigate(`/loans/${nft.objectId}`);
+        }}
+      >
         <Figure fig={nft.image} />
         <FigCaption>
           <Title>{nft.projectName}</Title>

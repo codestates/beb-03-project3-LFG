@@ -87,7 +87,8 @@ const LoanList = () => {
           nfts.filter(
             (data) =>
               data.state === 1 &&
-              data.debtor.toLowerCase() === user.toLowerCase()
+              (data.debtor.toLowerCase() === user.toLowerCase() ||
+                data.creditor.toLowerCase() === user.toLowerCase())
           )
         );
         break;
@@ -97,7 +98,7 @@ const LoanList = () => {
       default:
         break;
     }
-  }, [tabs]);
+  }, [tabs, nfts, user]);
 
   return (
     <Rootdiv>
