@@ -26,8 +26,10 @@ const LoanList = () => {
   useEffect(() => {
     const db = [
       {
+        objectId: "0",
         debtor: "0x24DaF1e6C925A61D9F186bF5232ed907Cfde15d9",
         creditor: "",
+        startAt: 1,
         period: 1,
         amount: 1,
         rateAmount: 1,

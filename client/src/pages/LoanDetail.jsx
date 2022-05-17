@@ -27,10 +27,12 @@ const LoanDetail = ({ create, edit }) => {
       // create를 하려고 MyPage에서 정보를 받아온 경우
       setNft((prev) => location.state.data);
     } else {
-      // 이미 만들어진 LoanRequest에 대해서 db에서 Loan데이터를 받아오는 경우
+      // 이미 만들어진 LoanRequest에 대해서 db에서 Loan데이터를 받아오는 경우 nftAddress, tokenId, debtor, state를 만족하는 것을 가지고 온다
       const data = {
+        objectId: "0",
         debtor: "0x24DaF1e6C925A61D9F186bF5232ed907Cfde15d9",
         creditor: "",
+        startAt: "",
         period: 1,
         amount: 1,
         rateAmount: 1,

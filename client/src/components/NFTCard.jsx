@@ -79,7 +79,7 @@ const NFTCard = ({ nft }) => {
   return (
     <CardWrapper
       onClick={() => {
-        navigate(`/loans/${nft.nftAddress}/${nft.tokenId}`);
+        navigate(`/loans/${nft.objectId}`);
       }}
     >
       <FigureWrapper>
@@ -107,7 +107,7 @@ const NFTCard = ({ nft }) => {
               src="https://s2.coinmarketcap.com/static/img/coins/64x64/4256.png"
               alt="solana"
             />
-            125.2 + <span>1.8</span>
+            {nft.amount} + <span>{nft.rateAmount}</span>
           </div>
         </LoanReturnWrapper>
       </InformationWrapper>

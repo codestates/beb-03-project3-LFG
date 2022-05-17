@@ -74,12 +74,9 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/loans/listings" element={<LoanList />} />
-            <Route path="/loans/:address/:id" element={<LoanDetail />} />
+            <Route path="/loans/:hash" element={<LoanDetail />} />
             <Route path="/loans/create" element={<LoanDetail create />} />
-            <Route
-              path="/loans/:address/:id/edit"
-              element={<LoanDetail edit />}
-            />
+            <Route path="/loans/:hash/edit" element={<LoanDetail edit />} />
             <Route path="/profile/wallet" element={<MyPage />} />
             <Route path="/loading" element={<LoadingSpinner />} />
           </Routes>

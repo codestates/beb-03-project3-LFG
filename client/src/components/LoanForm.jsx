@@ -89,7 +89,7 @@ const LoanForm = ({ edit, create, data }) => {
         [inputData.days, inputData.price, inputData.rate]
       );
 
-      let receipt = await window.caver.klay.sendTransaction({
+      await window.caver.klay.sendTransaction({
         type: "SMART_CONTRACT_EXECUTION",
         from: user,
         to: "0x3ee7a03f6d9adcb1e0c7d00af242a73885b37d56",
@@ -127,7 +127,7 @@ const LoanForm = ({ edit, create, data }) => {
         ]
       );
 
-      let receipt = await window.caver.klay.sendTransaction({
+      await window.caver.klay.sendTransaction({
         type: "SMART_CONTRACT_EXECUTION",
         from: user,
         to: data.nftAddress,
@@ -149,7 +149,7 @@ const LoanForm = ({ edit, create, data }) => {
         [bytecode, data.nftAddress, data.tokenId]
       );
 
-      receipt = await window.caver.klay.sendTransaction({
+      await window.caver.klay.sendTransaction({
         type: "SMART_CONTRACT_EXECUTION",
         from: user,
         to: process.env.REACT_APP_LOAN_FACTORY_CONTRACT_ADDRESS,
@@ -158,8 +158,6 @@ const LoanForm = ({ edit, create, data }) => {
       });
     }
   };
-
-  const renderButton = () => {};
 
   return (
     <LoanFormWrapper>
@@ -178,9 +176,7 @@ const LoanForm = ({ edit, create, data }) => {
           <Back
             onClick={() => {
               if (edit) {
-                navigate(`/loans/${data.nftAddress}/${data.tokenId}`, {
-                  state: data,
-                });
+                navigate(`/loans/${data.objectId}`);
               } else {
                 navigate(`/profile/wallet`);
               }
@@ -191,7 +187,8 @@ const LoanForm = ({ edit, create, data }) => {
           <Submit
             onClick={async () => {
               await handleSubmit();
-              navigate(`/loans/${data.nftAddress}/${data.tokenId}`);
+              // 만들어진 Loan에대한 ObjectId를 가져와서 바로 Detail페이지로 가는 것도 좋을듯 (OpenRequest 상태인 걸로 가져와야함)
+              navigate(`/loans/listings`);
             }}
           >
             Submit

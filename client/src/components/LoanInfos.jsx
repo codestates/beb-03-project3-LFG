@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { HelpOutline, Button } from "../common";
 import Request from "./Request";
@@ -40,7 +40,80 @@ const Btn = styled(Button)`
 
 const LoanInfos = ({ user, data }) => {
   const navigate = useNavigate();
-  const params = useParams();
+
+  const handleCancelClick = async () => {
+    const cancelEncoded = window.caver.abi.encodeFunctionCall(
+      {
+        name: "cancel",
+        type: "function",
+        inputs: [],
+      },
+      []
+    );
+
+    await window.caver.klay.sendTransaction({
+      type: "SMART_CONTRACT_EXECUTION",
+      from: user,
+      to: data.loanAddress,
+      data: cancelEncoded,
+      gas: "10000000",
+    });
+  };
+
+  const handleFundClick = async () => {
+    const fundEncoded = window.caver.abi.encodeFunctionCall(
+      {
+        name: "fund",
+        type: "function",
+        inputs: [],
+      },
+      []
+    );
+
+    await window.caver.klay.sendTransaction({
+      type: "SMART_CONTRACT_EXECUTION",
+      from: user,
+      to: data.loanAddress,
+      value: "0x" + ((data.amount + data.rateAmount * 0.1) * 1e18).toString(16),
+      data: fundEncoded,
+      gas: "10000000",
+    });
+  };
+
+  const renderButton = () => {
+    if (user.toLowerCase() === data.debtor.toLowerCase()) {
+      return (
+        <>
+          <Btn
+            onClick={() => {
+              navigate(`/loans/${data.objectId}/edit`);
+            }}
+          >
+            Edit
+          </Btn>
+          <Btn
+            onClick={async () => {
+              await handleCancelClick();
+              navigate(`/loans/listings`);
+            }}
+          >
+            Cancel
+          </Btn>
+        </>
+      );
+    } else {
+      return (
+        <Btn
+          onClick={async () => {
+            await handleFundClick();
+            navigate(`/loans/${data.objectId}`);
+          }}
+        >
+          Fund
+        </Btn>
+      );
+    }
+  };
 
   return (
     <LoanInfosWrapper>
@@ -69,18 +142,7 @@ const LoanInfos = ({ user, data }) => {
         />
         <Request property={"Max Return"} value={data.rateAmount} />
       </Info>
-      <ButtonWrapper>
-        <Btn
-          onClick={() => {
-            navigate(`/loans/${data.nftAddress}/${data.tokenId}/edit`, {
-              state: data,
-            });
-          }}
-        >
-          Edit
-        </Btn>
-        <Btn>Cancel</Btn>
-      </ButtonWrapper>
+      <ButtonWrapper>{renderButton()}</ButtonWrapper>
 
       <Help>
         <span>

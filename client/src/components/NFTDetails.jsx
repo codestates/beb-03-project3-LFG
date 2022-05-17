@@ -1,5 +1,4 @@
 import React from "react";
-import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { Rootdiv, VerifiedUserIcon } from "../common";
 import AttributeCard from "./AttributeCard";
