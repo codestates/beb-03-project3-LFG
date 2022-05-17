@@ -16,6 +16,8 @@ const MyPage = () => {
     const db = [
       {
         projectName: "Azuki",
+        teamName: "",
+        floorPrice: "",
         nftAddress: "0xaE0F3B010cEc518dB205F5BAf849b8865309BF52",
         tokenId: 0,
         tokenURI:
@@ -23,6 +25,8 @@ const MyPage = () => {
       },
       {
         projectName: "Azuki",
+        teamName: "",
+        floorPrice: "",
         nftAddress: "0xaE0F3B010cEc518dB205F5BAf849b8865309BF52",
         tokenId: 1,
         tokenURI:

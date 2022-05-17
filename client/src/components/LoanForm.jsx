@@ -165,11 +165,26 @@ const LoanForm = ({ edit, create, data }) => {
       <Form>
         <InputWrapper>
           <Label>Days</Label>
-          <Input name="days" value={data["days"] || 0} onChange={onChange} />
+          <Input
+            name="days"
+            value={data["days"]}
+            placeholder="days"
+            onChange={onChange}
+          />
           <Label>Price</Label>
-          <Input name="price" value={data["price"] || 0} onChange={onChange} />
+          <Input
+            name="price"
+            value={data["price"]}
+            placeholder="KLAY"
+            onChange={onChange}
+          />
           <Label>Rate</Label>
-          <Input name="rate" value={data["rate"] || 0} onChange={onChange} />
+          <Input
+            name="rate"
+            value={data["rate"]}
+            placeholder="KLAY"
+            onChange={onChange}
+          />
         </InputWrapper>
 
         <ButtonWrapper>

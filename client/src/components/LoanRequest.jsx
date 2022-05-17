@@ -27,7 +27,7 @@ const Title = styled.div`
 `;
 
 const LoanRequest = ({ edit, create, data }) => {
-  // 0 is not started
+  // 0 OpenRequest
   // 1 is Open Loan Request
   // 2 is Funded Loan
   // 3 is Finished
@@ -53,6 +53,9 @@ const LoanRequest = ({ edit, create, data }) => {
         setLoanState("Funded Loan");
         break;
       case 2:
+        setLoanState("Paidback Loan");
+        break;
+      case 3:
         setLoanState("Defaulted Loan");
         break;
       default:

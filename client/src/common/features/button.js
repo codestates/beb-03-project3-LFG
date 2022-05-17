@@ -7,6 +7,10 @@ const Btn = styled(Button)`
 `;
 
 export const renderButton = (navigate, user, data) => {
+  if (!user) {
+    return;
+  }
+
   if (data.state === 0) {
     if (user.toLowerCase() === data.debtor.toLowerCase()) {
       return (
@@ -100,6 +104,7 @@ const handleRepayClick = async (user, data) => {
     []
   );
 
+  let { amount, rateAmount, period } = data;
   let loanAmount;
 
   await window.caver.klay.sendTransaction({

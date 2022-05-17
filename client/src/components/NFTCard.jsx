@@ -92,7 +92,7 @@ const NFTCard = ({ nft }) => {
       <InformationWrapper>
         <LoanInfo>
           <AccessTimeIcon />
-          {nft.period} Days
+          {nft.period / 86400} Days
           <CreditScoreIcon />
           {(nft.rateAmount / nft.amount) * 100} %
         </LoanInfo>
@@ -107,7 +107,7 @@ const NFTCard = ({ nft }) => {
               src="https://s2.coinmarketcap.com/static/img/coins/64x64/4256.png"
               alt="solana"
             />
-            {nft.amount} + <span>{nft.rateAmount}</span>
+            {nft.amount / 1e18} + <span>{nft.rateAmount / 1e18}</span>
           </div>
         </LoanReturnWrapper>
       </InformationWrapper>
