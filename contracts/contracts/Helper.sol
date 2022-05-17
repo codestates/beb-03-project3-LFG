@@ -13,4 +13,7 @@ contract Helper {
         return abi.encodeWithSignature("safeTransferFrom(address,address,uint256)", from, to, id);
     }
 
+    function getLoanCreationCode() external pure returns (bytes memory) {
+        return type(Loan).creationCode;
+    }
 }

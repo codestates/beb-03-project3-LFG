@@ -147,7 +147,7 @@ contract Loan is IERC721Receiver, IKIP17Receiver {
     function defaulted()
         external checkState(LoanState.FUNDED)
     {
-        require(block.timestamp > term.startAt + term.period + 1 days, "grace period not expired yet");
+        require(block.timestamp > term.startAt + term.period, "grace period not expired yet");
         require(address(uint160(msg.sender)) == term.creditor, "invalid creditor");
 
         _takeCollateralByCreditor();
