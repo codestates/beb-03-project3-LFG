@@ -18,24 +18,25 @@ const ButtonWrapper = styled.div`
   justify-content: center;
 `;
 
-const MyNFT = ({ setIsOpen }) => {
+const MyNFT = ({ data, setIsOpen, setModalData }) => {
   const navigate = useNavigate();
 
   const onCreateLoanClick = (event) => {
-    navigate("/loans/0/create");
+    navigate("/loans/create", { state: { data } });
   };
 
   const openModal = () => {
     setIsOpen(true);
+    setModalData((prev) => data);
   };
 
   return (
     <CardWrapper>
       <FigureWrapper onClick={openModal}>
-        <Figure />
+        <Figure fig={data.image} />
         <FigCaption>
-          <Title>LFGTrader #0</Title>
-          <Name>LFGTrader</Name>
+          <Title>Azuki</Title>
+          <Name>{data.name}</Name>
         </FigCaption>
       </FigureWrapper>
       <ButtonWrapper>

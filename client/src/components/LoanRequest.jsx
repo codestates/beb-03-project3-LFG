@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import styled from "styled-components";
 import { UserContext } from "../App";
 import LoanInfos from "./LoanInfos";
@@ -26,29 +26,48 @@ const Title = styled.div`
   color: white;
 `;
 
-const LoanRequest = ({ edit, create }) => {
-  // 0 is not started
+const LoanRequest = ({ edit, create, data }) => {
+  // 0 OpenRequest
   // 1 is Open Loan Request
   // 2 is Funded Loan
   // 3 is Finished
-  const [loanStatus, setLoanStatus] = useState(0);
+  const [loanState, setLoanState] = useState("");
   const { user } = useContext(UserContext);
 
   const renderLoanComponent = () => {
     if (edit) {
-      return <LoanForm edit />;
+      return <LoanForm edit data={data} />;
     }
     if (create) {
-      return <LoanForm create />;
+      return <LoanForm create data={data} />;
     }
-    return <LoanInfos user={user} />;
+    return <LoanInfos user={user} data={data} />;
   };
+
+  useEffect(() => {
+    switch (data.state) {
+      case 0:
+        setLoanState("Open Loan Request");
+        break;
+      case 1:
+        setLoanState("Funded Loan");
+        break;
+      case 2:
+        setLoanState("Paidback Loan");
+        break;
+      case 3:
+        setLoanState("Defaulted Loan");
+        break;
+      default:
+        setLoanState("Invalid State");
+    }
+  }, [data.state]);
 
   return (
     <RequestWrapper>
-      {/* // loanStatus에 따라 다른 TEXT가 들어가야함 */}
+      {/* // loanState에 따라 다른 TEXT가 들어가야함 */}
       <TitleWrapper>
-        <Title>Open Loan Request</Title>
+        <Title>{loanState}</Title>
       </TitleWrapper>
       {renderLoanComponent()}
     </RequestWrapper>

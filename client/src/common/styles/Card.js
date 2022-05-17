@@ -14,9 +14,9 @@ const FigureWrapper = styled.div`
   border-bottom: 1px solid tomato;
   padding-bottom: 0.75rem;
 `;
-const Figure = styled.img.attrs({
-  src: "/test/lfgcard.png",
-})`
+const Figure = styled.img.attrs((props) => ({
+  src: props.fig,
+}))`
   width: 100%;
 `;
 const FigCaption = styled.div``;

@@ -106,14 +106,13 @@ const MenuWrapper = styled.div`
   }
 `;
 
-const Profile = () => {
+const Profile = (props) => {
   const tabArr = [
     { name: "MY NFTS" },
-    { name: "LISTED NFTS" },
-    { name: "OPEN TRADES" },
-    { name: "INCOMING OFFERS" },
     { name: "MY LISTED LOANS" },
     { name: "FUNDED LOANS" },
+    { name: "OPEN TRADES" },
+    { name: "INCOMING OFFERS" },
   ];
 
   return (
@@ -149,7 +148,7 @@ const Profile = () => {
         </UserInfo>
       </ProfileDiv>
       <MenuWrapper>
-        <MenuTab menus={tabArr} />
+        <MenuTab menus={tabArr} {...props} />
       </MenuWrapper>
     </ProfileWrapper>
   );

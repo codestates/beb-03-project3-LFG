@@ -12,13 +12,22 @@ const CardWrapper = styled.div`
 
   cursor: pointer;
 `;
+
+const State = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem;
+`;
+
 const FigureWrapper = styled.div`
   border-bottom: 1px solid tomato;
   padding-bottom: 0.75rem;
 `;
-const Figure = styled.img.attrs({
-  src: "/test/lfgcard.png",
-})`
+const Figure = styled.img.attrs((props) => ({
+  src: props.fig,
+}))`
   width: 100%;
 `;
 const FigCaption = styled.div``;
@@ -73,31 +82,52 @@ const LoanReturnWrapper = styled.div`
   }
 `;
 
-const NFTCard = ({ idx }) => {
+const NFTCard = ({ nft }) => {
   const navigate = useNavigate();
 
+  const loanState = () => {
+    switch (nft.state) {
+      case 0:
+        return "Open Loan Request";
+
+      case 1:
+        return "Funded Loan";
+
+      case 2:
+        return "Paidback Loan";
+
+      case 3:
+        return "Defaulted Loan";
+
+      default:
+        return "Invalid State";
+    }
+  };
+
   return (
-    <CardWrapper
-      onClick={() => {
-        navigate(`/loans/${idx}`);
-      }}
-    >
-      <FigureWrapper>
-        <Figure />
+    <CardWrapper>
+      <State>{loanState()}</State>
+      <FigureWrapper
+        onClick={() => {
+          navigate(`/loans/${nft.objectId}`);
+        }}
+      >
+        <Figure fig={nft.image} />
         <FigCaption>
-          <Title>LFGTrader #{idx}</Title>
-          <Name>LFGTrader</Name>
+          <Title>{nft.projectName}</Title>
+          <Name>{nft.name}</Name>
         </FigCaption>
       </FigureWrapper>
       <InformationWrapper>
         <LoanInfo>
           <AccessTimeIcon />
-          9 Days
+          {nft.period / 86400} Days
           <CreditScoreIcon />
-          1.4%
+          {(nft.rateAmount / nft.amount) * 100} %
         </LoanInfo>
         <LoanInfo>
-          <span>APY</span> 58.3% <span>LTF</span> 74.1%
+          <span>APY</span> {(nft.rateAmount / nft.amount) * 100 * 365} %
+          <span>LTF</span> 74.1%
         </LoanInfo>
         <LoanReturnWrapper>
           <div>Loan + Return</div>
@@ -106,7 +136,7 @@ const NFTCard = ({ idx }) => {
               src="https://s2.coinmarketcap.com/static/img/coins/64x64/4256.png"
               alt="solana"
             />
-            125.2 + <span>1.8</span>
+            {nft.amount / 1e18} + <span>{nft.rateAmount / 1e18}</span>
           </div>
         </LoanReturnWrapper>
       </InformationWrapper>

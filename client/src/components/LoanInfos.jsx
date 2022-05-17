@@ -1,7 +1,7 @@
 import React from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { HelpOutline, Button } from "../common";
+import { HelpOutline, renderButton } from "../common";
 import Request from "./Request";
 import Login from "./Login";
 
@@ -33,45 +33,40 @@ const ButtonWrapper = styled.div`
   gap: 1rem;
 `;
 
-const Btn = styled(Button)`
-  background-color: salmon;
-  margin-top: 2rem;
-`;
-
-const LoanInfos = ({ user }) => {
+const LoanInfos = ({ user, data }) => {
   const navigate = useNavigate();
-  const params = useParams();
-
-  console.log(params);
 
   return (
     <LoanInfosWrapper>
       <div>Fund the loan with this NFT as collateral</div>
       <Info>
-        <Request property={"Period"} value={"21 Days"} />
-        <Request property={"To fund"} value={12.2} />
+        <Request property={"Period"} value={`${data.period / 86400} Days`} />
+        <Request property={"To fund"} value={data.amount / 1e18} />
         <Request property={"Floor"} value={5} />
         <Request property={"LTF"} value={"244%"} />
-        <Request property={"APY"} value={"256.4%"} />
+        <Request
+          property={"APY"}
+          value={`${(data.rateAmount / data.amount) * 100 * 365} %`}
+        />
       </Info>
       <Info>
-        <Request property={"Early Repayment"} value={12.74} />
-        <Request property={"Min Return"} value={0.54} />
+        <Request
+          property={"Early Repayment"}
+          value={(Number(data.amount) + Number(data.rateAmount) * 0.3) / 1e18}
+        />
+        <Request
+          property={"Min Return"}
+          value={(data.rateAmount * 0.3) / 1e18}
+        />
       </Info>
       <Info>
-        <Request property={"Maturity Repayment"} value={14} />
-        <Request property={"Max Return"} value={1.8} />
+        <Request
+          property={"Maturity Repayment"}
+          value={(Number(data.amount) + Number(data.rateAmount)) / 1e18}
+        />
+        <Request property={"Max Return"} value={data.rateAmount / 1e18} />
       </Info>
-      <ButtonWrapper>
-        <Btn
-          onClick={() => {
-            navigate(`/loans/${params.hash}/edit`);
-          }}
-        >
-          Edit
-        </Btn>
-        <Btn>Cancel</Btn>
-      </ButtonWrapper>
+      <ButtonWrapper>{renderButton(navigate, user, data)}</ButtonWrapper>
 
       <Help>
         <span>
