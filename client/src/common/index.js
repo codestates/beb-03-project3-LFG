@@ -28,6 +28,7 @@ import HelperAbi from "./abi/Helper.json";
 import KIP17Abi from "./abi/KIP17.json";
 import { getMetadata } from "./features/getMetadata.js";
 import { getHttpURL } from "./features/getHttpURL.js";
+import { renderButton } from "./features/button.js";
 
 export {
   Button,
@@ -57,4 +58,5 @@ export {
   KIP17Abi,
   getMetadata,
   getHttpURL,
+  renderButton,
 };

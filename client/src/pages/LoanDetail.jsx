@@ -31,7 +31,7 @@ const LoanDetail = ({ create, edit }) => {
       const data = {
         objectId: "0",
         debtor: "0x24DaF1e6C925A61D9F186bF5232ed907Cfde15d9",
-        creditor: "",
+        creditor: "", // 0xF5421BE9Ddd7f26a86a82A8ef7D4161F7d4461B6
         startAt: "",
         period: 1,
         amount: 1,

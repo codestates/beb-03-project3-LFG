@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { HelpOutline, Button } from "../common";
+import { HelpOutline, renderButton } from "../common";
 import Request from "./Request";
 import Login from "./Login";
 
@@ -33,87 +33,8 @@ const ButtonWrapper = styled.div`
   gap: 1rem;
 `;
 
-const Btn = styled(Button)`
-  background-color: salmon;
-  margin-top: 2rem;
-`;
-
 const LoanInfos = ({ user, data }) => {
   const navigate = useNavigate();
-
-  const handleCancelClick = async () => {
-    const cancelEncoded = window.caver.abi.encodeFunctionCall(
-      {
-        name: "cancel",
-        type: "function",
-        inputs: [],
-      },
-      []
-    );
-
-    await window.caver.klay.sendTransaction({
-      type: "SMART_CONTRACT_EXECUTION",
-      from: user,
-      to: data.loanAddress,
-      data: cancelEncoded,
-      gas: "10000000",
-    });
-  };
-
-  const handleFundClick = async () => {
-    const fundEncoded = window.caver.abi.encodeFunctionCall(
-      {
-        name: "fund",
-        type: "function",
-        inputs: [],
-      },
-      []
-    );
-
-    await window.caver.klay.sendTransaction({
-      type: "SMART_CONTRACT_EXECUTION",
-      from: user,
-      to: data.loanAddress,
-      value: "0x" + ((data.amount + data.rateAmount * 0.1) * 1e18).toString(16),
-      data: fundEncoded,
-      gas: "10000000",
-    });
-  };
-
-  const renderButton = () => {
-    if (user.toLowerCase() === data.debtor.toLowerCase()) {
-      return (
-        <>
-          <Btn
-            onClick={() => {
-              navigate(`/loans/${data.objectId}/edit`);
-            }}
-          >
-            Edit
-          </Btn>
-          <Btn
-            onClick={async () => {
-              await handleCancelClick();
-              navigate(`/loans/listings`);
-            }}
-          >
-            Cancel
-          </Btn>
-        </>
-      );
-    } else {
-      return (
-        <Btn
-          onClick={async () => {
-            await handleFundClick();
-            navigate(`/loans/${data.objectId}`);
-          }}
-        >
-          Fund
-        </Btn>
-      );
-    }
-  };
 
   return (
     <LoanInfosWrapper>
@@ -142,7 +63,7 @@ const LoanInfos = ({ user, data }) => {
         />
         <Request property={"Max Return"} value={data.rateAmount} />
       </Info>
-      <ButtonWrapper>{renderButton()}</ButtonWrapper>
+      <ButtonWrapper>{renderButton(navigate, user, data)}</ButtonWrapper>
 
       <Help>
         <span>
