@@ -47,6 +47,22 @@ const LoanList = () => {
         tokenURI:
           "https://ikzttp.mypinata.cloud/ipfs/QmQFkLSQysj94s5GvTHPyzTxrawwtjgiiYS2TBLgrvw8CW/0",
       },
+      {
+        objectId: "1",
+        debtor: "0x24DaF1e6C925A61D9F186bF5232ed907Cfde15d9",
+        creditor: "",
+        startAt: "",
+        period: 86400 * 2,
+        amount: "10000000000000000000",
+        rateAmount: "1000000000000000000",
+        state: 0,
+        nftAddress: "0xaE0F3B010cEc518dB205F5BAf849b8865309BF52",
+        tokenId: 1,
+        loanAddress: "0xf365eeb3dcf6ba8e5a8c9957a27adf265340c5ce",
+        projectName: "Azuki",
+        tokenURI:
+          "https://ikzttp.mypinata.cloud/ipfs/QmQFkLSQysj94s5GvTHPyzTxrawwtjgiiYS2TBLgrvw8CW/1",
+      },
     ];
     const promises = db.map((d) => getMetadata(d.tokenURI));
     Promise.all(promises).then((result) => {

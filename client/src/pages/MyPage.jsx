@@ -24,15 +24,15 @@ const MyPage = () => {
       //   tokenURI:
       //     "https://ikzttp.mypinata.cloud/ipfs/QmQFkLSQysj94s5GvTHPyzTxrawwtjgiiYS2TBLgrvw8CW/0",
       // },
-      {
-        projectName: "Azuki",
-        teamName: "",
-        floorPrice: "",
-        nftAddress: "0xaE0F3B010cEc518dB205F5BAf849b8865309BF52",
-        tokenId: 1,
-        tokenURI:
-          "https://ikzttp.mypinata.cloud/ipfs/QmQFkLSQysj94s5GvTHPyzTxrawwtjgiiYS2TBLgrvw8CW/1",
-      },
+      // {
+      //   projectName: "Azuki",
+      //   teamName: "",
+      //   floorPrice: "",
+      //   nftAddress: "0xaE0F3B010cEc518dB205F5BAf849b8865309BF52",
+      //   tokenId: 1,
+      //   tokenURI:
+      //     "https://ikzttp.mypinata.cloud/ipfs/QmQFkLSQysj94s5GvTHPyzTxrawwtjgiiYS2TBLgrvw8CW/1",
+      // },
       {
         projectName: "Azuki",
         teamName: "",

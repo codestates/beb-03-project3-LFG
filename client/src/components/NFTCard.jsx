@@ -126,7 +126,8 @@ const NFTCard = ({ nft }) => {
           {(nft.rateAmount / nft.amount) * 100} %
         </LoanInfo>
         <LoanInfo>
-          <span>APY</span> {(nft.rateAmount / nft.amount) * 100 * 365} %
+          <span>APY</span>{" "}
+          {((nft.rateAmount / nft.amount) * 100 * 365) / (nft.period / 86400)} %
           <span>LTF</span> 74.1%
         </LoanInfo>
         <LoanReturnWrapper>

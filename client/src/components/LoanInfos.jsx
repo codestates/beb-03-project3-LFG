@@ -72,7 +72,10 @@ const LoanInfos = ({ user, data }) => {
         <Request property={"LTF"} value={"244%"} />
         <Request
           property={"APY"}
-          value={`${(data.rateAmount / data.amount) * 100 * 365} %`}
+          value={`${
+            ((data.rateAmount / data.amount) * 100 * 365) /
+            (data.period / 86400)
+          } %`}
         />
       </Info>
       <Info>

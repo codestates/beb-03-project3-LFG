@@ -51,7 +51,7 @@ const Form = styled.div``;
 
 const LoanForm = ({ edit, create, data }) => {
   const navigate = useNavigate();
-  const { user } = useContext(UserContext);
+  const { user, helperContract } = useContext(UserContext);
   const [inputData, setInputData] = useState({ days: 0, price: 0, rate: 0 });
 
   const onChange = (e) => {
@@ -70,6 +70,8 @@ const LoanForm = ({ edit, create, data }) => {
   };
 
   const handleSubmit = async () => {
+    if (!inputData.days || !inputData.price || !inputData.rate) return false;
+
     const formData = {
       days: "0x" + (Number(inputData.days) * 86400).toString(16),
       price: "0x" + (Number(inputData.price) * 1e18).toString(16),
@@ -97,40 +99,21 @@ const LoanForm = ({ edit, create, data }) => {
         data: editEncoded,
         gas: "10000000",
       });
+
+      return true;
     }
 
     if (create) {
-      const getBytecodeEncoded = window.caver.abi.encodeFunctionCall(
-        {
-          name: "getBytecode",
-          type: "function",
-          inputs: [
-            { type: "address", name: "_debtor" },
-            { type: "address", name: "_ikip17" },
-            { type: "uint256", name: "_tokenId" },
-            { type: "uint256", name: "_period" },
-            { type: "uint256", name: "_amount" },
-            { type: "uint256", name: "_rateAmount" },
-          ],
-          outputs: [{ type: "bytes", name: "" }],
-        },
-        [
+      const bytecode = await helperContract.methods
+        .getBytecode(
           user,
           data.nftAddress,
           data.tokenId,
           formData.days,
           formData.price,
-          formData.rate,
-        ]
-      );
-
-      const bytecode = await window.caver.klay.sendTransaction({
-        type: "SMART_CONTRACT_EXECUTION",
-        from: user,
-        to: data.nftAddress,
-        data: getBytecodeEncoded,
-        gas: "10000000",
-      });
+          formData.rate
+        )
+        .call();
 
       const safeTransferEncoded = window.caver.abi.encodeFunctionCall(
         {
@@ -178,6 +161,8 @@ const LoanForm = ({ edit, create, data }) => {
         data: deployEncoded,
         gas: "10000000",
       });
+
+      return true;
     }
   };
 
@@ -226,9 +211,9 @@ const LoanForm = ({ edit, create, data }) => {
           </Back>
           <Submit
             onClick={async () => {
-              await handleSubmit();
+              const ok = await handleSubmit();
               // 만들어진 Loan에대한 ObjectId를 가져와서 바로 Detail페이지로 가는 것도 좋을듯 (OpenRequest 상태인 걸로 가져와야함)
-              navigate(`/loans/listings`);
+              if (ok) navigate(`/loans/listings`);
             }}
           >
             Submit
