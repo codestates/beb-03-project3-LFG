@@ -102,7 +102,7 @@ const LoanList = () => {
 
   return (
     <Rootdiv>
-      <LoanDescription tabs={tabs} setTabs={setTabs} />
+      <LoanDescription user={user} tabs={tabs} setTabs={setTabs} />
       {nfts ? (
         <Gallery>
           <Filter />
