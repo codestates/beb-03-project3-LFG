@@ -355,6 +355,10 @@ contract Trading is IKIP17{
         return tempArray;
     }
     function confirmAndTransfer(uint256 __offerId, uint256 _respondId) public payable {
+        require(storeRespond[_respondId]); // 해당 respond값이 있는지 없는지
+        require(storeOffer[__offerId].initializeOfferAddress == msg.sender);
+        // confirm은 initialOfferAddress만 할 수 있게
+
         offerList memory tempOffer = storeOffer[__offerId];
 
         for (uint256 i=1; i<tempOffer.nftContractAddress.length; i++) {
@@ -368,7 +372,7 @@ contract Trading is IKIP17{
         }
     }
 }
-// 1. klaytn 송금         msg.sender.transfer(amount);  (완료)
+// 1. klaytn 송금 msg.sender.transfer(amount);  (완료)
 // 2. nft미리 콘트렉트에 전송 ( address.this ) (완료)
-// 3. require 접근 제한 (완료)
+// 3. require 접근 제한 (완료) 마지막부분 추가
 // 4. counters.counter 편의를 위해 (완료)
