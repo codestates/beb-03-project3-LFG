@@ -14,15 +14,15 @@ const MyPage = () => {
 
   useEffect(() => {
     const db = [
-      {
-        projectName: "Azuki",
-        teamName: "",
-        floorPrice: "",
-        nftAddress: "0xaE0F3B010cEc518dB205F5BAf849b8865309BF52",
-        tokenId: 0,
-        tokenURI:
-          "https://ikzttp.mypinata.cloud/ipfs/QmQFkLSQysj94s5GvTHPyzTxrawwtjgiiYS2TBLgrvw8CW/0",
-      },
+      // {
+      //   projectName: "Azuki",
+      //   teamName: "",
+      //   floorPrice: "",
+      //   nftAddress: "0xaE0F3B010cEc518dB205F5BAf849b8865309BF52",
+      //   tokenId: 0,
+      //   tokenURI:
+      //     "https://ikzttp.mypinata.cloud/ipfs/QmQFkLSQysj94s5GvTHPyzTxrawwtjgiiYS2TBLgrvw8CW/0",
+      // },
       {
         projectName: "Azuki",
         teamName: "",
@@ -31,6 +31,15 @@ const MyPage = () => {
         tokenId: 1,
         tokenURI:
           "https://ikzttp.mypinata.cloud/ipfs/QmQFkLSQysj94s5GvTHPyzTxrawwtjgiiYS2TBLgrvw8CW/1",
+      },
+      {
+        projectName: "Azuki",
+        teamName: "",
+        floorPrice: "",
+        nftAddress: "0xaE0F3B010cEc518dB205F5BAf849b8865309BF52",
+        tokenId: 2,
+        tokenURI:
+          "https://ikzttp.mypinata.cloud/ipfs/QmQFkLSQysj94s5GvTHPyzTxrawwtjgiiYS2TBLgrvw8CW/2",
       },
     ];
     const promises = db.map((d) => getMetadata(d.tokenURI));

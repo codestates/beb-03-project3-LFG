@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
 const TabWrapper = styled.div`
@@ -20,18 +20,24 @@ const Tab = styled.li`
   }
 `;
 
-const MenuTab = ({ menus }) => {
-  const [currentTab, setCurrentTab] = useState(0);
+const MenuTab = ({ tabs, setTabs }) => {
+  const tabArr = [
+    { name: "LISTINGS" },
+    { name: "HISTORY" },
+    { name: "MY LISTED LOANS" },
+    { name: "MY FUNDED LOANS" },
+    { name: "HELP / FAQ" },
+  ];
 
   return (
     <TabWrapper>
       <Tabs>
-        {menus.map((tab, idx) => (
+        {tabArr.map((tab, idx) => (
           <Tab
             key={idx}
-            className={`${currentTab === idx ? "focused" : ""}`}
+            className={`${tabs === idx ? "focused" : ""}`}
             onClick={() => {
-              setCurrentTab(idx);
+              setTabs((prev) => idx);
             }}
           >
             {tab.name}

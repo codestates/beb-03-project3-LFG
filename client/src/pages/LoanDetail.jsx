@@ -31,12 +31,12 @@ const LoanDetail = ({ create, edit }) => {
       const data = {
         objectId: "0",
         debtor: "0x24DaF1e6C925A61D9F186bF5232ed907Cfde15d9",
-        creditor: "", // 0xF5421BE9Ddd7f26a86a82A8ef7D4161F7d4461B6
-        startAt: 0,
+        creditor: "0xF5421BE9Ddd7f26a86a82A8ef7D4161F7d4461B6",
+        startAt: 1652762741,
         period: 86400,
         amount: "1000000000000000000",
         rateAmount: "100000000000000000",
-        state: 0,
+        state: 1,
         nftAddress: "0xaE0F3B010cEc518dB205F5BAf849b8865309BF52",
         tokenId: 0,
         loanAddress: "0x545a3eAb3b0e7906DaAB8d4846865e90EACBc40e",
