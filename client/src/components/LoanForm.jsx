@@ -52,29 +52,30 @@ const Form = styled.div``;
 const LoanForm = ({ edit, create, data }) => {
   const navigate = useNavigate();
   const { user, helperContract } = useContext(UserContext);
+  const [inputData, setInputData] = useState({ days: 0, price: 0, rate: 0 });
 
-  const [inputData, setInputData] = useState({});
   const onChange = (e) => {
-    if (!e.target.value) {
-      setInputData((prev) => {
-        return {
-          ...prev,
-          [e.target.name]: 0,
-        };
-      });
-    }
-    if (!Number(e.target.value)) {
+    const regExp = /^[0-9]*\.?[0-9]*$/;
+
+    if (!regExp.test(e.target.value)) {
       return;
-    } else
+    } else {
       setInputData((prev) => {
         return {
           ...prev,
           [e.target.name]: e.target.value,
         };
       });
+    }
   };
 
   const handleSubmit = async () => {
+    const formData = {
+      days: "0x" + (Number(inputData.days) * 86400).toString(16),
+      price: "0x" + (Number(inputData.price) * 1e18).toString(16),
+      rate: "0x" + (Number(inputData.rate) * 1e18).toString(16),
+    };
+
     if (edit) {
       const editEncoded = window.caver.abi.encodeFunctionCall(
         {
@@ -86,7 +87,7 @@ const LoanForm = ({ edit, create, data }) => {
             { type: "uint256", name: "_rateAmount" },
           ],
         },
-        [inputData.days, inputData.price, inputData.rate]
+        [formData.days, formData.price, formData.rate]
       );
 
       await window.caver.klay.sendTransaction({
@@ -104,9 +105,9 @@ const LoanForm = ({ edit, create, data }) => {
           user,
           data.nftAddress,
           data.tokenId,
-          inputData.days,
-          inputData.price,
-          inputData.rate
+          formData.days,
+          formData.price,
+          formData.rate
         )
         .call();
 
@@ -167,23 +168,26 @@ const LoanForm = ({ edit, create, data }) => {
           <Label>Days</Label>
           <Input
             name="days"
-            value={data["days"]}
-            placeholder="days"
+            value={inputData["days"] === 0 ? "" : inputData["days"]}
+            placeholder="Days"
             onChange={onChange}
+            autoComplete="off"
           />
           <Label>Price</Label>
           <Input
             name="price"
-            value={data["price"]}
+            value={inputData["price"] === 0 ? "" : inputData["price"]}
             placeholder="KLAY"
             onChange={onChange}
+            autoComplete="off"
           />
           <Label>Rate</Label>
           <Input
             name="rate"
-            value={data["rate"]}
+            value={inputData["rate"] === 0 ? "" : inputData["rate"]}
             placeholder="KLAY"
             onChange={onChange}
+            autoComplete="off"
           />
         </InputWrapper>
 
