@@ -26,8 +26,7 @@ import {
 import LoanFactoryAbi from "./abi/LoanFactory.json";
 import HelperAbi from "./abi/Helper.json";
 import KIP17Abi from "./abi/KIP17.json";
-import { getMetadata } from "./features/getMetadata.js";
-import { getHttpURL } from "./features/getHttpURL.js";
+import { getMetadata, checkIpfs } from "./features/getMetadata.js";
 import { renderButton } from "./features/button.js";
 import { timeStamp } from "./features/timeStamp.js";
 
@@ -58,7 +57,7 @@ export {
   HelperAbi,
   KIP17Abi,
   getMetadata,
-  getHttpURL,
   renderButton,
   timeStamp,
+  checkIpfs,
 };
