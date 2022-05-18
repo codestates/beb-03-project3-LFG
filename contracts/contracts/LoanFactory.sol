@@ -12,8 +12,8 @@ contract Loan is IERC721Receiver, IKIP17Receiver {
     event Edit(uint256 _period, uint256 _amount, uint256 _rateAmount);
     event Fund(address creditor, uint256 startAt);
     event Cancel();
-    event Repay(uint endAt, uint amount);
-    event Defaulted();
+    event Repay(uint endAt, uint amount, uint fee);
+    event Defaulted(uint256 fee);
 
     struct Term {
         address payable debtor;
@@ -132,10 +132,9 @@ contract Loan is IERC721Receiver, IKIP17Receiver {
         uint returnedFee = _term.rateAmount.mul(100 - rate).div(100).div(10);
         _term.creditor.transfer(amount.add(returnedFee)); // 채권자가 돌려받는 돈
 
-        feeContract.transfer(address(this).balance);
         _term.ikip17.safeTransferFrom(address(this), _term.debtor, _term.tokenId);
 
-        emit Repay(block.timestamp, amount);
+        emit Repay(block.timestamp, amount, address(this).balance);
         selfdestruct(feeContract);
     }
 
@@ -157,7 +156,7 @@ contract Loan is IERC721Receiver, IKIP17Receiver {
         internal {
         term.ikip17.safeTransferFrom(address(this), term.creditor, term.tokenId);
 
-        emit Defaulted();
+        emit Defaulted(address(this).balance);
         selfdestruct(feeContract);
     }
 
