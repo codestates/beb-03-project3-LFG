@@ -1,9 +1,9 @@
 import axios from 'axios';
 import { CoinGeckoClient } from 'coingecko-api-v3';
-import { loanListModel } from '../db/loanList';
+import { Loan } from '../db/loan';
 
 export const getLoans = async (req, res, next) => {
-  const loanList = await loanListModel.find({ status: 'CREATED' });
+  const loanList = await Loan.find({ status: 'CREATED' });
 
   //TODO
   //query parameter filter 구현
@@ -16,7 +16,7 @@ export const getLoans = async (req, res, next) => {
 const sdk = require('api')('@opensea/v1.0#5zrwe3ql2r2e6mn');
 
 export const getLoan = async (req, res, next) => {
-  const loan = await loanListModel.findOne({ id: req.params.id });
+  const loan = await Loan.findOne({ id: req.params.id });
   const { data } = await axios.get(loan.tokenURI);
   const loanInfo = data;
   const projectId = loan.projectTitle;

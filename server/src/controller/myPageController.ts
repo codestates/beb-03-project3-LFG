@@ -1,4 +1,4 @@
-import { nftListModel } from '../db/nftList';
+import { NftList } from '../db/nftList';
 import { getNFT } from '../utils/kas';
 
 export const getWhiteListNFT = async (req, res, next) => {
@@ -9,7 +9,7 @@ export const getWhiteListNFT = async (req, res, next) => {
   const { userAddress } = req.body;
 
   let myNftList = [];
-  const whiteLists = await nftListModel.find({});
+  const whiteLists = await NftList.find({});
   for (const whiteList of whiteLists) {
     const tempList = await getNFT(whiteList.nftCA, userAddress);
     tempList.map((nft) => (nft['nftCA'] = whiteList.nftCA));
