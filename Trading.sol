@@ -1,4 +1,54 @@
+pragma solidity ^0.5.6;
 
+import "./klay_contracts/token/KIP17/IERC721Receiver.sol";
+import "./klay_contracts/token/KIP17/IKIP17Receiver.sol";
+
+contract LoanFactory is IERC721Receiver, IKIP17Receiver {
+    event Deploy(address addr);
+
+    constructor() public {}
+
+    // msg.sender는 돈을 빌리려는 사람
+    // function deploy(IKIP17 _ikip17, uint256 _tokenId, uint256 _period, uint256 _amount, uint256 _rateAmount) 
+    //     public 
+    // {
+    //     Loan loan = new Loan(msg.sender, _ikip17, _tokenId, _period, _amount, _rateAmount);
+    //     _ikip17.safeTransferFrom(address(this), address(loan), _tokenId);
+
+    //     emit Deploy(address(loan));
+    // }
+    function deploy(bytes memory _code, IKIP17 _ikip17, uint256 _tokenId) public payable returns (address addr) {
+        assembly {
+            // create(v, p, n)
+            // v = amount of ETH to send
+            // p = pointer in memory to start of code
+            // n = size of code
+            addr := create(callvalue(), add(_code, 0x20), mload(_code))
+        }
+        require(addr != address(0), "deploy failed");
+
+        _ikip17.safeTransferFrom(address(this), addr, _tokenId);
+        emit Deploy(addr);
+    }
+
+    function onERC721Received(
+        address,
+        address,
+        uint256,
+        bytes memory
+    ) public returns (bytes4) {
+        return this.onERC721Received.selector;
+    }
+
+    function onKIP17Received(
+        address,
+        address,
+        uint256,
+        bytes memory
+    ) public returns (bytes4) {
+        return this.onKIP17Received.selector;
+    }
+}
 library SafeMath {
     /**
      * @dev Returns the addition of two unsigned integers, reverting on
@@ -278,14 +328,14 @@ contract Trading is IKIP17{
 
         address[] nftContractAddress;
         uint256[] myNftId;
-        uint256 howMuchKlay;
-        bool isConfirm;
+        uint256 howMuchOfferKlay;
+        bool offerIsConfirm;
     }
 
     mapping (uint256 => offerList) public storeOffer;
     Counters.Counter offerId; // counter로 수정 
 
-    function initializeOffer(address counterAddress, address[] memory nftContractAddress, uint256[] memory myNftId ) public payable {
+    function initializeOffer(address counterAddress, address[] memory nftContractAddress, uint256[] memory myNftId) public payable {
         // 상대방 월렛 주소, 내nft 컨트랙트 주소, 내 nft tokenid
         require(nftContractAddress.length == myNftId.length);
         for (uint256 i=0; i<myNftId.length; i++) {
@@ -325,8 +375,8 @@ contract Trading is IKIP17{
 
         address[] respondNftContractAddress;
         uint256[] respondNftId;
-        uint256 howMuchKlay;
-        bool isConfirm;
+        uint256 howMuchRespondKlay;
+        bool respondIsConfirm;
     }
 
     mapping (uint256 => respondList) public storeRespond;
@@ -355,7 +405,7 @@ contract Trading is IKIP17{
         return tempArray;
     }
     function confirmAndTransfer(uint256 __offerId, uint256 _respondId) public payable {
-        require(storeRespond[_respondId]); // 해당 respond값이 있는지 없는지
+        require(storeRespond[_respondId].respondId == _respondId); // 해당 respond값이 있는지 없는지
         require(storeOffer[__offerId].initializeOfferAddress == msg.sender);
         // confirm은 initialOfferAddress만 할 수 있게
 
@@ -364,15 +414,19 @@ contract Trading is IKIP17{
         for (uint256 i=1; i<tempOffer.nftContractAddress.length; i++) {
             IKIP17(tempOffer.nftContractAddress[i]).safeTransferFrom(address(this), tempOffer.counterAddress, tempOffer.myNftId[i]);
         }
+
+        tempOffer.counterAddress.transfer(tempOffer.howMuchOfferKlay); // 받는address.transfer(amount)
+        
         
         respondList memory tempRespond = storeRespond[_respondId];
 
         for (uint256 i=1; i<tempRespond.respondNftContractAddress.length; i++) {
             IKIP17(tempRespond.respondNftContractAddress[i]).safeTransferFrom(tempRespond.counterAddress, tempRespond.initializeOfferAddress, tempRespond.respondNftId[i]);
         }
+
+        tempRespond.initializeOfferAddress.transfer(tempRespond.howMuchRespondKlay);
+
+        offerIsConfirm = true;
+        respondIsConfirm = true;
     }
 }
-// 1. klaytn 송금 msg.sender.transfer(amount);  (완료)
-// 2. nft미리 콘트렉트에 전송 ( address.this ) (완료)
-// 3. require 접근 제한 (완료) 마지막부분 추가
-// 4. counters.counter 편의를 위해 (완료)
