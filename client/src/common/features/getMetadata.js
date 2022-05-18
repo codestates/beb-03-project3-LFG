@@ -10,7 +10,8 @@ export const checkIpfs = async (url) => {
 };
 
 export const getMetadata = async (url) => {
-  let fixed_url = checkIpfs(url);
+  let fixed_url = await checkIpfs(url);
+
   const result = await axios.get(fixed_url);
 
   return result;
