@@ -43,6 +43,7 @@ const InformationWrapper = styled.div`
 const LoanInfo = styled.div`
   display: flex;
   align-items: center;
+  margin-top: 0.5rem;
 
   & > span {
     color: white;
@@ -87,16 +88,16 @@ const NFTCard = ({ nft }) => {
 
   const loanState = () => {
     switch (nft.state) {
-      case 0:
+      case "CREATED":
         return "Open Loan Request";
 
-      case 1:
+      case "FUNDED":
         return "Funded Loan";
 
-      case 2:
+      case "PAIDBACK":
         return "Paidback Loan";
 
-      case 3:
+      case "DEFAULTED":
         return "Defaulted Loan";
 
       default:
@@ -109,7 +110,7 @@ const NFTCard = ({ nft }) => {
       <State>{loanState()}</State>
       <FigureWrapper
         onClick={() => {
-          navigate(`/loans/${nft.objectId}`);
+          navigate(`/loans/${nft._id}`);
         }}
       >
         <Figure fig={nft.image} />
@@ -122,14 +123,14 @@ const NFTCard = ({ nft }) => {
         <LoanInfo>
           <AccessTimeIcon />
           {nft.period / 86400} Days
-          <CreditScoreIcon />
-          {(nft.rateAmount / nft.amount) * 100} %
+          {/* <CreditScoreIcon />
+          {(nft.rateAmount / nft.amount) * 100} % */}
         </LoanInfo>
-        <LoanInfo>
+        {/* <LoanInfo>
           <span>APY</span>{" "}
           {((nft.rateAmount / nft.amount) * 100 * 365) / (nft.period / 86400)} %
           <span>LTF</span> 74.1%
-        </LoanInfo>
+        </LoanInfo> */}
         <LoanReturnWrapper>
           <div>Loan + Return</div>
           <div>

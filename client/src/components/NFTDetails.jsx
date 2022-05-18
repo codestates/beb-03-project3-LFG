@@ -74,8 +74,8 @@ const NFTDetails = ({ data }) => {
   return (
     <DetailDiv>
       <TitleWrapper>
-        <Title>Azuki</Title>
-        <Name>{data.name}</Name>
+        <Title>{`${data.projectName} #${data.tokenId}`}</Title>
+        <Name>{data.team}</Name>
         <Verified>
           <VerifiedUserIcon />
           LFG Verified
