@@ -17,7 +17,7 @@ export const renderButton = (navigate, user, data) => {
         <>
           <Btn
             onClick={() => {
-              navigate(`/loans/${data.objectId}/edit`);
+              navigate(`/loans/${data._id}/edit`);
             }}
           >
             Edit
@@ -37,7 +37,7 @@ export const renderButton = (navigate, user, data) => {
         <Btn
           onClick={async () => {
             await handleFundClick(user, data);
-            navigate(`/loans/${data.objectId}`);
+            navigate(`/loans/${data._id}`);
           }}
         >
           Fund
@@ -50,7 +50,7 @@ export const renderButton = (navigate, user, data) => {
         <Btn
           onClick={async () => {
             await handleRepayClick(user, data);
-            navigate(`/loans/${data.objectId}`);
+            navigate(`/loans/${data._id}`);
           }}
         >
           Repay
@@ -60,8 +60,8 @@ export const renderButton = (navigate, user, data) => {
       return (
         <Btn
           onClick={async () => {
-            await handleTakeCollateralClick();
-            navigate(`/loans/${data.objectId}`);
+            await handleTakeCollateralClick(user, data);
+            navigate(`/loans/${data._id}`);
           }}
         >
           Take Collateral
@@ -163,7 +163,8 @@ const handleFundClick = async (user, data) => {
     type: "SMART_CONTRACT_EXECUTION",
     from: user,
     to: data.loanAddress,
-    value: "0x" + ((data.amount + data.rateAmount * 0.1) * 1e18).toString(16),
+    value:
+      "0x" + (Number(data.amount) + Number(data.rateAmount) * 0.1).toString(16),
     data: fundEncoded,
     gas: "10000000",
   });

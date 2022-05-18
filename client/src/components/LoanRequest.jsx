@@ -59,7 +59,7 @@ const LoanRequest = ({ edit, create, data }) => {
         setLoanState("Defaulted Loan");
         break;
       default:
-        setLoanState("Invalid State");
+        setLoanState("CANCELLED");
     }
   }, [data.state]);
 

@@ -64,7 +64,7 @@ const App = () => {
             <Route path="/loans/:hash" element={<LoanDetail />} />
             <Route path="/loans/create" element={<LoanDetail create />} />
             <Route path="/loans/:hash/edit" element={<LoanDetail edit />} />
-            <Route path="/profile/wallet" element={<MyPage />} />
+            <Route path="/profile/wallet" element={<MyPage user={user} />} />
             <Route path="/loading" element={<LoadingSpinner />} />
           </Routes>
         )}
