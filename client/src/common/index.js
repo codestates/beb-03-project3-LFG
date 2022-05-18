@@ -29,6 +29,7 @@ import KIP17Abi from "./abi/KIP17.json";
 import { getMetadata, checkIpfs } from "./features/getMetadata.js";
 import { renderButton } from "./features/button.js";
 import { timeStamp } from "./features/timeStamp.js";
+import { TradeWrapper } from "./styles/Trade.js";
 
 export {
   Button,
@@ -60,4 +61,5 @@ export {
   renderButton,
   timeStamp,
   checkIpfs,
+  TradeWrapper,
 };

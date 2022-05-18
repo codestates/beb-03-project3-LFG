@@ -78,7 +78,13 @@ const Navigation = ({ dropdown, handleDropDown }) => {
             LOANS
           </Nav>
           <Nav>TRADES</Nav>
-          <Nav>TRADE APP</Nav>
+          <Nav
+            onClick={() => {
+              navigate("/trade-create");
+            }}
+          >
+            TRADE APP
+          </Nav>
           <Nav>STAKE</Nav>
           <Nav>
             <KeyboardArrowDownIcon />

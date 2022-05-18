@@ -8,6 +8,8 @@ import Home from "./pages/Home";
 import LoanList from "./pages/LoanList";
 import LoanDetail from "./pages/LoanDetail";
 import MyPage from "./pages/MyPage";
+import TradeApp from "./pages/TradeApp";
+import AddCounterParty from "./pages/AddCounterParty";
 
 export const UserContext = createContext({
   user: null,
@@ -65,7 +67,11 @@ const App = () => {
             <Route path="/loans/create" element={<LoanDetail create />} />
             <Route path="/loans/:hash/edit" element={<LoanDetail edit />} />
             <Route path="/profile/wallet" element={<MyPage user={user} />} />
-            <Route path="/loading" element={<LoadingSpinner />} />
+            <Route path="/trade-create" element={<TradeApp />} />
+            <Route
+              path="/trade-create/add-counterparty-wallet"
+              element={<AddCounterParty />}
+            />
           </Routes>
         )}
       </Rootdiv>
