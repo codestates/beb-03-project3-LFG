@@ -6,4 +6,4 @@ const nftListSchema = new mongoose.Schema({
   nftTeam: String,
 });
 
-export const nftListModel = mongoose.model('NFTList', nftListSchema);
+export const NftList = mongoose.model('NFTList', nftListSchema);
