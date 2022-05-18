@@ -35,8 +35,8 @@ const MyNFT = ({ data, setIsOpen, setModalData }) => {
       <FigureWrapper onClick={openModal}>
         <Figure fig={data.image} />
         <FigCaption>
-          <Title>Azuki</Title>
-          <Name>{data.name}</Name>
+          <Title>{`${data.projectName} #${data.tokenId}`}</Title>
+          <Name>{data.team}</Name>
         </FigCaption>
       </FigureWrapper>
       <ButtonWrapper>
