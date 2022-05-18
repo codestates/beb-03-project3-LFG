@@ -43,11 +43,18 @@ var user_1 = require("./db/user");
 var loan_2 = require("./router/loan");
 var myPage_1 = require("./router/myPage");
 var kas_1 = require("./utils/kas");
+var cors = require("cors");
 var sdk = require('api')('@opensea/v1.0#5zrwe3ql2r2e6mn');
 //require와 import의 혼종..?
 var app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors({
+    origin: '*',
+    credentials: true,
+    allowedHeaders: '*',
+    methods: ['GET', 'POST', 'OPTIONS', 'PUT', 'DELETE'],
+}));
 app.get('/', function (req, res, next) {
     res.send('hello typescript express!');
 });

@@ -1,15 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Rootdiv, getMetadata, checkIpfs } from "../common";
 import Profile from "../components/Profile";
 import MyNFTs from "../components/MyNFTs";
 import NFTAttributeModal from "../components/NFTAttributeModal";
 import axios from "axios";
+import { UserContext } from "../App";
 
 const MyPage = () => {
   const [modalData, setModalData] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const [nfts, setNfts] = useState(null);
   const [tabs, setTabs] = useState(0);
+  const { user } = useContext(UserContext);
 
   // 웹서버에서 내 소유 NFT를 전부 가져오고 MyNFTs에 넘겨준다
   //"https://dweb.link/ipfs/QmYDvPAXtiJg7s8JdRBSLWdgSphQdac8j1YuQNNxcGE1hg/0.png"
@@ -44,16 +46,17 @@ const MyPage = () => {
     //   },
     // ];
     const get = async () => {
-      const db = await axios.get("http://127.0.0.1:4001/myPage");
+      const db = await axios.post("http://127.0.0.1:4002/myPage", {
+        userAddress: user,
+      });
 
-      const promises = db.map((d) => getMetadata(d.tokenURI));
+      const promises = db.data.myNftList.map((d) => getMetadata(d.tokenURI));
       Promise.all(promises).then((result) => {
         setNfts((prev) =>
           result.map((data, idx) => {
             return {
               ...data.data,
-              ...db[idx],
-              image: checkIpfs(data.data.image),
+              ...db.data.myNftList[idx],
             };
           })
         );
@@ -61,7 +64,7 @@ const MyPage = () => {
     };
 
     get();
-  }, []);
+  }, [user]);
 
   return (
     <Rootdiv

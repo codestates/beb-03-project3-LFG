@@ -33,7 +33,7 @@ const openLoanRequest = async (newLoanAddressData) => {
 const cancelLoan = async (loanAddress) => {
   const res = await Loan.findOneAndUpdate(
     { loanAddress: loanAddress, state: 'CREATED' },
-    { $set: { state: 'CANCELED' } }
+    { $set: { state: 'CANCELLED' } }
   );
   if (res === null) {
     console.log(`there are no loan contract! check : ${loanAddress}`);

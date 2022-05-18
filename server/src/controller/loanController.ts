@@ -16,7 +16,7 @@ export const getLoans = async (req, res, next) => {
 const sdk = require('api')('@opensea/v1.0#5zrwe3ql2r2e6mn');
 
 export const getLoan = async (req, res, next) => {
-  const loanInfo = await Loan.findOne({ id: req.params.id });
+  const loanInfo = await Loan.findOne({ _id: req.params.id });
   // const { data } = await axios.get(loan.tokenURI);
   // const loanInfo = data;
   loanInfo.floorPrice = 'N/A';

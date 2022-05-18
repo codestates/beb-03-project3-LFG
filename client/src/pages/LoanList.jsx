@@ -68,16 +68,14 @@ const LoanList = () => {
     //   },
     // ];
     const getList = async () => {
-      const db = await axios.get("http://127.0.0.1:4001/loans");
-
-      const promises = db.map((d) => getMetadata(d.tokenURI));
+      const db = await axios.get("http://127.0.0.1:4002/loan");
+      const promises = db.data.loanList.map((d) => getMetadata(d.tokenURI));
       Promise.all(promises).then((result) => {
         setNfts((prev) =>
           result.map((data, idx) => {
             return {
               ...data.data,
-              image: checkIpfs(data.data.image),
-              ...db[idx],
+              ...db.data.loanList[idx],
             };
           })
         );
@@ -85,7 +83,6 @@ const LoanList = () => {
     };
 
     getList();
-
   }, []);
 
   useEffect(() => {

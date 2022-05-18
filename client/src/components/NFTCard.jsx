@@ -101,7 +101,7 @@ const NFTCard = ({ nft }) => {
         return "Defaulted Loan";
 
       default:
-        return "Invalid State";
+        return "CANCELLED";
     }
   };
 

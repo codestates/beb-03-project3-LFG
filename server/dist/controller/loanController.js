@@ -61,7 +61,7 @@ var getLoan = function (req, res, next) { return __awaiter(void 0, void 0, void 
     var loanInfo, res_1, client, simplePrice, floorPrice, err_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, loan_1.Loan.findOne({ id: req.params.id })];
+            case 0: return [4 /*yield*/, loan_1.Loan.findOne({ _id: req.params.id })];
             case 1:
                 loanInfo = _a.sent();
                 // const { data } = await axios.get(loan.tokenURI);
