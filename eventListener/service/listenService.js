@@ -15,16 +15,16 @@ const openLoanRequest = async (newLoanAddressData) => {
   const loan = new Loan({
     debtor: debtor,
     creditor: creditor,
-    duration: period,
+    period: Number(period),
     amount: amount,
-    interestAmount: rateAmount,
-    tokenId: tokenId,
+    rateAmount: rateAmount,
+    tokenId: Number(tokenId),
     nftAddress: ikip17,
     loanAddress: newLoanAddress,
-    projectTitle: nftName,
+    projectName: nftName,
     team: nftTeam,
     tokenURI: tokenUri,
-    status: 'CREATED', // created, canceled, funded, paidBack, defaulted 대문자
+    state: 'CREATED', // created, canceled, funded, paidBack, defaulted 대문자
   });
   const res = await loan.save();
   console.log(res);
@@ -32,8 +32,8 @@ const openLoanRequest = async (newLoanAddressData) => {
 
 const cancelLoan = async (loanAddress) => {
   const res = await Loan.findOneAndUpdate(
-    { loanAddress: loanAddress, status: 'CREATED' },
-    { $set: { status: 'CANCELED' } }
+    { loanAddress: loanAddress, state: 'CREATED' },
+    { $set: { state: 'CANCELED' } }
   );
   if (res === null) {
     console.log(`there are no loan contract! check : ${loanAddress}`);
@@ -41,12 +41,12 @@ const cancelLoan = async (loanAddress) => {
 };
 
 const editLoan = async (loanAddress, data) => {
-  const duration = caver.utils.hexToNumberString('0x' + data.substr(2, 64));
+  const period = caver.utils.hexToNumber('0x' + data.substr(2, 64));
   const amount = caver.utils.hexToNumberString('0x' + data.substr(66, 64));
-  const interestAmount = caver.utils.hexToNumberString('0x' + data.substr(130));
+  const rateAmount = caver.utils.hexToNumberString('0x' + data.substr(130));
   const res = await Loan.findOneAndUpdate(
-    { loanAddress: loanAddress, status: 'CREATED' },
-    { $set: { duration: duration, amount: amount, interestAmount: interestAmount } }
+    { loanAddress: loanAddress, state: 'CREATED' },
+    { $set: { period: period, amount: amount, rateAmount: rateAmount } }
   );
   if (res === null) {
     console.log(`there are no loan contract! check : ${loanAddress}`);
@@ -56,15 +56,15 @@ const editLoan = async (loanAddress, data) => {
 const fundLoan = async (loanAddress, data) => {
   const address = '0x' + data.substr(26, 40);
   const curTimestamp = caver.utils.hexToNumber('0x' + data.substr(66, 64));
-  Loan.findOne({ loanAddress: loanAddress, status: 'CREATED' })
+  Loan.findOne({ loanAddress: loanAddress, state: 'CREATED' })
     .then(async (loan) => {
       if (loan == null) {
         console.log(`there are no loan contract! check : ${loanAddress}`);
       }
       loan.creditor = address;
-      loan.status = 'FUNDED';
-      loan.startTime = new Date(curTimestamp * 1000);
-      loan.endTime = new Date((Number(loan.duration) + curTimestamp) * 1000);
+      loan.state = 'FUNDED';
+      loan.startAt = curTimestamp;
+      loan.endAt = curTimestamp + loan.period;
       await loan.save();
     })
     .catch((err) => {
@@ -76,11 +76,11 @@ const repayLoan = async (loanAddress, data) => {
   const endAtTimestamp = caver.utils.hexToNumber('0x' + data.substr(2, 64));
   const amount = caver.utils.hexToNumberString('0x' + data.substr(66, 64));
   const res = await Loan.findOneAndUpdate(
-    { loanAddress: loanAddress, status: 'FUNDED' },
+    { loanAddress: loanAddress, state: 'FUNDED' },
     {
       $set: {
-        status: 'PAIDBACK',
-        paidBackTime: new Date(endAtTimestamp * 1000),
+        state: 'PAIDBACK',
+        paidBackTime: endAtTimestamp,
         paidBackAmount: amount,
       },
     }
@@ -92,9 +92,9 @@ const repayLoan = async (loanAddress, data) => {
 
 const liquidateLoan = async (loanAddress) => {
   const res = await Loan.findOneAndUpdate(
-    { loanAddress: loanAddress, status: 'FUNDED' },
+    { loanAddress: loanAddress, state: 'FUNDED' },
     {
-      $set: { status: 'DEFAULTED' },
+      $set: { state: 'DEFAULTED' },
     }
   );
   if (res === null) {
