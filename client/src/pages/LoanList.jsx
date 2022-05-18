@@ -6,6 +6,7 @@ import { Rootdiv, getMetadata } from "../common";
 import styled from "styled-components";
 import LoadingSpinner from "../components/LoadingSpinner";
 import { UserContext } from "../App";
+import axios from "axios";
 
 const Gallery = styled.div`
   display: flex;
@@ -30,6 +31,11 @@ const LoanList = () => {
   const [tabs, setTabs] = useState(0);
 
   useEffect(() => {
+    const fetchData = async () => {
+      const { status, data } = await axios.get("http://127.0.0.1:4001/loan");
+    };
+    fetchData();
+
     const db = [
       {
         objectId: "0",

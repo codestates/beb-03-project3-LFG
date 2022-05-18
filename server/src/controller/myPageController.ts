@@ -1,4 +1,4 @@
-import { NftList } from '../db/nftList';
+import { NftList } from '../db/nftlist';
 import { getNFT } from '../utils/kas';
 
 export const getWhiteListNFT = async (req, res, next) => {

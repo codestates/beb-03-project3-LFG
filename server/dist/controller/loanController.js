@@ -39,12 +39,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getLoan = exports.getLoans = void 0;
 var axios_1 = require("axios");
 var coingecko_api_v3_1 = require("coingecko-api-v3");
-var loanList_1 = require("../db/loanList");
+var loan_1 = require("../db/loan");
 var getLoans = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var loanList;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, loanList_1.loanListModel.find({ status: 'CREATED' })];
+            case 0: return [4 /*yield*/, loan_1.Loan.find({})];
             case 1:
                 loanList = _a.sent();
                 //TODO
@@ -62,7 +62,7 @@ var getLoan = function (req, res, next) { return __awaiter(void 0, void 0, void 
     var loan, data, loanInfo, projectId, res_1, client, simplePrice, err_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, loanList_1.loanListModel.findOne({ id: req.params.id })];
+            case 0: return [4 /*yield*/, loan_1.Loan.findOne({ id: req.params.id })];
             case 1:
                 loan = _a.sent();
                 return [4 /*yield*/, axios_1.default.get(loan.tokenURI)];

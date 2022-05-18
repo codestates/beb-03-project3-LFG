@@ -37,12 +37,12 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getHistory = void 0;
-var loanList_1 = require("../db/loanList");
+var loan_1 = require("../db/loan");
 var getHistory = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var historyList;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, loanList_1.loanListModel.find({
+            case 0: return [4 /*yield*/, loan_1.Loan.find({
                     $or: [{ status: 'FUNDED' }, { status: 'PAIDBACK' }, { status: 'DEFAULTED' }],
                 })];
             case 1:

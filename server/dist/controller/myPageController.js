@@ -37,7 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getWhiteListNFT = void 0;
-var nftList_1 = require("../db/nftList");
+var nftlist_1 = require("../db/nftlist");
 var kas_1 = require("../utils/kas");
 var getWhiteListNFT = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var userAddress, myNftList, whiteLists, _loop_1, _i, whiteLists_1, whiteList;
@@ -46,7 +46,7 @@ var getWhiteListNFT = function (req, res, next) { return __awaiter(void 0, void 
             case 0:
                 userAddress = req.body.userAddress;
                 myNftList = [];
-                return [4 /*yield*/, nftList_1.nftListModel.find({})];
+                return [4 /*yield*/, nftlist_1.NftList.find({})];
             case 1:
                 whiteLists = _a.sent();
                 _loop_1 = function (whiteList) {

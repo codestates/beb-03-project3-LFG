@@ -1,6 +1,6 @@
 import { CoinGeckoClient } from 'coingecko-api-v3';
 import * as express from 'express';
-import { loanListModel } from './db/loanList';
+import { Loan } from './db/loan';
 import { userModel } from './db/user';
 import { historyRouter } from './router/history';
 import { loanRouter } from './router/loan';
@@ -93,7 +93,7 @@ app.post(
       tokenURI,
       status,
     } = req.body;
-    const loanList = new loanListModel();
+    const loanList = new Loan();
     loanList.duration = duration;
     loanList.amount = amount;
     loanList.interestAmount = interestAmount;
