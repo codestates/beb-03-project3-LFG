@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 
 const nftListSchema = new mongoose.Schema({
-  nftCA: String,
-  nftName: String,
-  nftTeam: String,
+  nftAddress: String,
+  projectName: String,
+  team: String,
 });
 
 const NftList = mongoose.model('NFTList', nftListSchema);

@@ -10,7 +10,7 @@ const openLoanRequest = async (newLoanAddressData) => {
   const { debtor, creditor, period, amount, rateAmount, ikip17, tokenId } =
     await loanContract.methods.term().call();
   const { tokenUri } = await caver.kas.tokenHistory.getNFT(ikip17, tokenId);
-  const { nftName, nftTeam } = await NftList.findOne({ nftCA: ikip17 });
+  const { projectName, team } = await NftList.findOne({ nftAddress: ikip17 });
 
   const loan = new Loan({
     debtor: debtor,
@@ -21,8 +21,8 @@ const openLoanRequest = async (newLoanAddressData) => {
     tokenId: Number(tokenId),
     nftAddress: ikip17,
     loanAddress: newLoanAddress,
-    projectName: nftName,
-    team: nftTeam,
+    projectName: projectName,
+    team: team,
     tokenURI: tokenUri,
     state: 'CREATED', // created, canceled, funded, paidBack, defaulted 대문자
   });

@@ -40,10 +40,8 @@ var coingecko_api_v3_1 = require("coingecko-api-v3");
 var express = require("express");
 var loan_1 = require("./db/loan");
 var user_1 = require("./db/user");
-var history_1 = require("./router/history");
 var loan_2 = require("./router/loan");
 var myPage_1 = require("./router/myPage");
-var trade_1 = require("./router/trade");
 var kas_1 = require("./utils/kas");
 var sdk = require('api')('@opensea/v1.0#5zrwe3ql2r2e6mn');
 //require와 import의 혼종..?
@@ -54,9 +52,9 @@ app.get('/', function (req, res, next) {
     res.send('hello typescript express!');
 });
 app.use('/loan', loan_2.loanRouter);
-app.use('/trade', trade_1.tradeRouter);
+//app.use('/trade', tradeRouter);
 app.use('/myPage', myPage_1.myPageRouter);
-app.use('/history', history_1.historyRouter);
+// app.use('/history', historyRouter);
 app.get('/kasTest', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var blockNumber;
     return __generator(this, function (_a) {

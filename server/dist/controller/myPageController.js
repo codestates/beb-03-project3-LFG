@@ -53,11 +53,17 @@ var getWhiteListNFT = function (req, res, next) { return __awaiter(void 0, void 
                     var tempList;
                     return __generator(this, function (_b) {
                         switch (_b.label) {
-                            case 0: return [4 /*yield*/, (0, kas_1.getNFT)(whiteList.nftCA, userAddress)];
+                            case 0: return [4 /*yield*/, (0, kas_1.getNFT)(whiteList.nftAddress, userAddress)];
                             case 1:
                                 tempList = _b.sent();
-                                tempList.map(function (nft) { return (nft['nftCA'] = whiteList.nftCA); });
-                                myNftList = myNftList.concat(tempList);
+                                if (tempList) {
+                                    tempList.map(function (nft) {
+                                        nft['projectName'] = whiteList.projectName;
+                                        nft['team'] = whiteList.team;
+                                        nft['nftAddress'] = whiteList.nftAddress;
+                                    });
+                                    myNftList = myNftList.concat(tempList);
+                                }
                                 return [2 /*return*/];
                         }
                     });
@@ -75,9 +81,7 @@ var getWhiteListNFT = function (req, res, next) { return __awaiter(void 0, void 
                 _i++;
                 return [3 /*break*/, 2];
             case 5:
-                console.log(myNftList);
-                console.log('getWhiteListNFT');
-                res.status(200).json({ message: 'succeed' });
+                res.status(200).json({ message: 'succeed', myNftList: myNftList });
                 return [2 /*return*/];
         }
     });
