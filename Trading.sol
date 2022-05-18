@@ -1,9 +1,10 @@
 pragma solidity ^0.5.6;
 
-import "./klay_contracts/token/KIP17/IERC721Receiver.sol";
-import "./klay_contracts/token/KIP17/IKIP17Receiver.sol";
+// import "@klaytn/contracts/token/IERC721Receiver.sol";
+import "@klaytn/contracts/token/KIP17/IKIP17Receiver.sol";
+import "@klaytn/contracts/token/KIP17/IKIP17.sol";
 
-contract LoanFactory is IERC721Receiver, IKIP17Receiver {
+contract LoanFactory is IKIP17Receiver { //IERC721Receiver,
     event Deploy(address addr);
 
     constructor() public {}
@@ -227,104 +228,25 @@ library Counters {
 }
 
 pragma solidity ^0.5.0;
-
-interface IKIP13 {
-    /**
-     * @dev Returns true if this contract implements the interface defined by
-     * `interfaceId`. See the corresponding
-     * [KIP-13 section](http://kips.klaytn.com/KIPs/kip-13-interface_query_standard#how-interface-identifiers-are-defined)
-     * to learn more about how these ids are created.
-     *
-     * This function call must use less than 30 000 gas.
-     */
-    function supportsInterface(bytes4 interfaceId) external view returns (bool);
-}
-
-// File: contracts\IKIP17.sol
-
-pragma solidity ^0.5.0;
-
-/**
- * @dev Required interface of an KIP17 compliant contract.
- */
-contract IKIP17 is IKIP13 {
-    event Transfer(address indexed from, address indexed to, uint256 indexed tokenId);
-    event Approval(address indexed owner, address indexed approved, uint256 indexed tokenId);
-    event ApprovalForAll(address indexed owner, address indexed operator, bool approved);
-
-    using Counters for Counters.Counter; // library 사용
-
-    /**
-     * @dev Returns the number of NFTs in `owner`'s account.
-     */
-    function balanceOf(address owner) public view returns (uint256 balance);
-
-    /**
-     * @dev Returns the owner of the NFT specified by `tokenId`.
-     */
-    function ownerOf(uint256 tokenId) public view returns (address owner);
-
-    /**
-     * @dev Transfers a specific NFT (`tokenId`) from one account (`from`) to
-     * another (`to`).
-     *
-     * Requirements:
-     * - `from`, `to` cannot be zero.
-     * - `tokenId` must be owned by `from`.
-     * - If the caller is not `from`, it must be have been allowed to move this
-     * NFT by either `approve` or `setApproveForAll`.
-     */
-    function safeTransferFrom(address from, address to, uint256 tokenId) public;
-
-    /**
-     * @dev Transfers a specific NFT (`tokenId`) from one account (`from`) to
-     * another (`to`).
-     *
-     * Requirements:
-     * - If the caller is not `from`, it must be approved to move this NFT by
-     * either `approve` or `setApproveForAll`.
-     */
-    function transferFrom(address from, address to, uint256 tokenId) public;
-    function approve(address to, uint256 tokenId) public;
-    function getApproved(uint256 tokenId) public view returns (address operator);
-
-    function setApprovalForAll(address operator, bool _approved) public;
-    function isApprovedForAll(address owner, address operator) public view returns (bool);
-
-
-    function safeTransferFrom(address from, address to, uint256 tokenId, bytes memory data) public;
-}
-
-contract IKIP17Receiver {
-    /**
-     * @notice Handle the receipt of an NFT
-     * @dev The KIP17 smart contract calls this function on the recipient
-     * after a `safeTransfer`. This function MUST return the function selector,
-     * otherwise the caller will revert the transaction. The selector to be
-     * returned can be obtained as `this.onKIP17Received.selector`. This
-     * function MAY throw to revert and reject the transfer.
-     * Note: the KIP17 contract address is always the message sender.
-     * @param operator The address which called `safeTransferFrom` function
-     * @param from The address which previously owned the token
-     * @param tokenId The NFT identifier which is being transferred
-     * @param data Additional data with no specified format
-     * @return bytes4 `bytes4(keccak256("onKIP17Received(address,address,uint256,bytes)"))`
-     */
-    function onKIP17Received(address operator, address from, uint256 tokenId, bytes memory data)
-    public returns (bytes4);
-}
-
-pragma solidity ^0.5.0;
 pragma experimental ABIEncoderV2;
 
 
-contract Trading is IKIP17{
+contract Trading is IKIP17Receiver {
+    function onKIP17Received(
+    address operator,
+    address from,
+    uint256 tokenId,
+    bytes memory data
+    ) public returns (bytes4) {
+    return bytes4(keccak256("onKIP17Received(address,address,uint256,bytes)"));
+    }
+
     using Counters for Counters.Counter;
 
     struct offerList {
         uint256 offerId;
-        address initializeOfferAddress;
-        address counterAddress;
+        address payable initializeOfferAddress;
+        address payable counterAddress;
 
         address[] nftContractAddress;
         uint256[] myNftId;
@@ -332,10 +254,11 @@ contract Trading is IKIP17{
         bool offerIsConfirm;
     }
 
+
     mapping (uint256 => offerList) public storeOffer;
     Counters.Counter offerId; // counter로 수정 
 
-    function initializeOffer(address counterAddress, address[] memory nftContractAddress, uint256[] memory myNftId) public payable {
+    function initializeOffer(address payable counterAddress, address[] memory nftContractAddress, uint256[] memory myNftId) public payable {
         // 상대방 월렛 주소, 내nft 컨트랙트 주소, 내 nft tokenid
         require(nftContractAddress.length == myNftId.length);
         for (uint256 i=0; i<myNftId.length; i++) {
@@ -370,8 +293,8 @@ contract Trading is IKIP17{
 
     struct respondList {
         uint256 respondId;
-        address initializeOfferAddress;
-        address counterAddress;
+        address payable initializeOfferAddress;
+        address payable counterAddress;
 
         address[] respondNftContractAddress;
         uint256[] respondNftId;
@@ -417,7 +340,6 @@ contract Trading is IKIP17{
 
         tempOffer.counterAddress.transfer(tempOffer.howMuchOfferKlay); // 받는address.transfer(amount)
         
-        
         respondList memory tempRespond = storeRespond[_respondId];
 
         for (uint256 i=1; i<tempRespond.respondNftContractAddress.length; i++) {
@@ -426,7 +348,7 @@ contract Trading is IKIP17{
 
         tempRespond.initializeOfferAddress.transfer(tempRespond.howMuchRespondKlay);
 
-        offerIsConfirm = true;
-        respondIsConfirm = true;
+        tempOffer.offerIsConfirm = true;
+        tempRespond.respondIsConfirm = true;
     }
 }
