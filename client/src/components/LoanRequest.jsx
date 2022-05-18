@@ -46,16 +46,16 @@ const LoanRequest = ({ edit, create, data }) => {
 
   useEffect(() => {
     switch (data.state) {
-      case 0:
+      case "CREATED":
         setLoanState("Open Loan Request");
         break;
-      case 1:
+      case "FUNDED":
         setLoanState("Funded Loan");
         break;
-      case 2:
+      case "PAIDBACK":
         setLoanState("Paidback Loan");
         break;
-      case 3:
+      case "DEFAULTED":
         setLoanState("Defaulted Loan");
         break;
       default:
