@@ -87,16 +87,16 @@ const NFTCard = ({ nft }) => {
 
   const loanState = () => {
     switch (nft.state) {
-      case 0:
+      case "CREATED":
         return "Open Loan Request";
 
-      case 1:
+      case "FUNDED":
         return "Funded Loan";
 
-      case 2:
+      case "PAIDBACK":
         return "Paidback Loan";
 
-      case 3:
+      case "DEFAULTED":
         return "Defaulted Loan";
 
       default:

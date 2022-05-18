@@ -11,7 +11,7 @@ export const renderButton = (navigate, user, data) => {
     return;
   }
 
-  if (data.state === 0) {
+  if (data.state === "CREATED") {
     if (user.toLowerCase() === data.debtor.toLowerCase()) {
       return (
         <>
@@ -44,7 +44,7 @@ export const renderButton = (navigate, user, data) => {
         </Btn>
       );
     }
-  } else if (data.state === 1) {
+  } else if (data.state === "FUNDED") {
     if (user.toLowerCase() === data.debtor.toLowerCase()) {
       return (
         <Btn
