@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Rootdiv, getMetadata } from "../common";
+import { Rootdiv, getMetadata, checkIpfs } from "../common";
 import Profile from "../components/Profile";
 import MyNFTs from "../components/MyNFTs";
 import NFTAttributeModal from "../components/NFTAttributeModal";
@@ -53,6 +53,7 @@ const MyPage = () => {
             return {
               ...data.data,
               ...db[idx],
+              image: checkIpfs(data.data.image),
             };
           })
         );

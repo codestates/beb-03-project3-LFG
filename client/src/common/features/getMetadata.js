@@ -1,16 +1,17 @@
 import axios from "axios";
 
-export const getMetadata = async (url) => {
+export const checkIpfs = async (url) => {
   if (url.startsWith("ipfs")) {
-    let left = url.slice(7);
-    let fixed_url = "https://dweb.link/ipfs/" + left;
-
-    const result = await axios.get(fixed_url);
-
-    return result;
+    let woIpfs = url.slice(7);
+    return "https://dweb.link/ipfs/" + woIpfs;
   } else {
-    const result = await axios.get(url);
-
-    return result;
+    return url;
   }
+};
+
+export const getMetadata = async (url) => {
+  let fixed_url = checkIpfs(url);
+  const result = await axios.get(fixed_url);
+
+  return result;
 };
