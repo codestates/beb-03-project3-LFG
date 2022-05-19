@@ -254,13 +254,12 @@ contract Trading is IKIP17Receiver {
         bool offerIsConfirm;
     }
 
-
     mapping (uint256 => offerList) public storeOffer;
     Counters.Counter offerId; // counter로 수정 
 
     function initializeOffer(address payable counterAddress, address[] memory nftContractAddress, uint256[] memory myNftId) public payable {
         // 상대방 월렛 주소, 내nft 컨트랙트 주소, 내 nft tokenid
-        require(nftContractAddress.length == myNftId.length);
+        require(nftContractAddress.length == myNftId.length); /// 1. safetransfer에 의해 중복?ㅓ
         for (uint256 i=0; i<myNftId.length; i++) {
             require(msg.sender == IKIP17(nftContractAddress[i]).ownerOf(myNftId[i]));
         }
@@ -314,6 +313,10 @@ contract Trading is IKIP17Receiver {
         respondList memory tempOffer = respondList(respondId.current(), storeOffer[_offerId].initializeOfferAddress, msg.sender, respondNftContractAddress, respondNftId, msg.value, false);
         storeRespond[respondId.current()] = tempOffer;
         respondId.increment();
+
+        for (uint256 i=0; i<respondNftContractAddress.length; i++) {
+            IKIP17(respondNftContractAddress[i]).safeTransferFrom(msg.sender, address(this), respondNftId[i]);
+        }
     }
     function checkRespond() public view returns (respondList[] memory) {
         respondList[] memory tempArray = new respondList[](respondId.current());
@@ -334,7 +337,7 @@ contract Trading is IKIP17Receiver {
 
         offerList memory tempOffer = storeOffer[__offerId];
 
-        for (uint256 i=1; i<tempOffer.nftContractAddress.length; i++) {
+        for (uint256 i=0; i<tempOffer.nftContractAddress.length; i++) {
             IKIP17(tempOffer.nftContractAddress[i]).safeTransferFrom(address(this), tempOffer.counterAddress, tempOffer.myNftId[i]);
         }
 
@@ -342,8 +345,8 @@ contract Trading is IKIP17Receiver {
         
         respondList memory tempRespond = storeRespond[_respondId];
 
-        for (uint256 i=1; i<tempRespond.respondNftContractAddress.length; i++) {
-            IKIP17(tempRespond.respondNftContractAddress[i]).safeTransferFrom(tempRespond.counterAddress, tempRespond.initializeOfferAddress, tempRespond.respondNftId[i]);
+        for (uint256 i=0; i<tempRespond.respondNftContractAddress.length; i++) {
+            IKIP17(tempRespond.respondNftContractAddress[i]).safeTransferFrom(address(this), tempRespond.initializeOfferAddress, tempRespond.respondNftId[i]);
         }
 
         tempRespond.initializeOfferAddress.transfer(tempRespond.howMuchRespondKlay);
