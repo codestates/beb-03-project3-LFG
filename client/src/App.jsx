@@ -8,9 +8,10 @@ import LoanList from "./pages/LoanList";
 import LoanDetail from "./pages/LoanDetail";
 import MyPage from "./pages/MyPage";
 import TradeApp from "./pages/TradeApp";
-import OfferNFT from "./pages/OfferNFT";
+import IOffer from "./pages/IOffer";
 import Trade from "./pages/Trade";
 import ConfirmTrade from "./pages/ConfirmTrade";
+import IReceive from "./pages/IReceive";
 
 export const UserContext = createContext({
   user: null,
@@ -70,14 +71,8 @@ const App = () => {
             <Route path="/profile/wallet" element={<MyPage />} />
             <Route path="/trade-create" element={<Trade />}>
               <Route index element={<TradeApp />} />
-              <Route
-                path="add-counterparty-wallet"
-                element={<OfferNFT subject={"CounterParty"} />}
-              />
-              <Route
-                path="your-offer-selection"
-                element={<OfferNFT subject={"You"} />}
-              />
+              <Route path="add-counterparty-wallet" element={<IReceive />} />
+              <Route path="your-offer-selection" element={<IOffer />} />
               <Route path="confirm-trade" element={<ConfirmTrade />} />
             </Route>
           </Routes>

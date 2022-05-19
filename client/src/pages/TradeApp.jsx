@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React from "react";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import styled from "styled-components";
 import { Rootdiv, Button, TradeWrapper, TradeMain } from "../common";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
@@ -56,7 +56,7 @@ const IconWrapper = styled.div`
 
 const TradeApp = () => {
   const navigate = useNavigate();
-  const [counterParty, setCounterParty] = useState("");
+  const { counterParty, setCounterParty } = useOutletContext();
 
   return (
     <Div>

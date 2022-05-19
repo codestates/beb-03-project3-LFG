@@ -59,11 +59,25 @@ const CollsDiv = styled.div`
   flex-wrap: wrap;
 `;
 
-const SmallNFTCard = ({ coll }) => {
+const SmallNFTCard = ({ coll, setSelected }) => {
   return (
     <SmallCardWrapper
       onClick={(e) => {
-        e.currentTarget.classList.toggle("clicked");
+        if (e.currentTarget.classList.contains("clicked")) {
+          e.currentTarget.classList.remove("clicked");
+          setSelected((prev) =>
+            prev.filter(
+              (elem) =>
+                !(
+                  elem.tokenId === coll.tokenId &&
+                  elem.nftAddress === coll.nftAddress
+                )
+            )
+          );
+        } else {
+          e.currentTarget.classList.add("clicked");
+          setSelected((prev) => [...prev, coll]);
+        }
       }}
     >
       <Img fig={coll.image} />
@@ -72,7 +86,7 @@ const SmallNFTCard = ({ coll }) => {
   );
 };
 
-const CollectionList = ({ colls }) => {
+const CollectionList = ({ setSelected, colls }) => {
   const [show, setShow] = useState(true);
 
   return (
@@ -92,7 +106,7 @@ const CollectionList = ({ colls }) => {
       {show ? (
         <CollsDiv>
           {colls.map((coll, idx) => (
-            <SmallNFTCard key={idx} coll={coll} />
+            <SmallNFTCard key={idx} coll={coll} setSelected={setSelected} />
           ))}
         </CollsDiv>
       ) : null}

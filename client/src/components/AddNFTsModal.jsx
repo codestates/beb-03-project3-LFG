@@ -90,9 +90,10 @@ const ButtonWrapper = styled.div`
   justify-content: center;
 `;
 
-const AddNFTsModal = ({ isOpen, setIsOpen }) => {
+const AddNFTsModal = ({ isOpen, setIsOpen, setConditions }) => {
   const [collection, setCollection] = useState("");
   const [colls, setColls] = useState({});
+  const [selected, setSelected] = useState([]);
 
   useEffect(() => {
     const result = [
@@ -143,7 +144,11 @@ const AddNFTsModal = ({ isOpen, setIsOpen }) => {
           </InputWrapper>
           <Collections>
             {Object.keys(colls).map((key, idx) => (
-              <CollectionList key={idx} colls={colls[key]} />
+              <CollectionList
+                key={idx}
+                colls={colls[key]}
+                setSelected={setSelected}
+              />
             ))}
           </Collections>
         </SearchDiv>
@@ -158,6 +163,12 @@ const AddNFTsModal = ({ isOpen, setIsOpen }) => {
           <Button
             onClick={() => {
               setIsOpen(false);
+              setConditions((prev) => {
+                return {
+                  ...prev,
+                  nfts: [...prev.nfts, ...selected],
+                };
+              });
             }}
           >
             Select NFTs

@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { TradeWrapper, Button, TradeMain } from "../common";
 import TradeDescription from "../components/TradeDescription";
 import AddNFTs from "../components/AddNFTs";
 import AddNFTsModal from "../components/AddNFTsModal";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 
 const Div = styled.div`
   height: 100vh;
@@ -80,42 +80,59 @@ const ButtonWrapper = styled.div`
   gap: 1rem;
 `;
 
-const OfferNFT = ({ subject }) => {
+const IReceive = () => {
   const navigate = useNavigate();
-
-  const [klay, setKlay] = useState("");
   const [isOpen, setIsOpen] = useState(false);
-  const [nfts, setNfts] = useState([]);
+  const { counterParty, receives, setReceives } = useOutletContext();
+
+  useEffect(() => {
+    setReceives((prev) => {
+      return {
+        nfts: [],
+        klay: "",
+      };
+    });
+  }, [counterParty, setReceives]);
 
   return (
     <Div>
       <TradeDescription />
       <TradeWrapper>
         <OfferMain>
-          {subject === "CounterParty" ? (
-            <>
-              <div>What I Receive</div>
-              <div>
-                Select NFTs and/or KLAY that you would like to receive from the
-                counterparty
-              </div>
-            </>
-          ) : (
-            <>
-              <div>What I Offer</div>
-              <div>
-                Select NFTs and/or KLAY that you offer. Your offered NFTs and
-                tokens will go into escrow until the counterparty accepts. You
-                can cancel and withdraw your offer any time from
-              </div>
-            </>
-          )}
+          <div>What I Receive</div>
+          <div>
+            Select NFTs and/or KLAY that you would like to receive from the
+            counterparty
+          </div>
 
-          <div>NFTs</div>
-          <AddNFTs setIsOpen={setIsOpen} />
-          <div>KLAY</div>
+          <div>
+            NFTs{" "}
+            {receives.nfts.length === 0
+              ? null
+              : `(${receives.nfts.length} selected)`}
+          </div>
+          {receives.nfts.length === 0 ? (
+            <AddNFTs setIsOpen={setIsOpen} />
+          ) : (
+            <></>
+          )}
+          <div>
+            KLAY {receives.klay === "" ? null : `(${receives.klay} KLAY)`}
+          </div>
           <InputWrapper>
-            <KLAYInput value={klay} onChange={(e) => setKlay(e.target.value)} />
+            <KLAYInput
+              value={receives.klay}
+              onChange={(e) => {
+                const regExp = /^[0-9]*\.?[0-9]*$/;
+                if (!regExp.test(e.target.value)) return;
+                setReceives((prev) => {
+                  return {
+                    ...prev,
+                    klay: e.target.value,
+                  };
+                });
+              }}
+            />
             <KlayImageWrapper>
               <KlayImage />
               KLAY
@@ -134,20 +151,22 @@ const OfferNFT = ({ subject }) => {
           </Button>
           <Button
             onClick={() => {
-              if (subject === "CounterParty") {
-                navigate("/trade-create/your-offer-selection");
-              } else {
-                navigate("/trade-create/confirm-trade");
-              }
+              navigate("/trade-create/your-offer-selection");
             }}
           >
             Proceed to Your Offer
           </Button>
         </ButtonWrapper>
       </TradeWrapper>
-      {isOpen ? <AddNFTsModal isOpen={isOpen} setIsOpen={setIsOpen} /> : null}
+      {isOpen ? (
+        <AddNFTsModal
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+          setConditions={setReceives}
+        />
+      ) : null}
     </Div>
   );
 };
 
-export default OfferNFT;
+export default IReceive;
