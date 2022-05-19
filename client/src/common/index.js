@@ -15,6 +15,7 @@ import {
   EditIcon,
   ContentPasteGoIcon,
   SearchIcon,
+  ClearIcon,
 } from "./styles/Material.js";
 import {
   CardWrapper,
@@ -46,6 +47,7 @@ export {
   MenuIcon,
   AccessTimeIcon,
   CreditScoreIcon,
+  ClearIcon,
   VerifiedUserIcon,
   SearchIcon,
   EditIcon,

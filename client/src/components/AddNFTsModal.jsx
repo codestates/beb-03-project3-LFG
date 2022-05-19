@@ -104,6 +104,7 @@ const AddNFTsModal = ({ isOpen, setIsOpen, setConditions }) => {
         nftAddress: "",
         image:
           "https://ikzttp.mypinata.cloud/ipfs/QmYDvPAXtiJg7s8JdRBSLWdgSphQdac8j1YuQNNxcGE1hg/2.png",
+        attributes: [],
       },
     ];
 

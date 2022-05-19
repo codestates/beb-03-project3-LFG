@@ -4,6 +4,7 @@ import { TradeWrapper, Button, TradeMain } from "../common";
 import TradeDescription from "../components/TradeDescription";
 import AddNFTs from "../components/AddNFTs";
 import AddNFTsModal from "../components/AddNFTsModal";
+import TradeNFT from "../components/TradeNFT";
 import { useNavigate, useOutletContext } from "react-router-dom";
 
 const Div = styled.div`
@@ -80,19 +81,33 @@ const ButtonWrapper = styled.div`
   gap: 1rem;
 `;
 
+const TradeNFTWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+`;
+
 const IReceive = () => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
-  const { counterParty, receives, setReceives } = useOutletContext();
+  const { counterParty, receives, setReceives, setNftModal, setShow } =
+    useOutletContext();
+  const [currCounter, setCurrCounter] = useState("");
 
   useEffect(() => {
+    if (counterParty === currCounter) {
+      return;
+    }
+    setCurrCounter(counterParty);
     setReceives((prev) => {
       return {
         nfts: [],
         klay: "",
       };
     });
-  }, [counterParty, setReceives]);
+  }, [counterParty, setReceives, currCounter]);
 
   return (
     <Div>
@@ -114,7 +129,26 @@ const IReceive = () => {
           {receives.nfts.length === 0 ? (
             <AddNFTs setIsOpen={setIsOpen} />
           ) : (
-            <></>
+            <>
+              <TradeNFTWrapper>
+                {receives.nfts.map((nft, idx) => (
+                  <TradeNFT
+                    key={idx}
+                    nft={nft}
+                    setNftModal={setNftModal}
+                    setShow={setShow}
+                    setReceives={setReceives}
+                  />
+                ))}
+              </TradeNFTWrapper>
+              <Button
+                onClick={() => {
+                  setIsOpen(true);
+                }}
+              >
+                Edit NFT selection...
+              </Button>
+            </>
           )}
           <div>
             KLAY {receives.klay === "" ? null : `(${receives.klay} KLAY)`}

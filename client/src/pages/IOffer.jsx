@@ -4,6 +4,7 @@ import { TradeWrapper, Button, TradeMain } from "../common";
 import TradeDescription from "../components/TradeDescription";
 import AddNFTs from "../components/AddNFTs";
 import AddNFTsModal from "../components/AddNFTsModal";
+import TradeNFT from "../components/TradeNFT";
 import { useNavigate, useOutletContext } from "react-router-dom";
 
 const Div = styled.div`
@@ -80,19 +81,33 @@ const ButtonWrapper = styled.div`
   gap: 1rem;
 `;
 
+const TradeNFTWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+`;
+
 const IOffer = () => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
-  const { counterParty, offers, setOffers } = useOutletContext();
+  const { counterParty, offers, setOffers, setNftModal, setShow } =
+    useOutletContext();
+  const [currCounter, setCurrCounter] = useState("");
 
   useEffect(() => {
+    if (counterParty === currCounter) {
+      return;
+    }
+    setCurrCounter(counterParty);
     setOffers((prev) => {
       return {
         nfts: [],
         klay: "",
       };
     });
-  }, [counterParty, setOffers]);
+  }, [counterParty, setOffers, currCounter]);
 
   return (
     <Div>
@@ -112,7 +127,20 @@ const IOffer = () => {
               ? null
               : `(${offers.nfts.length}) selected`}
           </div>
-          {offers.nfts.length === 0 ? <AddNFTs setIsOpen={setIsOpen} /> : <></>}
+          {offers.nfts.length === 0 ? (
+            <AddNFTs setIsOpen={setIsOpen} />
+          ) : (
+            <TradeNFTWrapper>
+              {offers.nfts.map((nft, idx) => (
+                <TradeNFT
+                  key={idx}
+                  nft={nft}
+                  setNftModal={setNftModal}
+                  setShow={setShow}
+                />
+              ))}
+            </TradeNFTWrapper>
+          )}
           <div>KLAY {offers.klay === "" ? null : `(${offers.klay} KLAY)`}</div>
           <InputWrapper>
             <KLAYInput
