@@ -3,13 +3,14 @@ import { Routes, Route } from "react-router-dom";
 import { Rootdiv, HelperAbi } from "./common";
 import Navigation from "./components/Navigation";
 import MenuDropDown from "./components/MenuDropDown";
-import LoadingSpinner from "./components/LoadingSpinner";
 import Home from "./pages/Home";
 import LoanList from "./pages/LoanList";
 import LoanDetail from "./pages/LoanDetail";
 import MyPage from "./pages/MyPage";
 import TradeApp from "./pages/TradeApp";
-import AddCounterParty from "./pages/AddCounterParty";
+import OfferNFT from "./pages/OfferNFT";
+import Trade from "./pages/Trade";
+import ConfirmTrade from "./pages/ConfirmTrade";
 
 export const UserContext = createContext({
   user: null,
@@ -66,12 +67,19 @@ const App = () => {
             <Route path="/loans/:hash" element={<LoanDetail />} />
             <Route path="/loans/create" element={<LoanDetail create />} />
             <Route path="/loans/:hash/edit" element={<LoanDetail edit />} />
-            <Route path="/profile/wallet" element={<MyPage user={user} />} />
-            <Route path="/trade-create" element={<TradeApp />} />
-            <Route
-              path="/trade-create/add-counterparty-wallet"
-              element={<AddCounterParty />}
-            />
+            <Route path="/profile/wallet" element={<MyPage />} />
+            <Route path="/trade-create" element={<Trade />}>
+              <Route index element={<TradeApp />} />
+              <Route
+                path="add-counterparty-wallet"
+                element={<OfferNFT subject={"CounterParty"} />}
+              />
+              <Route
+                path="your-offer-selection"
+                element={<OfferNFT subject={"You"} />}
+              />
+              <Route path="confirm-trade" element={<ConfirmTrade />} />
+            </Route>
           </Routes>
         )}
       </Rootdiv>

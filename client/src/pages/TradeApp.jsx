@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { Rootdiv, Button, TradeWrapper } from "../common";
+import { Rootdiv, Button, TradeWrapper, TradeMain } from "../common";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import TradeDescription from "../components/TradeDescription";
 
@@ -9,18 +9,7 @@ const Div = styled(Rootdiv)`
   height: 100vh;
 `;
 
-const TradeMain = styled(Rootdiv)`
-  display: flex;
-  flex-direction: column;
-  background-color: var(--main-theme);
-  justify-content: center;
-  align-items: center;
-
-  gap: 1rem;
-  width: 600px;
-  padding: 1.1rem;
-  border-radius: 1rem;
-
+const WalletMain = styled(TradeMain)`
   & > div:first-child {
     font-size: 1.2rem;
     font-weight: bold;
@@ -73,13 +62,12 @@ const TradeApp = () => {
     <Div>
       <TradeDescription />
       <TradeWrapper>
-        <TradeMain>
+        <WalletMain>
           <div>Start a New P2P Trade</div>
           <div>
             Welcome to the Safest place on Solana to trade NFTs P2P. Each trade
-            can contain up to 6 NFTs in total from 1000+ verified collections.
-            To start a P2P trade, enter the counterparty Solana wallet address
-            below.
+            can contain up to 6 NFTs in verified collections. To start a P2P
+            trade, enter the counterparty Solana wallet address below.
           </div>
           <div>Enter the Counterparty Wallet Address</div>
           <InputWrapper>
@@ -93,7 +81,7 @@ const TradeApp = () => {
               <AccountBalanceWalletIcon />
             </IconWrapper>
           </InputWrapper>
-        </TradeMain>
+        </WalletMain>
         <Button
           onClick={() => {
             navigate("/trade-create/add-counterparty-wallet");

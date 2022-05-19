@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Rootdiv, getMetadata, checkIpfs } from "../common";
+import { Rootdiv, getMetadata } from "../common";
 import Profile from "../components/Profile";
 import MyNFTs from "../components/MyNFTs";
 import NFTAttributeModal from "../components/NFTAttributeModal";

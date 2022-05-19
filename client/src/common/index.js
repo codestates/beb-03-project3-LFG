@@ -14,6 +14,7 @@ import {
   VerifiedUserIcon,
   EditIcon,
   ContentPasteGoIcon,
+  SearchIcon,
 } from "./styles/Material.js";
 import {
   CardWrapper,
@@ -29,7 +30,7 @@ import KIP17Abi from "./abi/KIP17.json";
 import { getMetadata, checkIpfs } from "./features/getMetadata.js";
 import { renderButton } from "./features/button.js";
 import { timeStamp } from "./features/timeStamp.js";
-import { TradeWrapper } from "./styles/Trade.js";
+import { TradeWrapper, TradeMain } from "./styles/Trade.js";
 
 export {
   Button,
@@ -46,6 +47,7 @@ export {
   AccessTimeIcon,
   CreditScoreIcon,
   VerifiedUserIcon,
+  SearchIcon,
   EditIcon,
   ContentPasteGoIcon,
   CardWrapper,
@@ -62,4 +64,5 @@ export {
   timeStamp,
   checkIpfs,
   TradeWrapper,
+  TradeMain,
 };

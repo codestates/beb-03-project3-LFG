@@ -8,6 +8,7 @@ import CreditScoreIcon from "@mui/icons-material/CreditScore";
 import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
 import EditIcon from "@mui/icons-material/Edit";
 import ContentPasteGoIcon from "@mui/icons-material/ContentPasteGo";
+import SearchIcon from "@mui/icons-material/Search";
 import { GitHub, Close } from "@mui/icons-material";
 
 export {
@@ -23,4 +24,5 @@ export {
   VerifiedUserIcon,
   EditIcon,
   ContentPasteGoIcon,
+  SearchIcon,
 };
