@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Outlet } from "react-router-dom";
 import NFTAttributeModal from "../components/NFTAttributeModal";
+import { UserContext } from "../App";
 
 const Trade = (props) => {
   const [receives, setReceives] = useState({ nfts: [], klay: "" });
@@ -8,6 +9,7 @@ const Trade = (props) => {
   const [counterParty, setCounterParty] = useState("");
   const [show, setShow] = useState(false);
   const [nftModal, setNftModal] = useState({});
+  const { user } = useContext(UserContext);
 
   return (
     <div
@@ -25,6 +27,7 @@ const Trade = (props) => {
           setCounterParty,
           setNftModal,
           setShow,
+          user,
         }}
       />
       {show ? <NFTAttributeModal data={nftModal} /> : null}

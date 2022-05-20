@@ -56,7 +56,7 @@ const IconWrapper = styled.div`
 
 const TradeApp = () => {
   const navigate = useNavigate();
-  const { counterParty, setCounterParty } = useOutletContext();
+  const { counterParty, setCounterParty, user } = useOutletContext();
 
   return (
     <Div>
@@ -84,7 +84,16 @@ const TradeApp = () => {
         </WalletMain>
         <Button
           onClick={() => {
-            navigate("/trade-create/add-counterparty-wallet");
+            if (!user) {
+              alert("please login!");
+              return;
+            }
+            if (
+              window.caver.utils.isAddress(
+                window.caver.utils.toChecksumAddress(counterParty)
+              )
+            )
+              navigate("/trade-create/add-counterparty-wallet");
           }}
         >
           Start a Trade
