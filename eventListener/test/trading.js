@@ -114,27 +114,26 @@ const acceptTrade = async (tradeId, respondPaid) => {
 async function main() {
   // getTrade(1);
 
-  // offerApproveNFT(332);
+  // offerApproveNFT(319);
   // respondApproveNFT(331);
 
-  const offerNFTList = [OASIS_ADDRESS];
-  const offerTokenIdList = [332];
-  const offerPaid = 1;
-  const respondNFTList = [OASIS_ADDRESS];
-  const respondTokenIdList = [331];
-  const respondPaid = 2;
+  // const offerNFTList = [OASIS_ADDRESS];
+  // const offerTokenIdList = [319];
+  // const offerPaid = 1;
+  // const respondNFTList = [OASIS_ADDRESS];
+  // const respondTokenIdList = [331];
+  // const respondPaid = 2;
+  // startTrade(
+  //   RESPOND_ADDRESS,
+  //   offerNFTList,
+  //   offerTokenIdList,
+  //   offerPaid,
+  //   respondNFTList,
+  //   respondTokenIdList,
+  //   respondPaid
+  // );
 
-  startTrade(
-    RESPOND_ADDRESS,
-    offerNFTList,
-    offerTokenIdList,
-    offerPaid,
-    respondNFTList,
-    respondTokenIdList,
-    respondPaid
-  );
-
-  // failTrade(9);
+  failTrade(23);
 
   // acceptTrade(10, respondPaid);
 }
