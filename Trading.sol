@@ -206,7 +206,7 @@ contract Trading is IKIP17Receiver {
         uint256[] memory offerIdList, 
         address[] memory respondNFTList, 
         uint256[] memory respondIdList, 
-        uint256 respondPaidKlay,
+        uint256 respondPaidKlay
         ) public payable{
 		require(offerNFTList.length == offerIdList.length && respondNFTList.length == respondIdList.length, "list and ids length are not matched");
         
