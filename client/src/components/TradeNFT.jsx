@@ -76,28 +76,32 @@ const TradeNFT = ({ nft, setNftModal, setShow, setReceives }) => {
           <div>{nft.team}</div>
         </Information>
       </InformationWrapper>
-      <IconWrapper
-        onClick={() => {
-          setReceives((prev) => {
-            let nfts = prev.nfts.filter(
-              (val) =>
-                !(
-                  val.tokenId === nft.tokenId &&
-                  val.nftAddress === nft.nftAddress
-                )
-            );
+      {setReceives ? (
+        <IconWrapper
+          onClick={() => {
+            setReceives((prev) => {
+              let nfts = prev.nfts.filter(
+                (val) =>
+                  !(
+                    val.tokenId === nft.tokenId &&
+                    val.nftAddress === nft.nftAddress
+                  )
+              );
 
-            return {
-              ...prev,
-              nfts: nfts,
-            };
-          });
-        }}
-      >
-        <div>
-          <ClearIcon />
-        </div>
-      </IconWrapper>
+              return {
+                ...prev,
+                nfts: nfts,
+              };
+            });
+          }}
+        >
+          <div>
+            <ClearIcon />
+          </div>
+        </IconWrapper>
+      ) : (
+        ""
+      )}
     </TradeNFTWrapper>
   );
 };
