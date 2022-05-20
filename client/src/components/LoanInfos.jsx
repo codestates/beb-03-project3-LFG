@@ -49,11 +49,11 @@ const LoanInfos = ({ user, data }) => {
     return () => clearInterval(countdown);
   }, [timeLeft, data.startAt, data.period]);
 
-  return (
-    <LoanInfosWrapper>
-      {data.state === 0 ? (
-        <div>Fund the loan with this NFT as collateral</div>
-      ) : (
+  const printState = () => {
+    if (data.state === "CREATED") {
+      return <div>Fund the loan with this NFT as collateral</div>;
+    } else if (data.state === "FUNDED") {
+      return (
         <div>
           <div>
             <span>Loan funded at:</span>{" "}
@@ -63,7 +63,23 @@ const LoanInfos = ({ user, data }) => {
             <span>Time left</span> {timeLeft}
           </div>
         </div>
-      )}
+      );
+    } else if (data.state === "CANCELED") {
+      return <div>Cancelled</div>;
+    } else if (data.state === "PAIDBACK") {
+      return (
+        <div>PaidBack: {new Date(data.paidBackTime * 1000).toUTCString()}</div>
+      );
+    } else if (data.state === "DEFAULTED") {
+      return <div>DEFAULTED</div>;
+    } else {
+      return;
+    }
+  };
+
+  return (
+    <LoanInfosWrapper>
+      {printState()}
 
       <Info>
         <Request property={"Period"} value={`${data.period / 86400} Days`} />

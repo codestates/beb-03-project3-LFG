@@ -79,8 +79,10 @@ const NFTAttributeModal = ({ data }) => {
     <Wrapper>
       <Modal>
         <ModalCaption>
-          <Title>Azuki</Title>
-          <Name>{data.name}</Name>
+          <Title>
+            {data.projectName} #{data.tokenId}
+          </Title>
+          <Name>{data.team}</Name>
         </ModalCaption>
         <FigureWrapper>
           <ModalFigure fig={data.image} />

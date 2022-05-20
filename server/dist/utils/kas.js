@@ -42,7 +42,7 @@ var dotenv = require("dotenv");
 dotenv.config();
 // Cypress : 8217
 // Baobab : 1001
-var chainId = 8217;
+var chainId = 1001;
 var caver = new CaverExtKAS(chainId, process.env.accessKeyId, process.env.secretAccessKey);
 caver.initKASAPI(chainId, process.env.accessKeyId, process.env.secretAccessKey);
 caver.initTokenHistoryAPI(chainId, process.env.accessKeyId, process.env.secretAccessKey);
@@ -59,20 +59,28 @@ var getBlockNumber = function () { return __awaiter(void 0, void 0, void 0, func
 }); };
 exports.getBlockNumber = getBlockNumber;
 var getNFT = function (contractAddress, ownerAddress) { return __awaiter(void 0, void 0, void 0, function () {
-    var result, arr, _i, _a, elem, tokenId, tokenUri, temp;
+    var arr, result, _i, _a, elem, tokenId, tokenUri, temp, error_1;
     return __generator(this, function (_b) {
         switch (_b.label) {
-            case 0: return [4 /*yield*/, caver.kas.tokenHistory.getNFTListByOwner(contractAddress, ownerAddress)];
-            case 1:
-                result = _b.sent();
+            case 0:
                 arr = [];
+                _b.label = 1;
+            case 1:
+                _b.trys.push([1, 3, , 4]);
+                return [4 /*yield*/, caver.kas.tokenHistory.getNFTListByOwner(contractAddress, ownerAddress)];
+            case 2:
+                result = _b.sent();
                 for (_i = 0, _a = result.items; _i < _a.length; _i++) {
                     elem = _a[_i];
                     tokenId = elem.tokenId, tokenUri = elem.tokenUri;
-                    temp = { tokenId: parseInt(tokenId, 16), tokenURI: tokenUri, nftCA: '' };
+                    temp = { tokenId: parseInt(tokenId, 16), tokenURI: tokenUri, nftAddress: '' };
                     arr.push(temp);
                 }
                 return [2 /*return*/, arr];
+            case 3:
+                error_1 = _b.sent();
+                return [2 /*return*/, arr];
+            case 4: return [2 /*return*/];
         }
     });
 }); };

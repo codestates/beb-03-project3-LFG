@@ -1,15 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { Rootdiv, getMetadata, checkIpfs } from "../common";
+import React, { useEffect, useState, useContext } from "react";
+import { Rootdiv, myPageAxios } from "../common";
 import Profile from "../components/Profile";
 import MyNFTs from "../components/MyNFTs";
 import NFTAttributeModal from "../components/NFTAttributeModal";
-import axios from "axios";
+import { UserContext } from "../App";
+import TradeHistory from "../components/TradeHistory";
 
 const MyPage = () => {
   const [modalData, setModalData] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
-  const [nfts, setNfts] = useState(null);
+  const [nfts, setNfts] = useState([]);
   const [tabs, setTabs] = useState(0);
+  const { user } = useContext(UserContext);
 
   // 웹서버에서 내 소유 NFT를 전부 가져오고 MyNFTs에 넘겨준다
   //"https://dweb.link/ipfs/QmYDvPAXtiJg7s8JdRBSLWdgSphQdac8j1YuQNNxcGE1hg/0.png"
@@ -43,25 +45,27 @@ const MyPage = () => {
     //       "https://ikzttp.mypinata.cloud/ipfs/QmQFkLSQysj94s5GvTHPyzTxrawwtjgiiYS2TBLgrvw8CW/2",
     //   },
     // ];
-    const get = async () => {
-      const db = await axios.get("http://127.0.0.1:4001/myPage");
 
-      const promises = db.map((d) => getMetadata(d.tokenURI));
-      Promise.all(promises).then((result) => {
-        setNfts((prev) =>
-          result.map((data, idx) => {
-            return {
-              ...data.data,
-              ...db[idx],
-              image: checkIpfs(data.data.image),
-            };
-          })
-        );
-      });
-    };
+    setNfts((prev) => []);
+    myPageAxios(user, tabs, setNfts);
+  }, [user, tabs]);
 
-    get();
-  }, []);
+  const renderData = () => {
+    if (tabs === 0 || tabs === 1 || tabs === 2) {
+      return (
+        <>
+          <MyNFTs
+            nfts={nfts}
+            setIsOpen={setIsOpen}
+            setModalData={setModalData}
+          />
+          {isOpen && <NFTAttributeModal data={modalData} />}
+        </>
+      );
+    } else {
+      return <TradeHistory tabs={tabs} nfts={nfts} />;
+    }
+  };
 
   return (
     <Rootdiv
@@ -72,8 +76,7 @@ const MyPage = () => {
       }}
     >
       <Profile tabs={tabs} setTabs={setTabs} />
-      <MyNFTs nfts={nfts} setIsOpen={setIsOpen} setModalData={setModalData} />
-      {isOpen && <NFTAttributeModal data={modalData} />}
+      {renderData()}
     </Rootdiv>
   );
 };

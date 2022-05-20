@@ -2,11 +2,10 @@ import { CoinGeckoClient } from 'coingecko-api-v3';
 import * as express from 'express';
 import { Loan } from './db/loan';
 import { userModel } from './db/user';
-import { historyRouter } from './router/history';
 import { loanRouter } from './router/loan';
 import { myPageRouter } from './router/myPage';
-import { tradeRouter } from './router/trade';
 import { getBlockNumber, getNFT } from './utils/kas';
+import * as cors from 'cors';
 
 const sdk = require('api')('@opensea/v1.0#5zrwe3ql2r2e6mn');
 //require와 import의 혼종..?
@@ -15,15 +14,23 @@ const app: express.Application = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(
+  cors({
+    origin: '*',
+    credentials: true,
+    allowedHeaders: '*',
+    methods: ['GET', 'POST', 'OPTIONS', 'PUT', 'DELETE'],
+  })
+);
 
 app.get('/', (req: express.Request, res: express.Response, next: express.NextFunction) => {
   res.send('hello typescript express!');
 });
 
 app.use('/loan', loanRouter);
-app.use('/trade', tradeRouter);
+//app.use('/trade', tradeRouter);
 app.use('/myPage', myPageRouter);
-app.use('/history', historyRouter);
+// app.use('/history', historyRouter);
 
 app.get(
   '/kasTest',
