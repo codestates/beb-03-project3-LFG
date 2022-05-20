@@ -2,6 +2,7 @@
 const caver = require('../caver');
 const tradingAbi = require('../config/Trading.json');
 const Trade = require('../db/trade');
+const NftList = require('../db/nftList');
 
 // p2p trade
 const startTrade = async (tradeAddress, data) => {
@@ -25,13 +26,39 @@ const startTrade = async (tradeAddress, data) => {
     curOfferNFTList = [];
     for (let i = 0; i < offerNFTList.length; i++) {
       const { tokenUri } = await caver.kas.tokenHistory.getNFT(offerNFTList[i], offerIdList[i]);
-      curOfferNFTList.push(tokenUri);
+      await NftList.findOne({ nftAddress: offerNFTList[i].toLowerCase() })
+        .then(async (whiteList) => {
+          const curNFT = {
+            tokenURI: tokenUri,
+            tokenId: offerIdList[i],
+            nftAddress: offerNFTList[i],
+            projectName: whiteList.projectName,
+            team: whiteList.team,
+          };
+          curOfferNFTList.push(curNFT);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
 
     curRespondNFTList = [];
     for (let i = 0; i < respondNFTList.length; i++) {
       const { tokenUri } = await caver.kas.tokenHistory.getNFT(respondNFTList[i], respondIdList[i]);
-      curRespondNFTList.push(tokenUri);
+      await NftList.findOne({ nftAddress: respondNFTList[i].toLowerCase() })
+        .then(async (whiteList) => {
+          const curNFT = {
+            tokenURI: tokenUri,
+            tokenId: respondIdList[i],
+            nftAddress: respondNFTList[i],
+            projectName: whiteList.projectName,
+            team: whiteList.team,
+          };
+          curRespondNFTList.push(curNFT);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
 
     const getStatus = (status) => {
