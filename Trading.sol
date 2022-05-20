@@ -1,55 +1,9 @@
-pragma solidity ^0.5.6;
+pragma solidity ^0.5.0;
+pragma experimental ABIEncoderV2;
 
-// import "@klaytn/contracts/token/IERC721Receiver.sol";
 import "@klaytn/contracts/token/KIP17/IKIP17Receiver.sol";
 import "@klaytn/contracts/token/KIP17/IKIP17.sol";
 
-contract LoanFactory is IKIP17Receiver { //IERC721Receiver,
-    event Deploy(address addr);
-
-    constructor() public {}
-
-    // msg.sender는 돈을 빌리려는 사람
-    // function deploy(IKIP17 _ikip17, uint256 _tokenId, uint256 _period, uint256 _amount, uint256 _rateAmount) 
-    //     public 
-    // {
-    //     Loan loan = new Loan(msg.sender, _ikip17, _tokenId, _period, _amount, _rateAmount);
-    //     _ikip17.safeTransferFrom(address(this), address(loan), _tokenId);
-
-    //     emit Deploy(address(loan));
-    // }
-    function deploy(bytes memory _code, IKIP17 _ikip17, uint256 _tokenId) public payable returns (address addr) {
-        assembly {
-            // create(v, p, n)
-            // v = amount of ETH to send
-            // p = pointer in memory to start of code
-            // n = size of code
-            addr := create(callvalue(), add(_code, 0x20), mload(_code))
-        }
-        require(addr != address(0), "deploy failed");
-
-        _ikip17.safeTransferFrom(address(this), addr, _tokenId);
-        emit Deploy(addr);
-    }
-
-    function onERC721Received(
-        address,
-        address,
-        uint256,
-        bytes memory
-    ) public returns (bytes4) {
-        return this.onERC721Received.selector;
-    }
-
-    function onKIP17Received(
-        address,
-        address,
-        uint256,
-        bytes memory
-    ) public returns (bytes4) {
-        return this.onKIP17Received.selector;
-    }
-}
 library SafeMath {
     /**
      * @dev Returns the addition of two unsigned integers, reverting on
@@ -191,19 +145,7 @@ library SafeMath {
         return a % b;
     }
 }
-pragma solidity ^0.5.0;
 
-/**
- * @title Counters
- * @author Matt Condon (@shrugs)
- * @dev Provides counters that can only be incremented or decremented by one. This can be used e.g. to track the number
- * of elements in a mapping, issuing ERC721 ids, or counting request ids.
- *
- * Include with `using Counters for Counters.Counter;`
- * Since it is not possible to overflow a 256 bit integer with increments of one, `increment` can skip the SafeMath
- * overflow check, thereby saving gas. This does assume however correct usage, in that the underlying `_value` is never
- * directly accessed.
- */
 library Counters {
     using SafeMath for uint256;
 
@@ -227,128 +169,116 @@ library Counters {
     }
 }
 
-pragma solidity ^0.5.0;
-pragma experimental ABIEncoderV2;
-
 
 contract Trading is IKIP17Receiver {
-    function onKIP17Received(
-    address operator,
-    address from,
-    uint256 tokenId,
-    bytes memory data
-    ) public returns (bytes4) {
-    return bytes4(keccak256("onKIP17Received(address,address,uint256,bytes)"));
-    }
-
     using Counters for Counters.Counter;
 
-    struct offerList {
-        uint256 offerId;
-        address payable initializeOfferAddress;
-        address payable counterAddress;
-
-        address[] nftContractAddress;
-        uint256[] myNftId;
-        uint256 howMuchOfferKlay;
-        bool offerIsConfirm;
+    enum TradeStatus{
+        CREATED,
+        CANCELLED,
+        FINISHED
     }
 
-
-    mapping (uint256 => offerList) public storeOffer;
-    Counters.Counter offerId; // counter로 수정 
-
-    function initializeOffer(address payable counterAddress, address[] memory nftContractAddress, uint256[] memory myNftId) public payable {
-        // 상대방 월렛 주소, 내nft 컨트랙트 주소, 내 nft tokenid
-        require(nftContractAddress.length == myNftId.length);
-        for (uint256 i=0; i<myNftId.length; i++) {
-            require(msg.sender == IKIP17(nftContractAddress[i]).ownerOf(myNftId[i]));
-        }
-
-        offerList memory tempOffer = offerList(offerId.current(), msg.sender, counterAddress, nftContractAddress, myNftId, msg.value, false);
-        storeOffer[offerId.current()] = tempOffer;
-        offerId.increment();
-
-        // 컨트랙트에 offer랑 klaytn보내야함
-        // offerList memory tempOffer = storeOffer[__offerId];
-
-        for (uint256 i=0; i<nftContractAddress.length; i++) {
-            IKIP17(nftContractAddress[i]).safeTransferFrom(msg.sender, address(this), myNftId[i]);
-        }
+	struct Trade {
+		uint256 tradeId;
+        address payable offerAddress;
+        address payable respondAddress;
+        address[] offerNFTList;
+        uint256[] offerIdList;
+        address[] respondNFTList;
+        uint256[] respondIdList;
+        uint256 offerPaidKlay;
+	    uint256 respondPaidKlay;
+        TradeStatus status;
     }
+	mapping(uint256 => Trade) public tradeList;
+	Counters.Counter tradeId;
 
-    function checkOfferRecieve() public view returns (offerList[] memory) {
-        offerList[] memory tempArray = new offerList[](offerId.current());
+    event startTrade(uint256 tradeId);
+    event endTrade(uint256 tradeId);
+    event failTrade(uint256 tradeId);
 
-        uint256 filteredArrayCount = 0;
-        for (uint256 i=0; i<offerId.current(); i++) {
-            if (storeOffer[i].counterAddress == msg.sender) {
-                // tempArray.push(storeOffer[i]); 왜안댐? struct때문 ?
-                tempArray[filteredArrayCount] = storeOffer[i];
-                filteredArrayCount++;
-            }
-        }
-        return tempArray;
-    }
+    constructor() public {}
 
-    struct respondList {
-        uint256 respondId;
-        address payable initializeOfferAddress;
-        address payable counterAddress;
-
-        address[] respondNftContractAddress;
-        uint256[] respondNftId;
-        uint256 howMuchRespondKlay;
-        bool respondIsConfirm;
-    }
-
-    mapping (uint256 => respondList) public storeRespond;
-    Counters.Counter respondId; // 응답 시작 번호
-
-    function offerRespond(uint256 _offerId, address[] memory respondNftContractAddress, uint256[] memory respondNftId) public payable {
-        require(respondNftContractAddress.length == respondNftId.length);
-        for (uint256 i=0; i<respondNftId.length; i++) {
-            require(msg.sender == IKIP17(respondNftContractAddress[i]).ownerOf(respondNftId[i]));
-        }
-
-        respondList memory tempOffer = respondList(respondId.current(), storeOffer[_offerId].initializeOfferAddress, msg.sender, respondNftContractAddress, respondNftId, msg.value, false);
-        storeRespond[respondId.current()] = tempOffer;
-        respondId.increment();
-    }
-    function checkRespond() public view returns (respondList[] memory) {
-        respondList[] memory tempArray = new respondList[](respondId.current());
-
-        uint256 filteredRespondArrayCount = 0;
-        for (uint256 i=0; i<respondId.current(); i++) {
-            if (storeRespond[i].initializeOfferAddress == msg.sender) {
-                tempArray[filteredRespondArrayCount] = storeRespond[i];
-                filteredRespondArrayCount++;
-            }
-        }
-        return tempArray;
-    }
-    function confirmAndTransfer(uint256 __offerId, uint256 _respondId) public payable {
-        require(storeRespond[_respondId].respondId == _respondId); // 해당 respond값이 있는지 없는지
-        require(storeOffer[__offerId].initializeOfferAddress == msg.sender);
-        // confirm은 initialOfferAddress만 할 수 있게
-
-        offerList memory tempOffer = storeOffer[__offerId];
-
-        for (uint256 i=1; i<tempOffer.nftContractAddress.length; i++) {
-            IKIP17(tempOffer.nftContractAddress[i]).safeTransferFrom(address(this), tempOffer.counterAddress, tempOffer.myNftId[i]);
-        }
-
-        tempOffer.counterAddress.transfer(tempOffer.howMuchOfferKlay); // 받는address.transfer(amount)
+	function makeTrade(
+        address payable respondAddress, 
+        address[] memory offerNFTList, 
+        uint256[] memory offerIdList, 
+        address[] memory respondNFTList, 
+        uint256[] memory respondIdList, 
+        uint256 respondPaidKlay,
+        ) public payable{
+		require(offerNFTList.length == offerIdList.length && respondNFTList.length == respondIdList.length, "list and ids length are not matched");
         
-        respondList memory tempRespond = storeRespond[_respondId];
+        Trade memory tempTrade = Trade(
+            tradeId.current(), 
+            msg.sender, 
+            respondAddress, 
+            offerNFTList,
+            offerIdList,
+            respondNFTList,
+            respondIdList, 
+            msg.value,
+            respondPaidKlay, 
+            TradeStatus.CREATED
+        );
+        tradeList[tradeId.current()] = tempTrade;
 
-        for (uint256 i=1; i<tempRespond.respondNftContractAddress.length; i++) {
-            IKIP17(tempRespond.respondNftContractAddress[i]).safeTransferFrom(tempRespond.counterAddress, tempRespond.initializeOfferAddress, tempRespond.respondNftId[i]);
+        for (uint256 i = 0; i < offerNFTList.length; i++){
+            IKIP17(offerNFTList[i]).safeTransferFrom(msg.sender, address(this), offerIdList[i]);
+        }
+        emit startTrade(tradeId.current());
+        tradeId.increment();
+    }
+
+	function acceptTrade(uint256 targetTradeId) public payable {
+        Trade memory targetTrade = tradeList[targetTradeId];
+    
+        require(targetTrade.respondAddress == msg.sender, "msg.sender and respondAddress are not equal");
+        require(targetTrade.respondPaidKlay == msg.value, "respondPaidKlay and msg.value are not equal");
+        
+        for (uint256 i = 0; i < targetTrade.offerNFTList.length; i++){
+            IKIP17(targetTrade.offerNFTList[i]).safeTransferFrom(address(this), msg.sender, targetTrade.offerIdList[i]);
         }
 
-        tempRespond.initializeOfferAddress.transfer(tempRespond.howMuchRespondKlay);
+        for (uint256 i = 0; i < targetTrade.respondNFTList.length; i++){
+            IKIP17(targetTrade.respondNFTList[i]).safeTransferFrom(msg.sender, targetTrade.offerAddress, targetTrade.respondIdList[i]);
+        }
+        
+        targetTrade.offerAddress.transfer(msg.value);
+        tradeList[targetTradeId].respondPaidKlay = msg.value;
+        targetTrade.respondAddress.transfer(targetTrade.offerPaidKlay);
+        
+        tradeList[targetTradeId].status = TradeStatus.FINISHED;
+        emit endTrade(targetTradeId);
+	}
 
-        tempOffer.offerIsConfirm = true;
-        tempRespond.respondIsConfirm = true;
+	function cancelTrade(uint256 targetTradeId) public {
+
+        Trade memory targetTrade = tradeList[targetTradeId];
+		require(targetTrade.offerAddress == msg.sender, "only offer can cancel");
+        
+        for (uint256 i = 0; i < targetTrade.offerNFTList.length; i++){
+            IKIP17(targetTrade.offerNFTList[i]).safeTransferFrom(address(this), msg.sender, targetTrade.offerIdList[i]);
+        }
+
+        targetTrade.offerAddress.transfer(targetTrade.offerPaidKlay); // 받는address.transfer(amount)
+        tradeList[targetTradeId].status = TradeStatus.CANCELLED; // 해당 tradeId 는 트래이딩 되지 못하고 종료
+
+        emit failTrade(targetTradeId);
+	}
+
+    function getTrade(uint256 targetTradeId) public view returns(Trade memory) {
+        Trade memory targetTrade = tradeList[targetTradeId];
+        return targetTrade;
+    }
+
+    function onKIP17Received(
+        address operator,
+        address from,
+        uint256 tokenId,
+        bytes memory data
+        ) public returns (bytes4) {
+        return bytes4(keccak256("onKIP17Received(address,address,uint256,bytes)"));
     }
 }
