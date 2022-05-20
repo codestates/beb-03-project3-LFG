@@ -119,7 +119,14 @@ const ConfirmTrade = () => {
           >
             Back
           </Button>
-          <Button>Confirm Offer</Button>
+          <Button
+            onClick={async () => {
+              await ConfirmTrade(user, counterParty, offers, receives);
+              navigate("/profile/wallet");
+            }}
+          >
+            Confirm Offer
+          </Button>
         </ButtonWrapper>
       </TradeWrapper>
     </Div>

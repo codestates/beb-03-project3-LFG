@@ -33,6 +33,7 @@ import { renderButton } from "./features/button.js";
 import { timeStamp } from "./features/timeStamp.js";
 import { TradeWrapper, TradeMain } from "./styles/Trade.js";
 import { myPageAxios, processTradeData } from "./features/axios.js";
+import { ConfirmTrade, CancelTrade, AcceptTrade } from "./features/Trade.js";
 
 export {
   Button,
@@ -70,4 +71,7 @@ export {
   myPageAxios,
   processTradeData,
   TradeMain,
+  ConfirmTrade,
+  CancelTrade,
+  AcceptTrade,
 };
