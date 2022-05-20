@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Button, Rootdiv, SearchIcon } from "../common";
+import { Button, Rootdiv, SearchIcon, getMetadata } from "../common";
 import CollectionList from "./CollectionList";
+import axios from "axios";
 
 const Wrapper = styled.div`
   width: 100vw;
@@ -90,44 +91,44 @@ const ButtonWrapper = styled.div`
   justify-content: center;
 `;
 
-const AddNFTsModal = ({ isOpen, setIsOpen, setConditions, selectedNFTs }) => {
+const AddNFTsModal = ({
+  isOpen,
+  setIsOpen,
+  setConditions,
+  selectedNFTs,
+  user,
+}) => {
   const [collection, setCollection] = useState("");
+  const [myNFTs, setMyNFTs] = useState([]);
   const [colls, setColls] = useState({}); // 소유하고있는 NFT 리스트
   const [selected, setSelected] = useState([]); // 선택된 NFT 리스트
 
   useEffect(() => {
-    const result = [
-      {
-        projectName: "TFT",
-        team: "Test NFT",
-        tokenId: 21,
-        nftAddress: "",
-        image:
-          "https://ikzttp.mypinata.cloud/ipfs/QmYDvPAXtiJg7s8JdRBSLWdgSphQdac8j1YuQNNxcGE1hg/21.png",
-        attributes: [],
-      },
-      {
-        projectName: "TFT",
-        team: "Test NFT",
-        tokenId: 22,
-        nftAddress: "",
-        image:
-          "https://ikzttp.mypinata.cloud/ipfs/QmYDvPAXtiJg7s8JdRBSLWdgSphQdac8j1YuQNNxcGE1hg/22.png",
-        attributes: [],
-      },
-      {
-        projectName: "TFT",
-        team: "Test NFT",
-        tokenId: 23,
-        nftAddress: "",
-        image:
-          "https://ikzttp.mypinata.cloud/ipfs/QmYDvPAXtiJg7s8JdRBSLWdgSphQdac8j1YuQNNxcGE1hg/23.png",
-        attributes: [],
-      },
-    ];
+    const get = async () => {
+      const {
+        data: { myNftList },
+      } = await axios.post("http://127.0.0.1:4002/myPage", {
+        userAddress: user,
+      });
 
+      const promises = myNftList.map((d) => getMetadata(d.tokenURI));
+      Promise.all(promises).then((resolve) => {
+        setMyNFTs((prev) =>
+          resolve.map((data, idx) => {
+            return {
+              ...data.data,
+              ...myNftList[idx],
+            };
+          })
+        );
+      });
+    };
+    get();
+  }, [user]);
+
+  useEffect(() => {
     const data = {};
-    result.forEach((val) => {
+    myNFTs.forEach((val) => {
       if (data[val.projectName]) {
         data[val.projectName].push(val);
       } else {
@@ -136,7 +137,7 @@ const AddNFTsModal = ({ isOpen, setIsOpen, setConditions, selectedNFTs }) => {
       }
     });
     setColls((prev) => data);
-  }, []);
+  }, [myNFTs]);
 
   return (
     <Wrapper

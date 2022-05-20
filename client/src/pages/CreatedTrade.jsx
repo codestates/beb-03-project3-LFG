@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import styled from "styled-components";
-import { TradeMain, TradeWrapper, Button } from "../common";
 import TradeDescription from "../components/TradeDescription";
 import TradeNFT from "../components/TradeNFT";
+import { TradeWrapper, TradeMain, Button } from "../common";
 
 const Div = styled.div`
   display: flex;
@@ -25,11 +25,6 @@ const TradeNFTWrapper = styled.div`
   align-items: center;
 `;
 
-const ButtonWrapper = styled.div`
-  display: flex;
-  gap: 1rem;
-`;
-
 const KlayWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -46,37 +41,48 @@ const KlayIcon = styled.img.attrs({
   height: 1.5rem;
 `;
 
-const ConfirmTrade = () => {
-  const { counterParty, receives, offers, setNftModal, setShow, user } =
-    useOutletContext();
-  const navigate = useNavigate();
+const ButtonWrapper = styled.div`
+  display: flex;
+  gap: 1rem;
+`;
 
-  useEffect(() => {
-    if (!user || counterParty === "") {
-      navigate("/trade-create");
-    }
+const CreatedTrade = () => {
+  const { setNftModal, setShow, user } = useOutletContext();
+  const location = useNavigate();
+  const data = location.state.data;
+  const {
+    tradeId,
+    offerAddress,
+    respondAddress,
+    offerNFTList,
+    respondNFTList,
+    offerPaidKlay,
+    respondPaidKlay,
+    status,
+  } = data;
 
-    if (
-      receives.nfts.length === 0 ||
-      (offers.nfts.length === 0 && offers.nfts.klay === "")
-    ) {
-      navigate("/trade-create");
+  const renderButton = () => {
+    if (status !== "CREATED") {
+      return;
+    } else {
+      if (user.toLowercase() === offerAddress.toLowercase()) {
+        return <Button>Cancel</Button>;
+      } else if (user.toLowercase() === respondAddress.toLowercase()) {
+        return <Button>Accept Trade</Button>;
+      }
     }
-  });
+  };
 
   return (
     <Div>
       <TradeDescription />
-      <div style={{ textAlign: "center", marginTop: "1rem" }}>
-        The counterparty will be able to see the offer at Incoming Offers
-      </div>
       <TradeWrapper>
         <OfferMain>
           <div>What I Receive</div>
           <div>What you will get</div>
-          <div>NFTs Offered ({receives.nfts.length})</div>
+          <div>NFTs Offered ({respondNFTList.length})</div>
           <TradeNFTWrapper>
-            {receives.nfts.map((nft, idx) => (
+            {respondNFTList.map((nft, idx) => (
               <TradeNFT
                 key={idx}
                 nft={nft}
@@ -88,15 +94,15 @@ const ConfirmTrade = () => {
           <div>KLAY Offered</div>
           <KlayWrapper>
             <KlayIcon />
-            {receives.klay === "" ? 0 : receives.klay}
+            {respondPaidKlay === "" ? 0 : respondPaidKlay}
           </KlayWrapper>
         </OfferMain>
         <OfferMain>
           <div>What I offer</div>
           <div>What you will give</div>
-          <div>NFTs Offered ({offers.nfts.length})</div>
+          <div>NFTs Offered ({offerNFTList.length})</div>
           <TradeNFTWrapper>
-            {offers.nfts.map((nft, idx) => (
+            {offerNFTList.map((nft, idx) => (
               <TradeNFT
                 key={idx}
                 nft={nft}
@@ -108,22 +114,13 @@ const ConfirmTrade = () => {
           <div>KLAY Offered</div>
           <KlayWrapper>
             <KlayIcon />
-            {offers.klay === "" ? 0 : offers.klay}
+            {offerPaidKlay === "" ? 0 : offerPaidKlay}
           </KlayWrapper>
         </OfferMain>
-        <ButtonWrapper>
-          <Button
-            onClick={() => {
-              navigate(-1);
-            }}
-          >
-            Back
-          </Button>
-          <Button>Confirm Offer</Button>
-        </ButtonWrapper>
+        <ButtonWrapper>{renderButton()}</ButtonWrapper>
       </TradeWrapper>
     </Div>
   );
 };
 
-export default ConfirmTrade;
+export default CreatedTrade;

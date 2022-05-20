@@ -32,6 +32,7 @@ import { getMetadata, checkIpfs } from "./features/getMetadata.js";
 import { renderButton } from "./features/button.js";
 import { timeStamp } from "./features/timeStamp.js";
 import { TradeWrapper, TradeMain } from "./styles/Trade.js";
+import { myPageAxios, processTradeData } from "./features/axios.js";
 
 export {
   Button,
@@ -66,5 +67,7 @@ export {
   timeStamp,
   checkIpfs,
   TradeWrapper,
+  myPageAxios,
+  processTradeData,
   TradeMain,
 };

@@ -205,6 +205,7 @@ const IOffer = () => {
           setIsOpen={setIsOpen}
           setConditions={setOffers}
           selectedNFTs={offers.nfts}
+          user={user}
         />
       ) : null}
     </Div>

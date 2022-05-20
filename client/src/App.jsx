@@ -12,6 +12,7 @@ import IOffer from "./pages/IOffer";
 import Trade from "./pages/Trade";
 import ConfirmTrade from "./pages/ConfirmTrade";
 import IReceive from "./pages/IReceive";
+import CreatedTrade from "./pages/CreatedTrade";
 
 export const UserContext = createContext({
   user: null,
@@ -74,6 +75,7 @@ const App = () => {
               <Route path="add-counterparty-wallet" element={<IReceive />} />
               <Route path="your-offer-selection" element={<IOffer />} />
               <Route path="confirm-trade" element={<ConfirmTrade />} />
+              <Route path="created" element={<CreatedTrade />} />
             </Route>
           </Routes>
         )}

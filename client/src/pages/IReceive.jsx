@@ -195,6 +195,7 @@ const IReceive = () => {
           setIsOpen={setIsOpen}
           setConditions={setReceives}
           selectedNFTs={receives.nfts}
+          user={user}
         />
       ) : null}
     </Div>
