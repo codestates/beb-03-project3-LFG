@@ -88,12 +88,17 @@ const TradeApp = () => {
               alert("please login!");
               return;
             }
-            if (
-              window.caver.utils.isAddress(
-                window.caver.utils.toChecksumAddress(counterParty)
+
+            try {
+              if (
+                window.caver.utils.isAddress(
+                  window.caver.utils.toChecksumAddress(counterParty)
+                )
               )
-            )
-              navigate("/trade-create/add-counterparty-wallet");
+                navigate("/trade-create/add-counterparty-wallet");
+            } catch (err) {
+              alert(err);
+            }
           }}
         >
           Start a Trade

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { TradeWrapper, Button, TradeMain } from "../common";
 import TradeDescription from "../components/TradeDescription";
@@ -92,22 +92,25 @@ const TradeNFTWrapper = styled.div`
 const IOffer = () => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
-  const { counterParty, offers, setOffers, setNftModal, setShow } =
-    useOutletContext();
-  const [currCounter, setCurrCounter] = useState("");
+  const {
+    counterParty,
+    receives,
+    offers,
+    setOffers,
+    setNftModal,
+    setShow,
+    user,
+  } = useOutletContext();
 
   useEffect(() => {
-    if (counterParty === currCounter) {
-      return;
+    if (!user || counterParty === "") {
+      navigate("/");
     }
-    setCurrCounter(counterParty);
-    setOffers((prev) => {
-      return {
-        nfts: [],
-        klay: "",
-      };
-    });
-  }, [counterParty, setOffers, currCounter]);
+
+    if (receives.nfts.length === 0) {
+      navigate("/");
+    }
+  });
 
   return (
     <Div>
@@ -184,6 +187,11 @@ const IOffer = () => {
           </Button>
           <Button
             onClick={() => {
+              if (offers.nfts.length === 0 && offers.klay === "") {
+                alert("choose your offer");
+                return;
+              }
+
               navigate("/trade-create/confirm-trade");
             }}
           >

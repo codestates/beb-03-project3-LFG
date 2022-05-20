@@ -92,22 +92,14 @@ const TradeNFTWrapper = styled.div`
 const IReceive = () => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
-  const { counterParty, receives, setReceives, setNftModal, setShow } =
+  const { counterParty, receives, setReceives, setNftModal, setShow, user } =
     useOutletContext();
-  const [currCounter, setCurrCounter] = useState("");
 
   useEffect(() => {
-    if (counterParty === currCounter) {
-      return;
+    if (!user || counterParty === "") {
+      navigate("/");
     }
-    setCurrCounter(counterParty);
-    setReceives((prev) => {
-      return {
-        nfts: [],
-        klay: "",
-      };
-    });
-  }, [counterParty, setReceives, currCounter]);
+  });
 
   return (
     <Div>
@@ -185,6 +177,11 @@ const IReceive = () => {
           </Button>
           <Button
             onClick={() => {
+              if (receives.nfts.length === 0) {
+                alert("choose at least 1 nft");
+                return;
+              }
+
               navigate("/trade-create/your-offer-selection");
             }}
           >

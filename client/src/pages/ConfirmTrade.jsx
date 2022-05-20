@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import styled from "styled-components";
 import { TradeMain, TradeWrapper, Button } from "../common";
@@ -47,8 +47,22 @@ const KlayIcon = styled.img.attrs({
 `;
 
 const ConfirmTrade = () => {
-  const { receives, offers, setNftModal, setShow } = useOutletContext();
+  const { counterParty, receives, offers, setNftModal, setShow, user } =
+    useOutletContext();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user || counterParty === "") {
+      navigate("/");
+    }
+
+    if (
+      receives.nfts.length === 0 ||
+      (offers.nfts.length === 0 && offers.nfts.klay === "")
+    ) {
+      navigate("/");
+    }
+  });
 
   return (
     <Div>
@@ -60,7 +74,7 @@ const ConfirmTrade = () => {
         <OfferMain>
           <div>What I Receive</div>
           <div>What you will get</div>
-          <div>NFTs Offered</div>
+          <div>NFTs Offered ({receives.nfts.length})</div>
           <TradeNFTWrapper>
             {receives.nfts.map((nft, idx) => (
               <TradeNFT
@@ -80,7 +94,7 @@ const ConfirmTrade = () => {
         <OfferMain>
           <div>What I offer</div>
           <div>What you will give</div>
-          <div>NFTs Offered</div>
+          <div>NFTs Offered ({offers.nfts.length})</div>
           <TradeNFTWrapper>
             {offers.nfts.map((nft, idx) => (
               <TradeNFT
