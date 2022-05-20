@@ -1,8 +1,9 @@
 import * as express from 'express';
-import { getTrades } from '../controller/tradeController';
+import { offerTrades, respondTrades } from '../controller/tradeController';
 
 const tradeRouter = express.Router();
 
-tradeRouter.get('/', getTrades);
+tradeRouter.post('/offer', offerTrades);
+tradeRouter.post('/respond', respondTrades);
 
 export { tradeRouter };

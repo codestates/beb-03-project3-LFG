@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import * as mongoose from 'mongoose';
 
 const tradeSchema = new mongoose.Schema(
   {
@@ -26,6 +26,4 @@ const tradeSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const Trade = mongoose.model('trade', tradeSchema);
-
-module.exports = Trade;
+export const Trade = mongoose.model('trade', tradeSchema);
