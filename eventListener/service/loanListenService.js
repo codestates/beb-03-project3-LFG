@@ -3,7 +3,7 @@ const NftList = require('../db/nftList');
 const caver = require('../caver');
 const loanAbi = require('../config/Loan.json');
 
-const openLoanRequest = async (newLoanAddressData) => {
+const deployLoan = async (newLoanAddressData) => {
   const newLoanAddress = '0x' + newLoanAddressData.slice(-40);
   const loanContract = new caver.contract(loanAbi, newLoanAddress);
 
@@ -103,7 +103,7 @@ const liquidateLoan = async (loanAddress) => {
 };
 
 module.exports = {
-  openLoanRequest,
+  deployLoan,
   cancelLoan,
   editLoan,
   fundLoan,
