@@ -97,6 +97,8 @@ const AddNFTsModal = ({
   setConditions,
   selectedNFTs,
   user,
+  counterParty,
+  isReceive,
 }) => {
   const [collection, setCollection] = useState("");
   const [myNFTs, setMyNFTs] = useState([]);
@@ -108,7 +110,7 @@ const AddNFTsModal = ({
       const {
         data: { myNftList },
       } = await axios.post("http://127.0.0.1:4002/myPage", {
-        userAddress: user,
+        userAddress: isReceive ? counterParty : user,
       });
 
       const promises = myNftList.map((d) => getMetadata(d.tokenURI));
@@ -124,7 +126,7 @@ const AddNFTsModal = ({
       });
     };
     get();
-  }, [user]);
+  }, [user, isReceive, counterParty]);
 
   useEffect(() => {
     const data = {};

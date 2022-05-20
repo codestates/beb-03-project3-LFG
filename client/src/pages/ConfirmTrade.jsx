@@ -1,7 +1,12 @@
 import React, { useEffect } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import styled from "styled-components";
-import { TradeMain, TradeWrapper, Button } from "../common";
+import {
+  TradeMain,
+  TradeWrapper,
+  Button,
+  ConfirmTrade as Confirm,
+} from "../common";
 import TradeDescription from "../components/TradeDescription";
 import TradeNFT from "../components/TradeNFT";
 
@@ -121,7 +126,7 @@ const ConfirmTrade = () => {
           </Button>
           <Button
             onClick={async () => {
-              await ConfirmTrade(user, counterParty, offers, receives);
+              await Confirm(user, counterParty, offers, receives);
               navigate("/profile/wallet");
             }}
           >

@@ -30,8 +30,16 @@ export const ConfirmTrade = async (
   let offerIdList = offers.nfts.map((nft) => nft.tokenId);
   let respondNFTList = receives.nfts.map((nft) => nft.nftAddress);
   let respondIdList = receives.nfts.map((nft) => nft.tokenId);
-  let offerPaidKlay = "0x" + (Number(offers.nfts.klay) * 1e18).toString(16);
-  let respondPaidKlay = "0x" + (Number(receives.nfts.klay) * 1e18).toString(16);
+  let offerPaidKlay = "0x" + (Number(offers.klay) * 1e18).toString(16);
+  let respondPaidKlay = "0x" + (Number(receives.klay) * 1e18).toString(16);
+  // console.log(
+  //   offerNFTList,
+  //   offerIdList,
+  //   respondNFTList,
+  //   respondIdList,
+  //   offerPaidKlay,
+  //   respondPaidKlay
+  // );
 
   const makeTradeEncoded = window.caver.abi.encodeFunctionCall(
     {

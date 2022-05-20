@@ -10,6 +10,7 @@ const MyPage = () => {
   const [modalData, setModalData] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const [nfts, setNfts] = useState([]);
+  const [trades, setTrades] = useState([]);
   const [tabs, setTabs] = useState(0);
   const { user } = useContext(UserContext);
 
@@ -47,7 +48,7 @@ const MyPage = () => {
     // ];
 
     setNfts((prev) => []);
-    myPageAxios(user, tabs, setNfts);
+    myPageAxios(user, tabs, setNfts, setTrades);
   }, [user, tabs]);
 
   const renderData = () => {
@@ -63,7 +64,7 @@ const MyPage = () => {
         </>
       );
     } else {
-      return <TradeHistory tabs={tabs} nfts={nfts} />;
+      return <TradeHistory tabs={tabs} nfts={trades} />;
     }
   };
 

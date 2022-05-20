@@ -206,6 +206,8 @@ const IOffer = () => {
           setConditions={setOffers}
           selectedNFTs={offers.nfts}
           user={user}
+          counterParty={counterParty}
+          isReceive={false}
         />
       ) : null}
     </Div>
