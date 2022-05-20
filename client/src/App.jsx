@@ -3,11 +3,16 @@ import { Routes, Route } from "react-router-dom";
 import { Rootdiv, HelperAbi } from "./common";
 import Navigation from "./components/Navigation";
 import MenuDropDown from "./components/MenuDropDown";
-import LoadingSpinner from "./components/LoadingSpinner";
 import Home from "./pages/Home";
 import LoanList from "./pages/LoanList";
 import LoanDetail from "./pages/LoanDetail";
 import MyPage from "./pages/MyPage";
+import TradeApp from "./pages/TradeApp";
+import IOffer from "./pages/IOffer";
+import Trade from "./pages/Trade";
+import ConfirmTrade from "./pages/ConfirmTrade";
+import IReceive from "./pages/IReceive";
+import CreatedTrade from "./pages/CreatedTrade";
 
 export const UserContext = createContext({
   user: null,
@@ -64,8 +69,14 @@ const App = () => {
             <Route path="/loans/:hash" element={<LoanDetail />} />
             <Route path="/loans/create" element={<LoanDetail create />} />
             <Route path="/loans/:hash/edit" element={<LoanDetail edit />} />
-            <Route path="/profile/wallet" element={<MyPage user={user} />} />
-            <Route path="/loading" element={<LoadingSpinner />} />
+            <Route path="/profile/wallet" element={<MyPage />} />
+            <Route path="/trade-create" element={<Trade />}>
+              <Route index element={<TradeApp />} />
+              <Route path="add-counterparty-wallet" element={<IReceive />} />
+              <Route path="your-offer-selection" element={<IOffer />} />
+              <Route path="confirm-trade" element={<ConfirmTrade />} />
+              <Route path="created" element={<CreatedTrade />} />
+            </Route>
           </Routes>
         )}
       </Rootdiv>

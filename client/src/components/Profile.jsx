@@ -111,7 +111,7 @@ const Profile = (props) => {
     { name: "MY NFTS" },
     { name: "MY LISTED LOANS" },
     { name: "FUNDED LOANS" },
-    { name: "OPEN TRADES" },
+    { name: "CREATED TRADES" },
     { name: "INCOMING OFFERS" },
   ];
 

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import NFTDetails from "../components/NFTDetails";
 import LoanRequest from "../components/LoanRequest";
 import { useLocation, useParams } from "react-router-dom";
-import { checkIpfs, getMetadata } from "../common";
+import { getMetadata } from "../common";
 import LoadingSpinner from "../components/LoadingSpinner";
 import axios from "axios";
 
