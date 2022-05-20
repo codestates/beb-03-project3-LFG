@@ -25,21 +25,13 @@ const startTrade = async (tradeAddress, data) => {
     curOfferNFTList = [];
     for (let i = 0; i < offerNFTList.length; i++) {
       const { tokenUri } = await caver.kas.tokenHistory.getNFT(offerNFTList[i], offerIdList[i]);
-      curOfferNFTList.push({
-        nftAddress: offerNFTList[i],
-        tokenId: offerIdList[i],
-        tokenURI: tokenUri,
-      });
+      curOfferNFTList.push(tokenUri);
     }
 
     curRespondNFTList = [];
     for (let i = 0; i < respondNFTList.length; i++) {
       const { tokenUri } = await caver.kas.tokenHistory.getNFT(respondNFTList[i], respondIdList[i]);
-      curRespondNFTList.push({
-        nftAddress: respondNFTList[i],
-        tokenId: respondIdList[i],
-        tokenURI: tokenUri,
-      });
+      curRespondNFTList.push(tokenUri);
     }
 
     const getStatus = (status) => {
