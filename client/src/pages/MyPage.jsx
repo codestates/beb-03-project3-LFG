@@ -45,6 +45,8 @@ const MyPage = () => {
     //       "https://ikzttp.mypinata.cloud/ipfs/QmQFkLSQysj94s5GvTHPyzTxrawwtjgiiYS2TBLgrvw8CW/2",
     //   },
     // ];
+
+    setNfts((prev) => []);
     myPageAxios(user, tabs, setNfts);
   }, [user, tabs]);
 

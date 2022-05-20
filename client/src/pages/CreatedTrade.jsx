@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate, useOutletContext } from "react-router-dom";
+import { useLocation, useOutletContext } from "react-router-dom";
 import styled from "styled-components";
 import TradeDescription from "../components/TradeDescription";
 import TradeNFT from "../components/TradeNFT";
@@ -46,9 +46,17 @@ const ButtonWrapper = styled.div`
   gap: 1rem;
 `;
 
+const Status = styled.div`
+  margin: auto;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+`;
+
 const CreatedTrade = () => {
   const { setNftModal, setShow, user } = useOutletContext();
-  const location = useNavigate();
+  const location = useLocation();
   const data = location.state.data;
   const {
     tradeId,
@@ -65,17 +73,26 @@ const CreatedTrade = () => {
     if (status !== "CREATED") {
       return;
     } else {
-      if (user.toLowercase() === offerAddress.toLowercase()) {
+      if (user.toLowerCase() === offerAddress.toLowerCase()) {
         return <Button>Cancel</Button>;
-      } else if (user.toLowercase() === respondAddress.toLowercase()) {
+      } else if (user.toLowerCase() === respondAddress.toLowerCase()) {
         return <Button>Accept Trade</Button>;
       }
+    }
+  };
+
+  const renderStatus = () => {
+    if (status === "CANCELLED") {
+      return <Status>CANCELLED</Status>;
+    } else if (status === "FINISHED") {
+      return <Status>FINISHED</Status>;
     }
   };
 
   return (
     <Div>
       <TradeDescription />
+      {renderStatus()}
       <TradeWrapper>
         <OfferMain>
           <div>What I Receive</div>

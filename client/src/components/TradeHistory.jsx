@@ -33,9 +33,9 @@ const TradeHistory = ({ tabs, nfts }) => {
     <Wrapper>
       <TableWrapper>
         <div>{tabs === 3 ? "Created Trades" : "Incoming Trades"}</div>
-        <Table nfts={nfts.filter((nft) => nfts.status === "CREATED")} />
+        <Table nfts={nfts.filter((nft) => nft.status === "CREATED")} />
         <div>Historical Trades</div>
-        <Table nfts={nfts.filter((nft) => nfts.status !== "CREATED")} />
+        <Table nfts={nfts.filter((nft) => nft.status !== "CREATED")} />
       </TableWrapper>
     </Wrapper>
   );

@@ -6,17 +6,18 @@ import { Button } from "../common";
 const Wrapper = styled.div`
   display: grid;
   grid-template-columns: 3fr 2fr 2fr 2fr 8fr;
+  opacity: ${(props) => (props.status === "CANCELLED" ? 0.5 : 1)};
   & > div {
     display: flex;
     align-items: center;
     justify-self: start;
     overflow: hidden;
+    width: 90%;
   }
 `;
 
 const RecNfts = styled.div`
   grid-column: 1 / span 1;
-  overflow: hidden;
   padding-left: 0.2rem;
 `;
 
@@ -27,15 +28,17 @@ const RecKlay = styled.div`
 
 const OffNfts = styled.div`
   grid-column: 3 / 4;
+  padding-left: 0.3rem;
 `;
 
 const OffKlay = styled.div`
   grid-column: 4 / 5;
+  padding-left: 0.3rem;
 `;
 
 const From = styled.div`
   grid-column: 5 / 6;
-
+  padding-left: 0.2rem;
   justify-content: space-between;
   width: 100%;
   padding-right: 3rem;
@@ -60,28 +63,25 @@ const KlayIcon = styled.img.attrs((props) => ({
 
 const Row = ({ data }) => {
   const navigate = useNavigate();
-
   return (
-    <Wrapper>
+    <Wrapper status={data.status}>
       <RecNfts>
-        {data.respondNFTList.map((image, idx) => (
-          <Img key={idx} fig={image} />
+        {data.respondNFTList.map((metadata, idx) => (
+          <Img key={idx} fig={metadata.image} />
         ))}
       </RecNfts>
       <RecKlay>
         <KlayIcon fig="https://s2.coinmarketcap.com/static/img/coins/64x64/4256.png" />
-        {data.respondPaidKlay === ""
-          ? 0
-          : parseInt(data.respondPaidKlay) / 1e18}
+        {data.respondPaidKlay}
       </RecKlay>
       <OffNfts>
-        {data.offerNFTList.map((image, idx) => (
-          <Img key={idx} fig={image} />
+        {data.offerNFTList.map((metadata, idx) => (
+          <Img key={idx} fig={metadata.image} />
         ))}
       </OffNfts>
       <OffKlay>
         <KlayIcon fig="https://s2.coinmarketcap.com/static/img/coins/64x64/4256.png" />
-        {data.offerPaidKlay === "" ? 0 : parseInt(data.offerPaidKlay) / 1e18}
+        {data.offerPaidKlay}
       </OffKlay>
       <From>
         {data.offerAddress}

@@ -93,7 +93,7 @@ const Table = ({ nfts }) => {
       ) : (
         <TradeDataWraper>
           {nfts.map((data, idx) => (
-            <Row key={idx} data={nfts} />
+            <Row key={idx} data={data} />
           ))}
         </TradeDataWraper>
       )}
