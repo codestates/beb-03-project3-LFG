@@ -1,9 +1,15 @@
 import React from "react";
-import { useLocation, useOutletContext } from "react-router-dom";
+import { useLocation, useNavigate, useOutletContext } from "react-router-dom";
 import styled from "styled-components";
 import TradeDescription from "../components/TradeDescription";
 import TradeNFT from "../components/TradeNFT";
-import { TradeWrapper, TradeMain, Button } from "../common";
+import {
+  TradeWrapper,
+  TradeMain,
+  Button,
+  CancelTrade,
+  AcceptTrade,
+} from "../common";
 
 const Div = styled.div`
   display: flex;
@@ -68,15 +74,34 @@ const CreatedTrade = () => {
     respondPaidKlay,
     status,
   } = data;
+  const navigate = useNavigate();
 
   const renderButton = () => {
     if (status !== "CREATED") {
       return;
     } else {
       if (user.toLowerCase() === offerAddress.toLowerCase()) {
-        return <Button>Cancel</Button>;
+        return (
+          <Button
+            onClick={async () => {
+              await CancelTrade(tradeId, user);
+              navigate("/profile/wallet");
+            }}
+          >
+            Cancel
+          </Button>
+        );
       } else if (user.toLowerCase() === respondAddress.toLowerCase()) {
-        return <Button>Accept Trade</Button>;
+        return (
+          <Button
+            onClick={async () => {
+              await AcceptTrade(tradeId, user, respondPaidKlay);
+              navigate("/profile/wallet");
+            }}
+          >
+            Accept Trade
+          </Button>
+        );
       }
     }
   };
