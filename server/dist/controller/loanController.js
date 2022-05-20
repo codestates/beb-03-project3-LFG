@@ -37,14 +37,13 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getLoan = exports.getLoans = void 0;
-var axios_1 = require("axios");
 var coingecko_api_v3_1 = require("coingecko-api-v3");
-var loanList_1 = require("../db/loanList");
+var loan_1 = require("../db/loan");
 var getLoans = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var loanList;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, loanList_1.loanListModel.find({ status: 'CREATED' })];
+            case 0: return [4 /*yield*/, loan_1.Loan.find({}).select('_id debtor creditor state tokenURI tokenId amount rateAmount period projectName')];
             case 1:
                 loanList = _a.sent();
                 //TODO
@@ -59,23 +58,22 @@ var getLoans = function (req, res, next) { return __awaiter(void 0, void 0, void
 exports.getLoans = getLoans;
 var sdk = require('api')('@opensea/v1.0#5zrwe3ql2r2e6mn');
 var getLoan = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var loan, data, loanInfo, projectId, res_1, client, simplePrice, err_1;
+    var loanInfo, res_1, client, simplePrice, floorPrice, err_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, loanList_1.loanListModel.findOne({ id: req.params.id })];
+            case 0: return [4 /*yield*/, loan_1.Loan.findOne({ _id: req.params.id })];
             case 1:
-                loan = _a.sent();
-                return [4 /*yield*/, axios_1.default.get(loan.tokenURI)];
+                loanInfo = _a.sent();
+                // const { data } = await axios.get(loan.tokenURI);
+                // const loanInfo = data;
+                loanInfo.floorPrice = 'N/A';
+                _a.label = 2;
             case 2:
-                data = (_a.sent()).data;
-                loanInfo = data;
-                projectId = loan.projectTitle;
-                _a.label = 3;
+                _a.trys.push([2, 5, , 6]);
+                return [4 /*yield*/, sdk['retrieving-collection-stats']({ collection_slug: loanInfo.projectName })];
             case 3:
-                _a.trys.push([3, 6, , 7]);
-                return [4 /*yield*/, sdk['retrieving-collection-stats']({ collection_slug: projectId })];
-            case 4:
                 res_1 = _a.sent();
+                console.log('res', res_1);
                 client = new coingecko_api_v3_1.CoinGeckoClient({
                     timeout: 10000,
                     autoRetry: true,
@@ -84,17 +82,15 @@ var getLoan = function (req, res, next) { return __awaiter(void 0, void 0, void 
                         ids: 'klay-token',
                         vs_currencies: 'eth',
                     })];
-            case 5:
+            case 4:
                 simplePrice = _a.sent();
-                loanInfo['floorPrice'] = Number(res_1.stats.floor_price) / Number(simplePrice['klay-token'].eth);
-                return [3 /*break*/, 7];
-            case 6:
+                floorPrice = Number(res_1.stats.floor_price) / Number(simplePrice['klay-token'].eth);
+                return [3 /*break*/, 6];
+            case 5:
                 err_1 = _a.sent();
                 console.log(err_1);
-                return [3 /*break*/, 7];
-            case 7:
-                console.log(loanInfo);
-                console.log('getLoan');
+                return [3 /*break*/, 6];
+            case 6:
                 res.status(200).json({ message: 'succeed', loanInfo: loanInfo });
                 return [2 /*return*/];
         }

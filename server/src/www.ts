@@ -2,7 +2,7 @@ import { createServer } from 'http';
 import app from './app';
 import { DBinit } from './db/mongodb';
 
-const port: number = Number(process.env.PORT) || 3000;
+const port: number = Number(process.env.PORT) || 4002;
 
 const server = createServer(app);
 

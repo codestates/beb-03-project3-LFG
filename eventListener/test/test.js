@@ -1,23 +1,17 @@
+const dotenv = require('dotenv');
+dotenv.config();
 const Caver = require('caver-js');
 const helperAbi = require('../config/Helper.json');
 const loanFactoryAbi = require('../config/LoanFactory.json');
 const loanAbi = require('../config/Loan.json');
 
-const OASIS_ADDRESS = '0xe6f023036c06862d9a8e00cea169653f1cb1ab14';
-const LOANFACTORY_ADDRESS = '0xd7D7b53aEB978E96d7C506946cF69393ABB9ffF3';
-const HELPER_ADDRESS = '0xc98871CB1b678775c0d26370C83d052f3cE4fd4F';
+const OASIS_ADDRESS = process.env.OASIS_ADDRESS;
+const LOANFACTORY_ADDRESS = process.env.LOANFACTORY_ADDRESS;
+const HELPER_ADDRESS = process.env.HELPER_ADDRESS;
 const caver = new Caver('https://api.baobab.klaytn.net:8651/');
 
-// 보성 Address : '0x24daf1e6c925a61d9f186bf5232ed907cfde15d9'
-// 영준 Address : '0xbec3cca3abf992ea770671e568ba8c2c90db271b'
-// 민권 Address : '0xd5792936d4230b575342e08E3D5406029487Ee48'
-
-// 보성님_키 = "0xb54670eaa14c403526fb71441acd1cbed2e82b79d950509f2e7bc6b6e998f2ea"
-// 영준님_개인키 : "0xe4526785e492dddf0f1ef916c12d3295dbe1123d6ea5360ad0df2c2d8d4b3a8f"
-// 민권님 개인키 : "0x194195fd5250f6de0885521f986a6de8860c859a52cd2bd050b0f7fd55ac8840"
-
-const DEBTOR_PRIVATE_KEY = '0x194195fd5250f6de0885521f986a6de8860c859a52cd2bd050b0f7fd55ac8840';
-const CREDIT_PRIV_KEY = '0xe4526785e492dddf0f1ef916c12d3295dbe1123d6ea5360ad0df2c2d8d4b3a8f';
+const DEBTOR_PRIVATE_KEY = process.env.hPrivKey;
+const CREDIT_PRIV_KEY = process.env.sPrivKey;
 
 const key = caver.wallet.keyring.createFromPrivateKey(DEBTOR_PRIVATE_KEY);
 caver.wallet.add(key);
@@ -41,7 +35,7 @@ const deploy = async (id) => {
       key.address,
       OASIS_ADDRESS,
       id, //tokenId
-      5, // [sec]
+      10, // [sec]
       caver.utils.convertToPeb(3, 'KLAY'), // [peb]
       caver.utils.convertToPeb(1, 'KLAY') // [peb]
     )
@@ -86,7 +80,7 @@ const repay = async (address) => {
 
   let receipt = await loan.methods
     .repay()
-    .send({ value: caver.utils.convertToPeb(15, 'KLAY'), from: key.address, gas: 5000000 });
+    .send({ value: caver.utils.convertToPeb(5, 'KLAY'), from: key.address, gas: 5000000 });
 
   console.log(receipt);
 };
@@ -121,8 +115,8 @@ const getBlockTimestamp = async () => {
 };
 
 async function main() {
-  // deploy(341);
-  const LOAN_ADDRESS = '0x9dabcb314d3ccaadc33c943d065694eaa9a779f0'; // 새로 loan 만들 때마다 값 바꿔줘야 함
+  // deploy(332);
+  // const LOAN_ADDRESS = '0xee0b9fa43af8bed2da90cc099e1a24172c5cc1fc'; // 새로 loan 만들 때마다 값 바꿔줘야 함
   // cancel(LOAN_ADDRESS);
   // edit(
   //   LOAN_ADDRESS,
@@ -132,7 +126,7 @@ async function main() {
   // );
   // fund(LOAN_ADDRESS);
   // repay(LOAN_ADDRESS);
-  defaulted(LOAN_ADDRESS);
+  // defaulted(LOAN_ADDRESS);
   // getLoanState(LOAN_ADDRESS);
   // getBlockTimestamp();
   // const TEST_ADDRESS = '0xD2e13022e0195A7A32Eb2C073BB7eEB6e45f0AE5';

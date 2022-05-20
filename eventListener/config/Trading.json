@@ -1,0 +1,237 @@
+[
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "targetTradeId",
+        "type": "uint256"
+      }
+    ],
+    "name": "cancelTrade",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "tradeList",
+    "outputs": [
+      {
+        "name": "tradeId",
+        "type": "uint256"
+      },
+      {
+        "name": "offerAddress",
+        "type": "address"
+      },
+      {
+        "name": "respondAddress",
+        "type": "address"
+      },
+      {
+        "name": "offerPaidKlay",
+        "type": "uint256"
+      },
+      {
+        "name": "respondPaidKlay",
+        "type": "uint256"
+      },
+      {
+        "name": "status",
+        "type": "uint8"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "targetTradeId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getTrade",
+    "outputs": [
+      {
+        "components": [
+          {
+            "name": "tradeId",
+            "type": "uint256"
+          },
+          {
+            "name": "offerAddress",
+            "type": "address"
+          },
+          {
+            "name": "respondAddress",
+            "type": "address"
+          },
+          {
+            "name": "offerNFTList",
+            "type": "address[]"
+          },
+          {
+            "name": "offerIdList",
+            "type": "uint256[]"
+          },
+          {
+            "name": "respondNFTList",
+            "type": "address[]"
+          },
+          {
+            "name": "respondIdList",
+            "type": "uint256[]"
+          },
+          {
+            "name": "offerPaidKlay",
+            "type": "uint256"
+          },
+          {
+            "name": "respondPaidKlay",
+            "type": "uint256"
+          },
+          {
+            "name": "status",
+            "type": "uint8"
+          }
+        ],
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "operator",
+        "type": "address"
+      },
+      {
+        "name": "from",
+        "type": "address"
+      },
+      {
+        "name": "tokenId",
+        "type": "uint256"
+      },
+      {
+        "name": "data",
+        "type": "bytes"
+      }
+    ],
+    "name": "onKIP17Received",
+    "outputs": [
+      {
+        "name": "",
+        "type": "bytes4"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "respondAddress",
+        "type": "address"
+      },
+      {
+        "name": "offerNFTList",
+        "type": "address[]"
+      },
+      {
+        "name": "offerIdList",
+        "type": "uint256[]"
+      },
+      {
+        "name": "respondNFTList",
+        "type": "address[]"
+      },
+      {
+        "name": "respondIdList",
+        "type": "uint256[]"
+      },
+      {
+        "name": "respondPaidKlay",
+        "type": "uint256"
+      }
+    ],
+    "name": "makeTrade",
+    "outputs": [],
+    "payable": true,
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "targetTradeId",
+        "type": "uint256"
+      }
+    ],
+    "name": "acceptTrade",
+    "outputs": [],
+    "payable": true,
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "name": "tradeId",
+        "type": "uint256"
+      }
+    ],
+    "name": "startTrade",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "name": "tradeId",
+        "type": "uint256"
+      }
+    ],
+    "name": "endTrade",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "name": "tradeId",
+        "type": "uint256"
+      }
+    ],
+    "name": "failTrade",
+    "type": "event"
+  }
+]
