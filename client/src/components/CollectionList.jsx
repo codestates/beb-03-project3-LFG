@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import {
   VerifiedUserIcon,
@@ -57,11 +57,40 @@ const CollsDiv = styled.div`
   padding: 0.5rem;
   display: flex;
   flex-wrap: wrap;
+  gap: 0.5rem;
+
+  &.selected {
+    display: none;
+  }
 `;
 
-const SmallNFTCard = ({ coll, setSelected }) => {
+const SmallNFTCard = ({ coll, setSelected, selectedNFTs }) => {
+  const ref = useRef();
+
+  useEffect(() => {
+    let ok = selectedNFTs.some(
+      (nft) =>
+        nft.nftAddress === coll.nftAddress && nft.tokenId === coll.tokenId
+    );
+
+    if (ok) {
+      ref.current.classList.add("clicked");
+      setSelected((prev) => {
+        if (
+          !prev.some(
+            (nft) =>
+              nft.nftAddress === coll.nftAddress && nft.tokenId === coll.tokenId
+          )
+        )
+          return [...prev, coll];
+        return prev;
+      });
+    }
+  }, [selectedNFTs, coll, setSelected]);
+
   return (
     <SmallCardWrapper
+      ref={ref}
       onClick={(e) => {
         if (e.currentTarget.classList.contains("clicked")) {
           e.currentTarget.classList.remove("clicked");
@@ -86,14 +115,16 @@ const SmallNFTCard = ({ coll, setSelected }) => {
   );
 };
 
-const CollectionList = ({ setSelected, colls }) => {
+const CollectionList = ({ setSelected, colls, selectedNFTs }) => {
   const [show, setShow] = useState(true);
+  const ref = useRef();
 
   return (
     <div>
       <Title
         onClick={() => {
           setShow((prev) => !prev);
+          ref.current.classList.toggle("selected");
         }}
       >
         <div>
@@ -103,13 +134,16 @@ const CollectionList = ({ setSelected, colls }) => {
 
         {show ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon />}
       </Title>
-      {show ? (
-        <CollsDiv>
-          {colls.map((coll, idx) => (
-            <SmallNFTCard key={idx} coll={coll} setSelected={setSelected} />
-          ))}
-        </CollsDiv>
-      ) : null}
+      <CollsDiv ref={ref}>
+        {colls.map((coll, idx) => (
+          <SmallNFTCard
+            key={idx}
+            coll={coll}
+            setSelected={setSelected}
+            selectedNFTs={selectedNFTs}
+          />
+        ))}
+      </CollsDiv>
     </div>
   );
 };

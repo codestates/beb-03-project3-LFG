@@ -90,20 +90,38 @@ const ButtonWrapper = styled.div`
   justify-content: center;
 `;
 
-const AddNFTsModal = ({ isOpen, setIsOpen, setConditions }) => {
+const AddNFTsModal = ({ isOpen, setIsOpen, setConditions, selectedNFTs }) => {
   const [collection, setCollection] = useState("");
-  const [colls, setColls] = useState({});
-  const [selected, setSelected] = useState([]);
+  const [colls, setColls] = useState({}); // 소유하고있는 NFT 리스트
+  const [selected, setSelected] = useState([]); // 선택된 NFT 리스트
 
   useEffect(() => {
     const result = [
       {
         projectName: "TFT",
         team: "Test NFT",
-        tokenId: 2,
+        tokenId: 21,
         nftAddress: "",
         image:
-          "https://ikzttp.mypinata.cloud/ipfs/QmYDvPAXtiJg7s8JdRBSLWdgSphQdac8j1YuQNNxcGE1hg/2.png",
+          "https://ikzttp.mypinata.cloud/ipfs/QmYDvPAXtiJg7s8JdRBSLWdgSphQdac8j1YuQNNxcGE1hg/21.png",
+        attributes: [],
+      },
+      {
+        projectName: "TFT",
+        team: "Test NFT",
+        tokenId: 22,
+        nftAddress: "",
+        image:
+          "https://ikzttp.mypinata.cloud/ipfs/QmYDvPAXtiJg7s8JdRBSLWdgSphQdac8j1YuQNNxcGE1hg/22.png",
+        attributes: [],
+      },
+      {
+        projectName: "TFT",
+        team: "Test NFT",
+        tokenId: 23,
+        nftAddress: "",
+        image:
+          "https://ikzttp.mypinata.cloud/ipfs/QmYDvPAXtiJg7s8JdRBSLWdgSphQdac8j1YuQNNxcGE1hg/23.png",
         attributes: [],
       },
     ];
@@ -117,7 +135,6 @@ const AddNFTsModal = ({ isOpen, setIsOpen, setConditions }) => {
         data[val.projectName].push(val);
       }
     });
-
     setColls((prev) => data);
   }, []);
 
@@ -149,6 +166,7 @@ const AddNFTsModal = ({ isOpen, setIsOpen, setConditions }) => {
                 key={idx}
                 colls={colls[key]}
                 setSelected={setSelected}
+                selectedNFTs={selectedNFTs}
               />
             ))}
           </Collections>
@@ -167,7 +185,7 @@ const AddNFTsModal = ({ isOpen, setIsOpen, setConditions }) => {
               setConditions((prev) => {
                 return {
                   ...prev,
-                  nfts: [...prev.nfts, ...selected],
+                  nfts: [...selected],
                 };
               });
             }}

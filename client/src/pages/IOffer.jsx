@@ -130,16 +130,26 @@ const IOffer = () => {
           {offers.nfts.length === 0 ? (
             <AddNFTs setIsOpen={setIsOpen} />
           ) : (
-            <TradeNFTWrapper>
-              {offers.nfts.map((nft, idx) => (
-                <TradeNFT
-                  key={idx}
-                  nft={nft}
-                  setNftModal={setNftModal}
-                  setShow={setShow}
-                />
-              ))}
-            </TradeNFTWrapper>
+            <>
+              <TradeNFTWrapper>
+                {offers.nfts.map((nft, idx) => (
+                  <TradeNFT
+                    key={idx}
+                    nft={nft}
+                    setNftModal={setNftModal}
+                    setShow={setShow}
+                    setReceives={setOffers}
+                  />
+                ))}
+              </TradeNFTWrapper>
+              <Button
+                onClick={() => {
+                  setIsOpen(true);
+                }}
+              >
+                Edit NFT selection...
+              </Button>
+            </>
           )}
           <div>KLAY {offers.klay === "" ? null : `(${offers.klay} KLAY)`}</div>
           <InputWrapper>
@@ -186,6 +196,7 @@ const IOffer = () => {
           isOpen={isOpen}
           setIsOpen={setIsOpen}
           setConditions={setOffers}
+          selectedNFTs={offers.nfts}
         />
       ) : null}
     </Div>
