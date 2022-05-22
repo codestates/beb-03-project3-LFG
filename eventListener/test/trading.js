@@ -133,7 +133,7 @@ async function main() {
   //   respondPaid
   // );
 
-  failTrade(23);
+  failTrade(14);
 
   // acceptTrade(10, respondPaid);
 }
