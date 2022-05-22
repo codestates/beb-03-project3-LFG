@@ -76,8 +76,8 @@ const startTrade = async (tradeAddress, data) => {
 
     const trade = new Trade({
       tradeId: tradeId,
-      offerAddress: offerAddress,
-      respondAddress: respondAddress,
+      offerAddress: offerAddress.toLowerCase(),
+      respondAddress: respondAddress.toLowerCase(),
       offerNFTList: curOfferNFTList,
       respondNFTList: curRespondNFTList,
       offerPaidKlay: offerPaidKlay,
