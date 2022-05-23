@@ -1,43 +1,6 @@
 {
   "_format": "hh-sol-cache-2",
   "files": {
-    "/home/gunbos/projects/project3/beb-03-project3-LFG/contracts/contracts/Helper.sol": {
-      "lastModificationDate": 1652356688958,
-      "contentHash": "1e92a5dc1bf75913b9ea09a84914e1de",
-      "sourceName": "contracts/Helper.sol",
-      "solcConfig": {
-        "version": "0.5.12",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "./LoanFactory.sol"
-      ],
-      "versionPragmas": [
-        "^0.5.6"
-      ],
-      "artifacts": [
-        "Helper"
-      ]
-    },
     "/home/gunbos/projects/project3/beb-03-project3-LFG/contracts/contracts/LoanFactory.sol": {
       "lastModificationDate": 1652367817949,
       "contentHash": "fa85f308f490d707f7478ffd6232296b",
@@ -2826,8 +2789,2834 @@
         "KIP13NotSupported"
       ]
     },
-    "/home/gunbos/projects/project3/beb-03-project3-LFG/contracts/contracts/MultiSigWallet.sol": {
-      "lastModificationDate": 1652283402498,
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/Helper.sol": {
+      "lastModificationDate": 1652861775586,
+      "contentHash": "83499dfa9441b8ea6b2afd0f1b573251",
+      "sourceName": "contracts/Helper.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./LoanFactory.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.6"
+      ],
+      "artifacts": [
+        "Helper"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/LoanFactory.sol": {
+      "lastModificationDate": 1653324230967,
+      "contentHash": "9f658de58a061b6183d07aa22ef06b28",
+      "sourceName": "contracts/LoanFactory.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./klay_contracts/token/KIP17/IKIP17.sol",
+        "./klay_contracts/token/KIP17/IERC721Receiver.sol",
+        "./klay_contracts/token/KIP17/IKIP17Receiver.sol",
+        "./klay_contracts/math/SafeMath.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.6"
+      ],
+      "artifacts": [
+        "Loan",
+        "LoanFactory"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/token/KIP17/IKIP17.sol": {
+      "lastModificationDate": 1652634584638,
+      "contentHash": "a83305ff880d0a416ff0314aa5e6b019",
+      "sourceName": "contracts/klay_contracts/token/KIP17/IKIP17.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../../introspection/IKIP13.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "IKIP17"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/token/KIP17/IERC721Receiver.sol": {
+      "lastModificationDate": 1652634584638,
+      "contentHash": "fd534c0704a5795134b81cf592113d32",
+      "sourceName": "contracts/klay_contracts/token/KIP17/IERC721Receiver.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "IERC721Receiver"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/token/KIP17/IKIP17Receiver.sol": {
+      "lastModificationDate": 1652634584638,
+      "contentHash": "5aa9a837c728126d5e7b908b2df735c5",
+      "sourceName": "contracts/klay_contracts/token/KIP17/IKIP17Receiver.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "IKIP17Receiver"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/math/SafeMath.sol": {
+      "lastModificationDate": 1652634584634,
+      "contentHash": "d208da96b6f6c1d204ee8248087cf2d7",
+      "sourceName": "contracts/klay_contracts/math/SafeMath.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "SafeMath"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/introspection/IKIP13.sol": {
+      "lastModificationDate": 1652634584634,
+      "contentHash": "0bcd68fbf7440533dc565ac0f078450c",
+      "sourceName": "contracts/klay_contracts/introspection/IKIP13.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "IKIP13"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/token/KIP7/KIP7.sol": {
+      "lastModificationDate": 1652634584638,
+      "contentHash": "1b655603e71fd0af26afd3e53c66cb0c",
+      "sourceName": "contracts/klay_contracts/token/KIP7/KIP7.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./IKIP7.sol",
+        "../../math/SafeMath.sol",
+        "../../introspection/KIP13.sol",
+        "../../utils/Address.sol",
+        "./IKIP7Receiver.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "KIP7"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/token/KIP7/IKIP7.sol": {
+      "lastModificationDate": 1652634584638,
+      "contentHash": "a2a991d2ed5fd4189e05fc24b480435c",
+      "sourceName": "contracts/klay_contracts/token/KIP7/IKIP7.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../../introspection/IKIP13.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "IKIP7"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/introspection/KIP13.sol": {
+      "lastModificationDate": 1652634584634,
+      "contentHash": "03614c55187848ae50d67ef6ba1c6b25",
+      "sourceName": "contracts/klay_contracts/introspection/KIP13.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./IKIP13.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "KIP13"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/utils/Address.sol": {
+      "lastModificationDate": 1652634584638,
+      "contentHash": "d665e9fb5a1aacd49bf733d16351b09b",
+      "sourceName": "contracts/klay_contracts/utils/Address.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "Address"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/token/KIP7/IKIP7Receiver.sol": {
+      "lastModificationDate": 1652634584638,
+      "contentHash": "e41ff03d9cd96a0259c0ad799923c0c8",
+      "sourceName": "contracts/klay_contracts/token/KIP7/IKIP7Receiver.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "IKIP7Receiver"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/token/KIP7/KIP7Pausable.sol": {
+      "lastModificationDate": 1652634584638,
+      "contentHash": "75c40afe58e08e4ec1727a856bcf7e95",
+      "sourceName": "contracts/klay_contracts/token/KIP7/KIP7Pausable.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./KIP7.sol",
+        "../../lifecycle/Pausable.sol",
+        "../../introspection/KIP13.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "KIP7Pausable"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/lifecycle/Pausable.sol": {
+      "lastModificationDate": 1652634584634,
+      "contentHash": "edcf317b26c52b06372ce37713585206",
+      "sourceName": "contracts/klay_contracts/lifecycle/Pausable.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../access/roles/PauserRole.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "Pausable"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/access/roles/PauserRole.sol": {
+      "lastModificationDate": 1652634584634,
+      "contentHash": "e1ccb87a2e0e79fdec6c014da7c80f4b",
+      "sourceName": "contracts/klay_contracts/access/roles/PauserRole.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../Roles.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "PauserRole"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/access/Roles.sol": {
+      "lastModificationDate": 1652634584634,
+      "contentHash": "118d44aa29245b854a8785a01af0c4e9",
+      "sourceName": "contracts/klay_contracts/access/Roles.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "Roles"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/token/KIP7/KIP7TokenFull.sol": {
+      "lastModificationDate": 1652634584638,
+      "contentHash": "00076ff756537c87b3797ecda5c9264a",
+      "sourceName": "contracts/klay_contracts/token/KIP7/KIP7TokenFull.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./KIP7Mintable.sol",
+        "./KIP7Burnable.sol",
+        "./KIP7Pausable.sol",
+        "./KIP7Metadata.sol",
+        "../../lifecycle/SelfDestructible.sol",
+        "../../ownership/Ownable.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "KIP7TokenFull"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/token/KIP7/KIP7Mintable.sol": {
+      "lastModificationDate": 1652634584638,
+      "contentHash": "ffbf879f1bddec85b15c5aae80734723",
+      "sourceName": "contracts/klay_contracts/token/KIP7/KIP7Mintable.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./KIP7.sol",
+        "../../access/roles/MinterRole.sol",
+        "../../introspection/KIP13.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "KIP7Mintable"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/token/KIP7/KIP7Burnable.sol": {
+      "lastModificationDate": 1652634584638,
+      "contentHash": "c70d10efbd513f504e13cedb5e769dd6",
+      "sourceName": "contracts/klay_contracts/token/KIP7/KIP7Burnable.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./KIP7.sol",
+        "../../introspection/KIP13.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "KIP7Burnable"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/token/KIP7/KIP7Metadata.sol": {
+      "lastModificationDate": 1652634584638,
+      "contentHash": "24da5c13b8d91ddaa72cb95c6f674a57",
+      "sourceName": "contracts/klay_contracts/token/KIP7/KIP7Metadata.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./IKIP7.sol",
+        "../../introspection/KIP13.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "KIP7Metadata"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/lifecycle/SelfDestructible.sol": {
+      "lastModificationDate": 1652634584634,
+      "contentHash": "d5e92b6043e2783daee2e8958c2048ca",
+      "sourceName": "contracts/klay_contracts/lifecycle/SelfDestructible.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../ownership/Ownable.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "SelfDestructible"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/ownership/Ownable.sol": {
+      "lastModificationDate": 1652634584638,
+      "contentHash": "bb253faf86944643663a2e20a12cd899",
+      "sourceName": "contracts/klay_contracts/ownership/Ownable.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "Ownable"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/access/roles/MinterRole.sol": {
+      "lastModificationDate": 1652634584634,
+      "contentHash": "d91feb024074a0b6c472779825a2bcbf",
+      "sourceName": "contracts/klay_contracts/access/roles/MinterRole.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../Roles.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "MinterRole"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/token/KIP7/KIP7Token.sol": {
+      "lastModificationDate": 1652634584638,
+      "contentHash": "6081a7542bf331118eaf7eb9908cb7a8",
+      "sourceName": "contracts/klay_contracts/token/KIP7/KIP7Token.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./KIP7Mintable.sol",
+        "./KIP7Burnable.sol",
+        "./KIP7Pausable.sol",
+        "./KIP7Metadata.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "KIP7Token"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/token/KIP37/KIP37Receiver.sol": {
+      "lastModificationDate": 1652634584638,
+      "contentHash": "402c66496b7ae67bb2d128ed50820197",
+      "sourceName": "contracts/klay_contracts/token/KIP37/KIP37Receiver.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./IKIP37Receiver.sol",
+        "../../introspection/KIP13.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "KIP37Receiver"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/token/KIP37/IKIP37Receiver.sol": {
+      "lastModificationDate": 1652634584638,
+      "contentHash": "85672a11a5d3fe90c9df904e9e5140ce",
+      "sourceName": "contracts/klay_contracts/token/KIP37/IKIP37Receiver.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../../introspection/IKIP13.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "IKIP37Receiver"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/mocks/KIP37ReceiverMock.sol": {
+      "lastModificationDate": 1652634584638,
+      "contentHash": "f290839c01d5281ace33bb416dc7fc6d",
+      "sourceName": "contracts/klay_contracts/mocks/KIP37ReceiverMock.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../token/KIP37/IKIP37Receiver.sol",
+        "./KIP13Mock.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "KIP37ReceiverMock"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/mocks/KIP13Mock.sol": {
+      "lastModificationDate": 1652634584634,
+      "contentHash": "bcff28bca9c04f3ad49d1ca357cb55f3",
+      "sourceName": "contracts/klay_contracts/mocks/KIP13Mock.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../introspection/KIP13.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "KIP13Mock"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/mocks/ERC1155ReceiverMock.sol": {
+      "lastModificationDate": 1652634584634,
+      "contentHash": "f8a6189da06e1b249aee64a54cabc298",
+      "sourceName": "contracts/klay_contracts/mocks/ERC1155ReceiverMock.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../token/KIP37/IERC1155Receiver.sol",
+        "./KIP13Mock.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "ERC1155ReceiverMock"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/token/KIP37/IERC1155Receiver.sol": {
+      "lastModificationDate": 1652634584638,
+      "contentHash": "e7c85485a1d2efac77bacfb2e5fdc984",
+      "sourceName": "contracts/klay_contracts/token/KIP37/IERC1155Receiver.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../../introspection/IKIP13.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "IERC1155Receiver"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/token/KIP37/KIP37.sol": {
+      "lastModificationDate": 1652634584638,
+      "contentHash": "54391feff2a6975de470ff40245cc486",
+      "sourceName": "contracts/klay_contracts/token/KIP37/KIP37.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./IKIP37.sol",
+        "./IKIP37MetadataURI.sol",
+        "./IKIP37Receiver.sol",
+        "./IERC1155Receiver.sol",
+        "../../GSN/Context.sol",
+        "../../introspection/KIP13.sol",
+        "../../math/SafeMath.sol",
+        "../../utils/Address.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "KIP37"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/token/KIP37/IKIP37.sol": {
+      "lastModificationDate": 1652634584638,
+      "contentHash": "d8ace320be9933e512a8319675a68ed2",
+      "sourceName": "contracts/klay_contracts/token/KIP37/IKIP37.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../../introspection/IKIP13.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.2"
+      ],
+      "artifacts": [
+        "IKIP37"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/token/KIP37/IKIP37MetadataURI.sol": {
+      "lastModificationDate": 1652634584638,
+      "contentHash": "65b04d8ab2855354f2f5cceb5199c855",
+      "sourceName": "contracts/klay_contracts/token/KIP37/IKIP37MetadataURI.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./IKIP37.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "IKIP37MetadataURI"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/GSN/Context.sol": {
+      "lastModificationDate": 1652634584634,
+      "contentHash": "32a66f6f4d0584b403f26f8e5e4d17b5",
+      "sourceName": "contracts/klay_contracts/GSN/Context.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "Context"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/token/KIP37/KIP37Mintable.sol": {
+      "lastModificationDate": 1652634584638,
+      "contentHash": "a3a89037e3c60799d388501302b7e5e8",
+      "sourceName": "contracts/klay_contracts/token/KIP37/KIP37Mintable.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./KIP37.sol",
+        "../../access/roles/MinterRole.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "KIP37Mintable"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/mocks/MinterRoleMock.sol": {
+      "lastModificationDate": 1652634584638,
+      "contentHash": "5395857da6e56e1f1ea52424b7ecb33f",
+      "sourceName": "contracts/klay_contracts/mocks/MinterRoleMock.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../access/roles/MinterRole.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "MinterRoleMock"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/mocks/KIP7MintableMock.sol": {
+      "lastModificationDate": 1652634584638,
+      "contentHash": "f977927cc950c48bb91d462c3e8dd0d6",
+      "sourceName": "contracts/klay_contracts/mocks/KIP7MintableMock.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../token/KIP7/KIP7Mintable.sol",
+        "./MinterRoleMock.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "KIP7MintableMock"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/token/KIP17/KIP17MetadataMintable.sol": {
+      "lastModificationDate": 1652634584638,
+      "contentHash": "c543c2b8929836d724af9d93bfcdd4c4",
+      "sourceName": "contracts/klay_contracts/token/KIP17/KIP17MetadataMintable.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./KIP17Metadata.sol",
+        "../../access/roles/MinterRole.sol",
+        "../../introspection/KIP13.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "KIP17MetadataMintable"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/token/KIP17/KIP17Metadata.sol": {
+      "lastModificationDate": 1652634584638,
+      "contentHash": "a428fe0ce66a971d0e8608cc913249d4",
+      "sourceName": "contracts/klay_contracts/token/KIP17/KIP17Metadata.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./KIP17.sol",
+        "./IKIP17Metadata.sol",
+        "../../introspection/KIP13.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "KIP17Metadata"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/token/KIP17/KIP17.sol": {
+      "lastModificationDate": 1652636105250,
+      "contentHash": "82bcbd8da7db6b4bfe2f3a8cc0b8379e",
+      "sourceName": "contracts/klay_contracts/token/KIP17/KIP17.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./IKIP17.sol",
+        "./IERC721Receiver.sol",
+        "./IKIP17Receiver.sol",
+        "../../math/SafeMath.sol",
+        "../../utils/Address.sol",
+        "../../drafts/Counters.sol",
+        "../../introspection/KIP13.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "KIP17"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/token/KIP17/IKIP17Metadata.sol": {
+      "lastModificationDate": 1652634584638,
+      "contentHash": "bf99035ba3adf1ead862f997511bc138",
+      "sourceName": "contracts/klay_contracts/token/KIP17/IKIP17Metadata.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./IKIP17.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "IKIP17Metadata"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/drafts/Counters.sol": {
+      "lastModificationDate": 1652634584634,
+      "contentHash": "078bbefa3a6943fbf100b3033bbe57d6",
+      "sourceName": "contracts/klay_contracts/drafts/Counters.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../math/SafeMath.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "Counters"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/token/KIP17/KIP17Token.sol": {
+      "lastModificationDate": 1652634584638,
+      "contentHash": "8e846369b2ec21694d6631e4b7ede011",
+      "sourceName": "contracts/klay_contracts/token/KIP17/KIP17Token.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./KIP17Full.sol",
+        "./KIP17MetadataMintable.sol",
+        "./KIP17Mintable.sol",
+        "./KIP17Burnable.sol",
+        "./KIP17Pausable.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "KIP17Token"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/token/KIP17/KIP17Full.sol": {
+      "lastModificationDate": 1652634584638,
+      "contentHash": "fcfaafa9e51f2a23d33700afb7e6f797",
+      "sourceName": "contracts/klay_contracts/token/KIP17/KIP17Full.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./KIP17.sol",
+        "./KIP17Enumerable.sol",
+        "./KIP17Metadata.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "KIP17Full"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/token/KIP17/KIP17Mintable.sol": {
+      "lastModificationDate": 1652634584638,
+      "contentHash": "0b09fdfaa898751a5d2a52ea371e338b",
+      "sourceName": "contracts/klay_contracts/token/KIP17/KIP17Mintable.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./KIP17.sol",
+        "../../access/roles/MinterRole.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "KIP17Mintable"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/token/KIP17/KIP17Burnable.sol": {
+      "lastModificationDate": 1652634584638,
+      "contentHash": "56d6d7b09cbd7811bd24827057ac18ae",
+      "sourceName": "contracts/klay_contracts/token/KIP17/KIP17Burnable.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./KIP17.sol",
+        "../../introspection/KIP13.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "KIP17Burnable"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/token/KIP17/KIP17Pausable.sol": {
+      "lastModificationDate": 1652634584638,
+      "contentHash": "1ffc8a9af59881319a1e967bf6ec62ab",
+      "sourceName": "contracts/klay_contracts/token/KIP17/KIP17Pausable.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./KIP17.sol",
+        "../../lifecycle/Pausable.sol",
+        "../../introspection/KIP13.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "KIP17Pausable"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/token/KIP17/KIP17Enumerable.sol": {
+      "lastModificationDate": 1652634584638,
+      "contentHash": "94d4d28a4fdd07216699c5d9f38ed128",
+      "sourceName": "contracts/klay_contracts/token/KIP17/KIP17Enumerable.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./IKIP17Enumerable.sol",
+        "./KIP17.sol",
+        "../../introspection/KIP13.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "KIP17Enumerable"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/token/KIP17/IKIP17Enumerable.sol": {
+      "lastModificationDate": 1652634584638,
+      "contentHash": "1fa1935cb583ce0f6f4b4b9c5c5bce7c",
+      "sourceName": "contracts/klay_contracts/token/KIP17/IKIP17Enumerable.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./IKIP17.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "IKIP17Enumerable"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/token/KIP37/KIP37Pausable.sol": {
+      "lastModificationDate": 1652634584638,
+      "contentHash": "b3d1983ff1e639cc0e603ddb08fb16ab",
+      "sourceName": "contracts/klay_contracts/token/KIP37/KIP37Pausable.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./KIP37.sol",
+        "../../lifecycle/Pausable.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "KIP37Pausable"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/token/KIP37/KIP37Token.sol": {
+      "lastModificationDate": 1652634584638,
+      "contentHash": "220eb62bf1f4022d6b08b6f49dcd0e47",
+      "sourceName": "contracts/klay_contracts/token/KIP37/KIP37Token.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./KIP37.sol",
+        "./KIP37Burnable.sol",
+        "./KIP37Pausable.sol",
+        "./KIP37Mintable.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "KIP37Token"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/token/KIP37/KIP37Burnable.sol": {
+      "lastModificationDate": 1652634584638,
+      "contentHash": "bcb5e7692c3989f18de6952d56f45785",
+      "sourceName": "contracts/klay_contracts/token/KIP37/KIP37Burnable.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./KIP37.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "KIP37Burnable"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/mocks/KIP37BurnableMock.sol": {
+      "lastModificationDate": 1652634584638,
+      "contentHash": "0fefa18dfbb284269fc1c626f4c22bfe",
+      "sourceName": "contracts/klay_contracts/mocks/KIP37BurnableMock.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../token/KIP37/KIP37Burnable.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "KIP37BurnableMock"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/mocks/KIP37TokenMock.sol": {
+      "lastModificationDate": 1652634584638,
+      "contentHash": "f623920c39af0d6f901e7a76ed1951d8",
+      "sourceName": "contracts/klay_contracts/mocks/KIP37TokenMock.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../token/KIP37/KIP37Token.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "KIP37TokenMock"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/mocks/KIP37PausableMock.sol": {
+      "lastModificationDate": 1652634584638,
+      "contentHash": "adb94247433923872592dad660da1d4d",
+      "sourceName": "contracts/klay_contracts/mocks/KIP37PausableMock.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./KIP37Mock.sol",
+        "../token/KIP37/KIP37Pausable.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "KIP37PausableMock"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/mocks/KIP37Mock.sol": {
+      "lastModificationDate": 1652634584638,
+      "contentHash": "2cabfca996c0676211eea4a87cff39b2",
+      "sourceName": "contracts/klay_contracts/mocks/KIP37Mock.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../token/KIP37/KIP37.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "KIP37Mock"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/mocks/PauserRoleMock.sol": {
+      "lastModificationDate": 1652634584638,
+      "contentHash": "03418fb947c68436492c7594b53c82a9",
+      "sourceName": "contracts/klay_contracts/mocks/PauserRoleMock.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../access/roles/PauserRole.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "PauserRoleMock"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/mocks/KIP7PausableMock.sol": {
+      "lastModificationDate": 1652634584638,
+      "contentHash": "5967f1daa162ff15329d7b17b9484816",
+      "sourceName": "contracts/klay_contracts/mocks/KIP7PausableMock.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../token/KIP7/KIP7Pausable.sol",
+        "./PauserRoleMock.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "KIP7PausableMock"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/mocks/KIP17PausableMock.sol": {
+      "lastModificationDate": 1652634584634,
+      "contentHash": "be92e2d743b34e5b30f0df9a721a2552",
+      "sourceName": "contracts/klay_contracts/mocks/KIP17PausableMock.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../token/KIP17/KIP17Pausable.sol",
+        "./PauserRoleMock.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "KIP17PausableMock"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/TestNFT.sol": {
+      "lastModificationDate": 1652852769373,
+      "contentHash": "a956ccb59f992a3c529aa6d044f04fe3",
+      "sourceName": "contracts/TestNFT.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./klay_contracts/token/KIP17/KIP17.sol",
+        "./klay_contracts/token/KIP17/KIP17Metadata.sol",
+        "./klay_contracts/drafts/Counters.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.6"
+      ],
+      "artifacts": [
+        "TestNFT"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/token/KIP17/IKIP17Full.sol": {
+      "lastModificationDate": 1652634584638,
+      "contentHash": "4e739a6b145a1d9c7c6bffaa20d758e9",
+      "sourceName": "contracts/klay_contracts/token/KIP17/IKIP17Full.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./IKIP17.sol",
+        "./IKIP17Enumerable.sol",
+        "./IKIP17Metadata.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "IKIP17Full"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/mocks/KIP13/KIP13InterfacesSupported.sol": {
+      "lastModificationDate": 1652634584634,
+      "contentHash": "6575c3f022d1dc02a56aca27b40e5059",
+      "sourceName": "contracts/klay_contracts/mocks/KIP13/KIP13InterfacesSupported.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../../introspection/IKIP13.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "KIP13InterfacesSupported",
+        "SupportsInterfaceWithLookupMock"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/mocks/KIP17MintableBurnableImpl.sol": {
+      "lastModificationDate": 1652634584634,
+      "contentHash": "aa380dcbb5f6242d7236dd87a05a3279",
+      "sourceName": "contracts/klay_contracts/mocks/KIP17MintableBurnableImpl.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../token/KIP17/KIP17Full.sol",
+        "../token/KIP17/KIP17Mintable.sol",
+        "../token/KIP17/KIP17MetadataMintable.sol",
+        "../token/KIP17/KIP17Burnable.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "KIP17MintableBurnableImpl"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/mocks/KIP17FullMock.sol": {
+      "lastModificationDate": 1652634584634,
+      "contentHash": "cdd4bed51e92d96585cbf95e8da930fd",
+      "sourceName": "contracts/klay_contracts/mocks/KIP17FullMock.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../token/KIP17/KIP17Full.sol",
+        "../token/KIP17/KIP17Mintable.sol",
+        "../token/KIP17/KIP17MetadataMintable.sol",
+        "../token/KIP17/KIP17Burnable.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "KIP17FullMock"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/mocks/KIP17Mock.sol": {
+      "lastModificationDate": 1652634584634,
+      "contentHash": "7e00e449030ee45ece8612d20c14fd9f",
+      "sourceName": "contracts/klay_contracts/mocks/KIP17Mock.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../token/KIP17/KIP17.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "KIP17Mock"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/mocks/KIP17ReceiverMock.sol": {
+      "lastModificationDate": 1652634584638,
+      "contentHash": "315cd64759e0ac82631ea7072a4c216e",
+      "sourceName": "contracts/klay_contracts/mocks/KIP17ReceiverMock.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../token/KIP17/IKIP17Receiver.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "KIP17ReceiverMock"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/mocks/ERC721ReceiverMock.sol": {
+      "lastModificationDate": 1652634584634,
+      "contentHash": "7940a0d75248d4c13823e7b8e922bbd7",
+      "sourceName": "contracts/klay_contracts/mocks/ERC721ReceiverMock.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../token/KIP17/IERC721Receiver.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "ERC721ReceiverMock"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/token/KIP37/KIP37Holder.sol": {
+      "lastModificationDate": 1652634584638,
+      "contentHash": "b3dd996f95886a5140e3074635e70da3",
+      "sourceName": "contracts/klay_contracts/token/KIP37/KIP37Holder.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./KIP37Receiver.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "KIP37Holder"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/mocks/KIP7BurnableMock.sol": {
+      "lastModificationDate": 1652634584638,
+      "contentHash": "0aeb7b8ee9adb8c83c07a047c50b97a4",
+      "sourceName": "contracts/klay_contracts/mocks/KIP7BurnableMock.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../token/KIP7/KIP7Burnable.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "KIP7BurnableMock"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/mocks/KIP7MetadataMock.sol": {
+      "lastModificationDate": 1652634584638,
+      "contentHash": "38d4f34ba7224e867d14d159d786211c",
+      "sourceName": "contracts/klay_contracts/mocks/KIP7MetadataMock.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../token/KIP7/KIP7.sol",
+        "../token/KIP7/KIP7Metadata.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "KIP7MetadataMock"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/mocks/KIP7Mock.sol": {
+      "lastModificationDate": 1652634584638,
+      "contentHash": "8e9cda5f98e9a1703ee4d77ee2b00741",
+      "sourceName": "contracts/klay_contracts/mocks/KIP7Mock.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../token/KIP7/KIP7.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "KIP7Mock"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/introspection/KIP13Checker.sol": {
+      "lastModificationDate": 1652634584634,
+      "contentHash": "3b774cc0cb4984a45d009633a0b38b39",
+      "sourceName": "contracts/klay_contracts/introspection/KIP13Checker.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "KIP13Checker"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/mocks/KIP13CheckerMock.sol": {
+      "lastModificationDate": 1652634584634,
+      "contentHash": "a6f0a45f119ed1fe99418e01378f9ac2",
+      "sourceName": "contracts/klay_contracts/mocks/KIP13CheckerMock.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../introspection/KIP13Checker.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "KIP13CheckerMock"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/Migrations.sol": {
+      "lastModificationDate": 1652634584634,
+      "contentHash": "9e29105d7c19d16dc9a5e070a58f36c2",
+      "sourceName": "contracts/klay_contracts/Migrations.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.4.21 <0.7.0"
+      ],
+      "artifacts": [
+        "Migrations"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/klay_contracts/mocks/KIP13/KIP13NotSupported.sol": {
+      "lastModificationDate": 1652634584634,
+      "contentHash": "b7821a91633f7e790b10bbbfa193ed60",
+      "sourceName": "contracts/klay_contracts/mocks/KIP13/KIP13NotSupported.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "KIP13NotSupported"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/MultiSigWallet.sol": {
+      "lastModificationDate": 1652711287579,
       "contentHash": "8cd2748b659285a0af4ab00eead50bb4",
       "sourceName": "contracts/MultiSigWallet.sol",
       "solcConfig": {
@@ -2859,6 +5648,41 @@
       ],
       "artifacts": [
         "MultiSigWallet"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/Vote.sol": {
+      "lastModificationDate": 1653325448422,
+      "contentHash": "179e124f6ee1085e9fecc7b0ed10a12f",
+      "sourceName": "contracts/Vote.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.5.6"
+      ],
+      "artifacts": [
+        "Ballot"
       ]
     }
   }
