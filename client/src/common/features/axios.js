@@ -1,6 +1,14 @@
 import axios from "axios";
 import { getMetadata } from "./getMetadata";
 
+export const getContribution = async (user, setScore) => {
+  const response = await axios.post("http://127.0.0.1:4002/point", {
+    userAddress: user,
+  });
+
+  setScore((prev) => response.data);
+};
+
 export const myPageAxios = async (user, tabs, setNFTs, setData) => {
   switch (tabs) {
     case 0:

@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
-import LoanDescription from "../components/LoanDescription";
-import Filter from "../components/Filter";
-import NFTCards from "../components/NFTCards";
+import LoanDescription from "../components/loan_list/LoanDescription";
+import Filter from "../components/common/Filter";
+import NFTCards from "../components/loan_list/NFTCards";
 import { Rootdiv, getMetadata } from "../common";
 import styled from "styled-components";
-import LoadingSpinner from "../components/LoadingSpinner";
+import LoadingSpinner from "../components/common/LoadingSpinner";
 import { UserContext } from "../App";
 import axios from "axios";
 

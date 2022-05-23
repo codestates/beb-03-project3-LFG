@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import NFTDetails from "../components/NFTDetails";
-import LoanRequest from "../components/LoanRequest";
+import NFTDetails from "../components/loan_detail/NFTDetails";
+import LoanRequest from "../components/loan_detail/LoanRequest";
 import { useLocation, useParams } from "react-router-dom";
 import { getMetadata } from "../common";
-import LoadingSpinner from "../components/LoadingSpinner";
+import LoadingSpinner from "../components/common/LoadingSpinner";
 import axios from "axios";
 
 const DetailRootDiv = styled.div`

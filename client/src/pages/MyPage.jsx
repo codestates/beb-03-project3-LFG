@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Rootdiv, myPageAxios } from "../common";
-import Profile from "../components/Profile";
-import MyNFTs from "../components/MyNFTs";
-import NFTAttributeModal from "../components/NFTAttributeModal";
+import Profile from "../components/my_page/Profile";
+import MyNFTs from "../components/my_page/MyNFTs";
+import NFTAttributeModal from "../components/my_page/NFTAttributeModal";
 import { UserContext } from "../App";
-import TradeHistory from "../components/TradeHistory";
+import TradeHistory from "../components/my_page/TradeHistory";
 
 const MyPage = () => {
   const [modalData, setModalData] = useState(null);
@@ -18,35 +18,6 @@ const MyPage = () => {
   //"https://dweb.link/ipfs/QmYDvPAXtiJg7s8JdRBSLWdgSphQdac8j1YuQNNxcGE1hg/0.png"
 
   useEffect(() => {
-    // const db = [
-    //   {
-    //     projectName: "Azuki",
-    //     teamName: "",
-    //     floorPrice: "",
-    //     nftAddress: "0xaE0F3B010cEc518dB205F5BAf849b8865309BF52",
-    //     tokenId: 0,
-    //     tokenURI:
-    //       "https://ikzttp.mypinata.cloud/ipfs/QmQFkLSQysj94s5GvTHPyzTxrawwtjgiiYS2TBLgrvw8CW/0",
-    //   },
-    //   {
-    //     projectName: "Azuki",
-    //     teamName: "",
-    //     floorPrice: "",
-    //     nftAddress: "0xaE0F3B010cEc518dB205F5BAf849b8865309BF52",
-    //     tokenId: 1,
-    //     tokenURI:
-    //       "https://ikzttp.mypinata.cloud/ipfs/QmQFkLSQysj94s5GvTHPyzTxrawwtjgiiYS2TBLgrvw8CW/1",
-    //   },
-    //   {
-    //     projectName: "Azuki",
-    //     team: "",
-    //     nftAddress: "0xaE0F3B010cEc518dB205F5BAf849b8865309BF52",
-    //     tokenId: 2,
-    //     tokenURI:
-    //       "https://ikzttp.mypinata.cloud/ipfs/QmQFkLSQysj94s5GvTHPyzTxrawwtjgiiYS2TBLgrvw8CW/2",
-    //   },
-    // ];
-
     setNfts((prev) => []);
     setTrades((prev) => []);
     myPageAxios(user, tabs, setNfts, setTrades);
