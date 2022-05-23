@@ -13,8 +13,13 @@ export const userPoint = async (req, res, next) => {
   const { total } = rawTotal[0];
 
   const userPointInfo = await PointInfo.findOne({ userAddress: userAddress });
-  res.json({
-    votePoint: userPointInfo.votePoint,
-    probabilty: Number((userPointInfo.accPoint / total) * 100).toFixed(3),
-  });
+  if (userPointInfo === null) {
+    res.status(200).json({ message: 'succeed', votePoint: 0, probability: '0' });
+  } else {
+    res.status(200).json({
+      message: 'succeed',
+      votePoint: userPointInfo.votePoint,
+      probabilty: Number((userPointInfo.accPoint / total) * 100).toFixed(3),
+    });
+  }
 };
