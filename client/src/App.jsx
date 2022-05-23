@@ -1,22 +1,22 @@
 import { useState, createContext, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { Rootdiv, HelperAbi } from "./common";
-import Navigation from "./components/Navigation";
-import MenuDropDown from "./components/MenuDropDown";
+import Navigation from "./components/common/Navigation";
+import MenuDropDown from "./components/common/MenuDropDown";
 import Home from "./pages/Home";
 import LoanList from "./pages/LoanList";
 import LoanDetail from "./pages/LoanDetail";
 import MyPage from "./pages/MyPage";
-import TradeApp from "./pages/TradeApp";
-import IOffer from "./pages/IOffer";
-import Trade from "./pages/Trade";
-import ConfirmTrade from "./pages/ConfirmTrade";
-import IReceive from "./pages/IReceive";
-import CreatedTrade from "./pages/CreatedTrade";
-import VoteList from "./pages/VoteList";
-import RandomNFTVote from "./pages/RandomNFTVote";
-import Vote from "./pages/Vote";
-import NFTHolderVote from "./pages/NFTHolderVote";
+import TradeApp from "./pages/trade/TradeApp";
+import IOffer from "./pages/trade/IOffer";
+import Trade from "./pages/trade/Trade";
+import ConfirmTrade from "./pages/trade/ConfirmTrade";
+import IReceive from "./pages/trade/IReceive";
+import CreatedTrade from "./pages/trade/CreatedTrade";
+import VoteList from "./pages/vote/VoteList";
+import RandomNFTVote from "./pages/vote/RandomNFTVote";
+import Vote from "./pages/vote/Vote";
+import NFTHolderVote from "./pages/vote/NFTHolderVote";
 
 export const UserContext = createContext({
   user: null,

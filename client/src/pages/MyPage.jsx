@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Rootdiv, myPageAxios } from "../common";
-import Profile from "../components/Profile";
-import MyNFTs from "../components/MyNFTs";
-import NFTAttributeModal from "../components/NFTAttributeModal";
+import Profile from "../components/my_page/Profile";
+import MyNFTs from "../components/my_page/MyNFTs";
+import NFTAttributeModal from "../components/my_page/NFTAttributeModal";
 import { UserContext } from "../App";
-import TradeHistory from "../components/TradeHistory";
+import TradeHistory from "../components/my_page/TradeHistory";
 
 const MyPage = () => {
   const [modalData, setModalData] = useState(null);

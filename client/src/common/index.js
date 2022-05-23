@@ -34,6 +34,7 @@ import { timeStamp } from "./features/timeStamp.js";
 import { TradeWrapper, TradeMain } from "./styles/Trade.js";
 import { myPageAxios, processTradeData } from "./features/axios.js";
 import { ConfirmTrade, CancelTrade, AcceptTrade } from "./features/Trade.js";
+import { getVaults, getVault, voteToCandid } from "./features/voteAxios.js";
 
 export {
   Button,
@@ -74,4 +75,7 @@ export {
   ConfirmTrade,
   CancelTrade,
   AcceptTrade,
+  getVaults,
+  getVault,
+  voteToCandid,
 };

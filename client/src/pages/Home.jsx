@@ -1,10 +1,12 @@
 import React from "react";
-import Footer from "../components/Footer";
+import Footer from "../components/common/Footer";
 import styled from "styled-components";
+import HomeCard from "../components/common/HomeCard";
 
 const Main = styled.div`
   flex: 1 1 0;
-  padding: 12rem 20rem 3rem 20rem;
+  padding: 12rem 15rem 3rem 15rem;
+  z-index: -1;
 `;
 
 const MainDescription = styled.section`
@@ -14,23 +16,24 @@ const MainDescription = styled.section`
   gap: 5rem;
   justify-content: center;
 
-  @media (max-width: 1000px) {
+  @media (max-width: 1450px) {
     flex-direction: column;
     justify-content: stretch;
   }
 `;
 
-const Description = styled.div``;
-const NFT = styled.div`
-  width: 20rem;
-  height: 20rem;
-  background-image: url("/test/azukimain.png");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+const Description = styled.div`
+  & > p {
+    font-size: 2.6rem;
+  }
 
-  transform: rotate(15deg);
-  z-index: -100;
+  & > p > span {
+    color: var(--main-theme);
+  }
+
+  & > span {
+    font-size: 1.5rem;
+  }
 `;
 
 const Home = () => {
@@ -44,12 +47,14 @@ const Home = () => {
               <br />
               & Trade
               <br />
-              Klaytn NFTs
+              <span>Klaytn NFTs</span>
               <br />
             </p>
-            The safest place on Klaytn to Collateralize & Trade your NFTs
+            <span>
+              The safest place on Klaytn to Collateralize & Trade your NFTs
+            </span>
           </Description>
-          <NFT />
+          <HomeCard />
         </MainDescription>
       </Main>
       <Footer />
