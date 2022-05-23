@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import * as mongoose from 'mongoose';
 
 const pointInfoSchema = new mongoose.Schema({
   userAddress: String,
@@ -6,6 +6,4 @@ const pointInfoSchema = new mongoose.Schema({
   accPoint: Number, // 시즌별 누적
 });
 
-const PointInfo = mongoose.model('pointInfo', pointInfoSchema);
-
-module.exports = PointInfo;
+export const PointInfo = mongoose.model('pointInfo', pointInfoSchema);
