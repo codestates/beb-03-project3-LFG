@@ -48,6 +48,7 @@ const MyPage = () => {
     // ];
 
     setNfts((prev) => []);
+    setTrades((prev) => []);
     myPageAxios(user, tabs, setNfts, setTrades);
   }, [user, tabs]);
 

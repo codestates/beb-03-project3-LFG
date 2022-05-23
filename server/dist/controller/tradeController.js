@@ -44,7 +44,7 @@ var offerTrades = function (req, res, next) { return __awaiter(void 0, void 0, v
         switch (_a.label) {
             case 0:
                 userAddress = req.body.userAddress;
-                return [4 /*yield*/, trade_1.Trade.find({ offerAddress: userAddress })];
+                return [4 /*yield*/, trade_1.Trade.find({ offerAddress: userAddress.toLowerCase() })];
             case 1:
                 offerList = _a.sent();
                 console.log('offerTrades', offerList);
@@ -60,7 +60,7 @@ var respondTrades = function (req, res, next) { return __awaiter(void 0, void 0,
         switch (_a.label) {
             case 0:
                 userAddress = req.body.userAddress;
-                return [4 /*yield*/, trade_1.Trade.find({ respondAddress: userAddress })];
+                return [4 /*yield*/, trade_1.Trade.find({ respondAddress: userAddress.toLowerCase() })];
             case 1:
                 respondList = _a.sent();
                 console.log('respondTrades', respondList);
