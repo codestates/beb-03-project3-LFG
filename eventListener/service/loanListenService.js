@@ -1,5 +1,7 @@
 const Loan = require('../db/loan');
 const NftList = require('../db/nftList');
+const PointLog = require('../db/pointLog');
+const PointInfo = require('../db/pointInfo');
 const caver = require('../caver');
 const loanAbi = require('../config/Loan.json');
 
@@ -75,31 +77,60 @@ const fundLoan = async (loanAddress, data) => {
 const repayLoan = async (loanAddress, data) => {
   const endAtTimestamp = caver.utils.hexToNumber('0x' + data.substr(2, 64));
   const amount = caver.utils.hexToNumberString('0x' + data.substr(66, 64));
-  const res = await Loan.findOneAndUpdate(
-    { loanAddress: loanAddress, state: 'FUNDED' },
-    {
-      $set: {
-        state: 'PAIDBACK',
-        paidBackTime: endAtTimestamp,
-        paidBackAmount: amount,
-      },
-    }
-  );
-  if (res === null) {
-    console.log(`there are no loan contract! check : ${loanAddress}`);
-  }
+  const rawfee = caver.utils.hexToNumberString('0x' + data.substr(130));
+  let fee = caver.utils.convertFromPeb(rawfee, 'KLAY');
+  fee = Math.floor(Number(fee) * 100);
+
+  await Loan.findOne({ loanAddress: loanAddress, state: 'FUNDED' }).then(async (loan) => {
+    loan.state = 'PAIDBACK';
+    loan.paidBackTime = endAtTimestamp;
+    loan.paidBackAmount = amount;
+    await loan.save();
+
+    await savePoint(loanAddress, loan.debtor, fee);
+    await savePoint(loanAddress, loan.creditor, fee);
+  });
 };
 
-const liquidateLoan = async (loanAddress) => {
-  const res = await Loan.findOneAndUpdate(
-    { loanAddress: loanAddress, state: 'FUNDED' },
-    {
-      $set: { state: 'DEFAULTED' },
+const liquidateLoan = async (loanAddress, data) => {
+  const rawfee = caver.utils.hexToNumberString('0x' + data.substr(2, 64));
+  let fee = caver.utils.convertFromPeb(rawfee, 'KLAY');
+  fee = Math.floor(Number(fee) * 100);
+
+  await Loan.findOne({ loanAddress: loanAddress, state: 'FUNDED' }).then(async (loan) => {
+    loan.state = 'DEFAULTED';
+    await loan.save();
+
+    await savePoint(loanAddress, loan.debtor, fee);
+    await savePoint(loanAddress, loan.creditor, fee);
+  });
+};
+
+const savePoint = async (loanAddress, userAddress, fee) => {
+  //point Log 저장
+  const pointLog = new PointLog({
+    contractAddress: loanAddress,
+    userAddress: userAddress,
+    point: fee,
+  });
+  await pointLog.save();
+
+  // pointInfo 저장
+  // 있으면 업데이트
+  await PointInfo.findOne({ userAddress: userAddress }).then(async (info) => {
+    if (info === null) {
+      const pointInfo = new PointInfo({
+        userAddress: userAddress,
+        votePoint: fee,
+        accPoint: fee,
+      });
+      await pointInfo.save();
+    } else {
+      info.votePoint += fee;
+      info.accPoint += fee;
+      await info.save();
     }
-  );
-  if (res === null) {
-    console.log(`there are no loan contract! check : ${loanAddress}`);
-  }
+  });
 };
 
 module.exports = {

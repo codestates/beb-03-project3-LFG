@@ -43,7 +43,9 @@ var loan_1 = require("./db/loan");
 var user_1 = require("./db/user");
 var loan_2 = require("./router/loan");
 var myPage_1 = require("./router/myPage");
+var point_1 = require("./router/point");
 var trade_1 = require("./router/trade");
+var vote_1 = require("./router/vote");
 var kas_1 = require("./utils/kas");
 var sdk = require('api')('@opensea/v1.0#5zrwe3ql2r2e6mn');
 //require와 import의 혼종..?
@@ -62,6 +64,8 @@ app.get('/', function (req, res, next) {
 app.use('/loan', loan_2.loanRouter);
 app.use('/trade', trade_1.tradeRouter);
 app.use('/myPage', myPage_1.myPageRouter);
+app.use('/vote', vote_1.voteRouter);
+app.use('/point', point_1.pointRouter);
 // app.use('/history', historyRouter);
 app.get('/kasTest', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var blockNumber;
