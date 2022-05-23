@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useOutletContext, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { Button, getVault, voteToCandid } from "../../common";
 import LoadingSpinner from "../../components/common/LoadingSpinner";
@@ -15,6 +15,8 @@ const Description = styled.div`
   margin-top: 95px;
 
   display: flex;
+  flex-direction: column;
+  gap: 1rem;
   align-items: center;
   justify-content: center;
 
@@ -68,11 +70,12 @@ const VoteBtn = styled(Button)`
   width: 5rem;
 `;
 
-const RandomNFTVote = ({ user }) => {
+const RandomNFTVote = () => {
   const navigate = useNavigate();
   const params = useParams();
   const [season, setSeason] = useState(null);
   const [totalVote, setTotalVote] = useState(0);
+  const { user } = useOutletContext();
 
   const calrate = (val, total) => {
     return ((val / total) * 100).toFixed(2);
@@ -84,9 +87,9 @@ const RandomNFTVote = ({ user }) => {
 
   useEffect(() => {
     setTotalVote((prev) => {
-      season.candidate.reduce((acc, curr) => acc + curr.vote, 0);
+      return season?.candidate.reduce((acc, curr) => acc + curr.vote, 0);
     });
-  }, [season.candidate]);
+  }, [season]);
 
   return (
     <Div>

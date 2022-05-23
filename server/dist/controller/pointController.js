@@ -58,10 +58,18 @@ var userPoint = function (req, res, next) { return __awaiter(void 0, void 0, voi
                 return [4 /*yield*/, pointInfo_1.PointInfo.findOne({ userAddress: userAddress })];
             case 2:
                 userPointInfo = _a.sent();
-                res.json({
-                    votePoint: userPointInfo.votePoint,
-                    probabilty: Number((userPointInfo.accPoint / total) * 100).toFixed(3),
-                });
+                if (userPointInfo === null) {
+                    res.json({
+                        votePoint: 0,
+                        probability: '0',
+                    });
+                }
+                else {
+                    res.json({
+                        votePoint: userPointInfo.votePoint,
+                        probabilty: Number((userPointInfo.accPoint / total) * 100).toFixed(3),
+                    });
+                }
                 return [2 /*return*/];
         }
     });
