@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useLocation, useNavigate, useOutletContext } from "react-router-dom";
 import styled from "styled-components";
 import TradeDescription from "../components/TradeDescription";
@@ -95,7 +95,7 @@ const CreatedTrade = () => {
         return (
           <Button
             onClick={async () => {
-              await AcceptTrade(tradeId, user, respondPaidKlay);
+              await AcceptTrade(tradeId, user, respondNFTList, respondPaidKlay);
               navigate("/profile/wallet");
             }}
           >
@@ -114,6 +114,21 @@ const CreatedTrade = () => {
     }
   };
 
+  useEffect(() => {
+    if (!user) {
+      navigate("/");
+    }
+
+    if (
+      !(
+        user?.toLowerCase() === respondAddress ||
+        user?.toLowerCase() === offerAddress
+      )
+    ) {
+      navigate("/");
+    }
+  }, [navigate, user, respondAddress, offerAddress]);
+
   return (
     <Div>
       <TradeDescription />
@@ -122,41 +137,83 @@ const CreatedTrade = () => {
         <OfferMain>
           <div>What I Receive</div>
           <div>What you will get</div>
-          <div>NFTs Offered ({respondNFTList.length})</div>
+          <div>
+            NFTs Offered (
+            {user.toLowerCase() === respondAddress.toLowerCase()
+              ? offerNFTList.length
+              : respondNFTList.length}
+            )
+          </div>
           <TradeNFTWrapper>
-            {respondNFTList.map((nft, idx) => (
-              <TradeNFT
-                key={idx}
-                nft={nft}
-                setNftModal={setNftModal}
-                setShow={setShow}
-              />
-            ))}
+            {user.toLowerCase() === respondAddress.toLowerCase()
+              ? offerNFTList.map((nft, idx) => (
+                  <TradeNFT
+                    key={idx}
+                    nft={nft}
+                    setNftModal={setNftModal}
+                    setShow={setShow}
+                  />
+                ))
+              : respondNFTList.map((nft, idx) => (
+                  <TradeNFT
+                    key={idx}
+                    nft={nft}
+                    setNftModal={setNftModal}
+                    setShow={setShow}
+                  />
+                ))}
           </TradeNFTWrapper>
           <div>KLAY Offered</div>
           <KlayWrapper>
             <KlayIcon />
-            {respondPaidKlay === "" ? 0 : respondPaidKlay}
+            {user.toLowerCase() === respondAddress.toLowerCase()
+              ? offerPaidKlay === ""
+                ? 0
+                : offerPaidKlay
+              : respondPaidKlay === ""
+              ? 0
+              : respondPaidKlay}
           </KlayWrapper>
         </OfferMain>
         <OfferMain>
           <div>What I offer</div>
           <div>What you will give</div>
-          <div>NFTs Offered ({offerNFTList.length})</div>
+          <div>
+            NFTs Offered (
+            {user.toLowerCase() === respondAddress.toLowerCase()
+              ? respondNFTList.length
+              : offerNFTList.length}
+            )
+          </div>
           <TradeNFTWrapper>
-            {offerNFTList.map((nft, idx) => (
-              <TradeNFT
-                key={idx}
-                nft={nft}
-                setNftModal={setNftModal}
-                setShow={setShow}
-              />
-            ))}
+            {user.toLowerCase() === respondAddress.toLowerCase()
+              ? respondNFTList.map((nft, idx) => (
+                  <TradeNFT
+                    key={idx}
+                    nft={nft}
+                    setNftModal={setNftModal}
+                    setShow={setShow}
+                  />
+                ))
+              : offerNFTList.map((nft, idx) => (
+                  <TradeNFT
+                    key={idx}
+                    nft={nft}
+                    setNftModal={setNftModal}
+                    setShow={setShow}
+                  />
+                ))}
           </TradeNFTWrapper>
           <div>KLAY Offered</div>
           <KlayWrapper>
             <KlayIcon />
-            {offerPaidKlay === "" ? 0 : offerPaidKlay}
+            {user.toLowerCase() === respondAddress.toLowerCase()
+              ? respondPaidKlay === ""
+                ? 0
+                : respondPaidKlay
+              : offerPaidKlay === ""
+              ? 0
+              : offerPaidKlay}
           </KlayWrapper>
         </OfferMain>
         <ButtonWrapper>{renderButton()}</ButtonWrapper>

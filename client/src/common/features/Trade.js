@@ -30,8 +30,16 @@ export const ConfirmTrade = async (
   let offerIdList = offers.nfts.map((nft) => nft.tokenId);
   let respondNFTList = receives.nfts.map((nft) => nft.nftAddress);
   let respondIdList = receives.nfts.map((nft) => nft.tokenId);
-  let offerPaidKlay = "0x" + (Number(offers.nfts.klay) * 1e18).toString(16);
-  let respondPaidKlay = "0x" + (Number(receives.nfts.klay) * 1e18).toString(16);
+  let offerPaidKlay = "0x" + (Number(offers.klay) * 1e18).toString(16);
+  let respondPaidKlay = "0x" + (Number(receives.klay) * 1e18).toString(16);
+  // console.log(
+  //   offerNFTList,
+  //   offerIdList,
+  //   respondNFTList,
+  //   respondIdList,
+  //   offerPaidKlay,
+  //   respondPaidKlay
+  // );
 
   const makeTradeEncoded = window.caver.abi.encodeFunctionCall(
     {
@@ -84,7 +92,29 @@ export const CancelTrade = async (id, user) => {
     gas: "10000000",
   });
 };
-export const AcceptTrade = async (id, user, klay) => {
+export const AcceptTrade = async (id, user, offers, klay) => {
+  for (const nft of offers) {
+    const approveEncoded = window.caver.abi.encodeFunctionCall(
+      {
+        name: "approve",
+        type: "function",
+        inputs: [
+          { type: "address", name: "to" },
+          { type: "uint256", name: "tokenId" },
+        ],
+      },
+      [process.env.REACT_APP_TRADE_CONTRACT_ADDRESS, nft.tokenId]
+    );
+
+    await window.caver.klay.sendTransaction({
+      type: "SMART_CONTRACT_EXECUTION",
+      from: user,
+      to: nft.nftAddress,
+      data: approveEncoded,
+      gas: "10000000",
+    });
+  }
+
   const acceptTradeEncoded = window.caver.abi.encodeFunctionCall(
     {
       name: "acceptTrade",

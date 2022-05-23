@@ -196,6 +196,8 @@ const IReceive = () => {
           setConditions={setReceives}
           selectedNFTs={receives.nfts}
           user={user}
+          counterParty={counterParty}
+          isReceive={true}
         />
       ) : null}
     </Div>

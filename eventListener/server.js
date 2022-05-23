@@ -1,6 +1,7 @@
 const caver = require('./caver');
 const { DBinit } = require('./db/mongodb');
 DBinit();
+
 const {
   deployTopic,
   cancelTopic,
@@ -8,15 +9,20 @@ const {
   fundTopic,
   repayTopic,
   defaultTopic,
-} = require('./config/topics');
+} = require('./config/topics/loan');
+
+const { startTopic, endTopic, failTopic } = require('./config/topics/trading');
+
 const {
-  openLoanRequest,
+  deployLoan,
   cancelLoan,
   editLoan,
   fundLoan,
   repayLoan,
   liquidateLoan,
-} = require('./service/listenService');
+} = require('./service/loanListenService');
+
+const { startTrade, endTrade, failTrade } = require('./service/tradingListenService');
 
 // db 연결 지속 위해 사용
 setInterval(async () => {
@@ -28,7 +34,7 @@ setInterval(async () => {
   }
 }, 30000);
 
-const subscrpition = caver.rpc.klay.subscribe(
+const loanSubscrpition = caver.rpc.klay.subscribe(
   'logs',
   {
     topics: [[deployTopic, cancelTopic, editTopic, fundTopic, repayTopic, defaultTopic]],
@@ -38,7 +44,7 @@ const subscrpition = caver.rpc.klay.subscribe(
       switch (res.topics[0]) {
         case deployTopic:
           console.log(res);
-          openLoanRequest(res.data);
+          deployLoan(res.data);
           break;
         case cancelTopic:
           console.log(res);
@@ -64,7 +70,37 @@ const subscrpition = caver.rpc.klay.subscribe(
           break;
       }
     } catch (error) {
-      console.log(err);
+      console.log(error);
+      return;
+    }
+  }
+);
+
+const tradeSubscription = caver.rpc.klay.subscribe(
+  'logs',
+  {
+    topics: [[startTopic, endTopic, failTopic]],
+  },
+  (err, res) => {
+    try {
+      switch (res.topics[0]) {
+        case startTopic:
+          console.log(res);
+          startTrade(res.address, res.data);
+          break;
+        case endTopic:
+          console.log(res);
+          endTrade(res.data);
+          break;
+        case failTopic:
+          console.log(res);
+          failTrade(res.data);
+          break;
+        default:
+          break;
+      }
+    } catch (error) {
+      console.log(error);
       return;
     }
   }

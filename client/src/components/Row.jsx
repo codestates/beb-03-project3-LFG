@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { UserContext } from "../App";
 import { Button } from "../common";
 
 const Wrapper = styled.div`
@@ -63,25 +64,38 @@ const KlayIcon = styled.img.attrs((props) => ({
 
 const Row = ({ data }) => {
   const navigate = useNavigate();
+  const { user } = useContext(UserContext);
   return (
     <Wrapper status={data.status}>
       <RecNfts>
-        {data.respondNFTList.map((metadata, idx) => (
-          <Img key={idx} fig={metadata.image} />
-        ))}
+        {user.toLowerCase() === data.respondAddress
+          ? data.offerNFTList.map((metadata, idx) => (
+              <Img key={idx} fig={metadata.image} />
+            ))
+          : data.respondNFTList.map((metadata, idx) => (
+              <Img key={idx} fig={metadata.image} />
+            ))}
       </RecNfts>
       <RecKlay>
         <KlayIcon fig="https://s2.coinmarketcap.com/static/img/coins/64x64/4256.png" />
-        {data.respondPaidKlay}
+        {user.toLowerCase() === data.respondAddress
+          ? data.offerPaidKlay
+          : data.respondPaidKlay}
       </RecKlay>
       <OffNfts>
-        {data.offerNFTList.map((metadata, idx) => (
-          <Img key={idx} fig={metadata.image} />
-        ))}
+        {user.toLowerCase() === data.respondAddress
+          ? data.respondNFTList.map((metadata, idx) => (
+              <Img key={idx} fig={metadata.image} />
+            ))
+          : data.offerNFTList.map((metadata, idx) => (
+              <Img key={idx} fig={metadata.image} />
+            ))}
       </OffNfts>
       <OffKlay>
         <KlayIcon fig="https://s2.coinmarketcap.com/static/img/coins/64x64/4256.png" />
-        {data.offerPaidKlay}
+        {user.toLowerCase() === data.respondAddress
+          ? data.respondPaidKlay
+          : data.offerPaidKlay}
       </OffKlay>
       <From>
         {data.offerAddress}

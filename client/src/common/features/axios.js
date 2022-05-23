@@ -1,7 +1,7 @@
 import axios from "axios";
 import { getMetadata } from "./getMetadata";
 
-export const myPageAxios = async (user, tabs, setData) => {
+export const myPageAxios = async (user, tabs, setNFTs, setData) => {
   switch (tabs) {
     case 0:
       // request myNFTs
@@ -13,7 +13,7 @@ export const myPageAxios = async (user, tabs, setData) => {
 
       const promises = myNftList.map((d) => getMetadata(d.tokenURI));
       Promise.all(promises).then((resolve) => {
-        setData((prev) =>
+        setNFTs((prev) =>
           resolve.map((data, idx) => {
             return {
               ...data.data,
@@ -35,7 +35,7 @@ export const myPageAxios = async (user, tabs, setData) => {
       const {
         data: { offerList },
       } = await axios.post("http://127.0.0.1:4002/trade/offer", {
-        userAddress: user,
+        userAddress: user.toLowerCase(),
       });
 
       processTradeData(offerList, setData);
@@ -43,9 +43,9 @@ export const myPageAxios = async (user, tabs, setData) => {
     case 4:
       // request Trade I Offered
       const {
-        data: { offerList: respondList },
+        data: { respondList },
       } = await axios.post("http://127.0.0.1:4002/trade/respond", {
-        userAddress: user,
+        userAddress: user.toLowerCase(),
       });
 
       processTradeData(respondList, setData);
