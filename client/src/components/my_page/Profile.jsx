@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
+import { UserContext } from "../../App";
 import {
   Button,
   EditIcon,
@@ -111,7 +112,9 @@ const MenuWrapper = styled.div`
   }
 `;
 
-const Profile = ({ tabs, setTabs, score }) => {
+const Profile = ({ tabs, setTabs }) => {
+  const { score } = useContext(UserContext);
+
   const tabArr = [
     { name: "MY NFTS" },
     { name: "MY LISTED LOANS" },
@@ -148,7 +151,10 @@ const Profile = ({ tabs, setTabs, score }) => {
             <DiscordWrapper>
               <CreditScoreIcon />
             </DiscordWrapper>
-            <ConnectBtn>Contribution Score: {score}</ConnectBtn>
+            <ConnectBtn>
+              Contribution Score: {score.votePoint} (
+              {score.probability === "" ? 0 : score.probability} %)
+            </ConnectBtn>
           </ConnectDiscord>
         </UserInfo>
       </ProfileDiv>

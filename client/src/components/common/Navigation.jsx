@@ -98,7 +98,7 @@ const Navigation = ({ dropdown, handleDropDown }) => {
           </Nav>
         </Navs>
         <LoginWrapper>
-          <Login>Login</Login>
+          <Login />
         </LoginWrapper>
         <Menu onClick={handleDropDown}>
           Menu

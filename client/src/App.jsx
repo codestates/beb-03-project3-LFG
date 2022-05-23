@@ -1,6 +1,6 @@
 import { useState, createContext, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
-import { Rootdiv, HelperAbi } from "./common";
+import { Rootdiv, HelperAbi, getContribution } from "./common";
 import Navigation from "./components/common/Navigation";
 import MenuDropDown from "./components/common/MenuDropDown";
 import Home from "./pages/Home";
@@ -28,6 +28,7 @@ const App = () => {
   const [dropdown, setDropdown] = useState(false);
   const [helperContract, setHelperContract] = useState(null);
   const [user, setUser] = useState(null);
+  const [score, setScore] = useState({ votePoint: 0, probability: "" });
 
   const isUnlocked = async () => {
     const ok = await window.klaytn._kaikas.isUnlocked();
@@ -42,6 +43,8 @@ const App = () => {
     window.klaytn.on("accountsChanged", (accounts) => {
       setUser((prev) => accounts[0]);
     });
+
+    getContribution(user, setScore);
 
     setHelperContract((prev) => {
       const contract = new window.caver.contract(
@@ -60,7 +63,7 @@ const App = () => {
   };
 
   return (
-    <UserContext.Provider value={{ user, helperContract, setUser }}>
+    <UserContext.Provider value={{ user, helperContract, score, setUser }}>
       <Rootdiv>
         <Navigation dropdown={dropdown} handleDropDown={handleDropDown} />
 

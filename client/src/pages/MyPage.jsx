@@ -12,7 +12,6 @@ const MyPage = () => {
   const [nfts, setNfts] = useState([]);
   const [trades, setTrades] = useState([]);
   const [tabs, setTabs] = useState(0);
-  const [score, setScore] = useState(0);
   const { user } = useContext(UserContext);
 
   // 웹서버에서 내 소유 NFT를 전부 가져오고 MyNFTs에 넘겨준다
@@ -49,7 +48,7 @@ const MyPage = () => {
         }
       }}
     >
-      <Profile tabs={tabs} setTabs={setTabs} score={score} />
+      <Profile tabs={tabs} setTabs={setTabs} />
       {renderData()}
     </Rootdiv>
   );
