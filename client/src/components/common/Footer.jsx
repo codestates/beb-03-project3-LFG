@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { GitHub } from "../common";
+import { GitHub } from "../../common";
 import Logo from "./Logo";
 
 const FooterWrapper = styled.footer`

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { CardWrapper, Title, Name } from "../common";
-import AttributeCard from "./AttributeCard";
+import { CardWrapper, Title, Name } from "../../common";
+import AttributeCard from "../loan_detail/AttributeCard";
 
 const Wrapper = styled.div`
   width: 100vw;
@@ -79,8 +79,10 @@ const NFTAttributeModal = ({ data }) => {
     <Wrapper>
       <Modal>
         <ModalCaption>
-          <Title>Azuki</Title>
-          <Name>{data.name}</Name>
+          <Title>
+            {data.projectName} #{data.tokenId}
+          </Title>
+          <Name>{data.team}</Name>
         </ModalCaption>
         <FigureWrapper>
           <ModalFigure fig={data.image} />

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { HelpOutline, renderButton, timeStamp } from "../common";
+import { HelpOutline, renderButton, timeStamp } from "../../common";
 import Request from "./Request";
-import Login from "./Login";
+import Login from "../common/Login";
 
 const LoanInfosWrapper = styled.div`
   padding: 1rem;

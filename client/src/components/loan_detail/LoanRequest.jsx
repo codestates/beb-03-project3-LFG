@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import styled from "styled-components";
-import { UserContext } from "../App";
+import { UserContext } from "../../App";
 import LoanInfos from "./LoanInfos";
 import LoanForm from "./LoanForm";
 

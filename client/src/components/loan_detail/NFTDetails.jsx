@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Rootdiv, VerifiedUserIcon } from "../common";
+import { Rootdiv, VerifiedUserIcon } from "../../common";
 import AttributeCard from "./AttributeCard";
 
 const DetailDiv = styled(Rootdiv)`

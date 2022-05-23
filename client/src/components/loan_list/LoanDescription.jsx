@@ -1,8 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { Button, CalendarMonthIcon } from "../common";
-import MenuTab from "./MenuTab";
+import { Button, CalendarMonthIcon } from "../../common";
+import MenuTab from "../common/MenuTab";
 
 const LDWrapper = styled.div`
   width: 100%;

@@ -1,8 +1,8 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { UserContext } from "../App";
-import { Button, HelpOutline } from "../common";
+import { UserContext } from "../../App";
+import { Button, HelpOutline } from "../../common";
 
 const LoanFormWrapper = styled.div`
   padding: 1rem;

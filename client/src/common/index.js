@@ -14,6 +14,8 @@ import {
   VerifiedUserIcon,
   EditIcon,
   ContentPasteGoIcon,
+  SearchIcon,
+  ClearIcon,
 } from "./styles/Material.js";
 import {
   CardWrapper,
@@ -29,6 +31,14 @@ import KIP17Abi from "./abi/KIP17.json";
 import { getMetadata, checkIpfs } from "./features/getMetadata.js";
 import { renderButton } from "./features/button.js";
 import { timeStamp } from "./features/timeStamp.js";
+import { TradeWrapper, TradeMain } from "./styles/Trade.js";
+import {
+  myPageAxios,
+  processTradeData,
+  getContribution,
+} from "./features/axios.js";
+import { ConfirmTrade, CancelTrade, AcceptTrade } from "./features/Trade.js";
+import { getVaults, getVault, voteToCandid } from "./features/voteAxios.js";
 
 export {
   Button,
@@ -44,7 +54,9 @@ export {
   MenuIcon,
   AccessTimeIcon,
   CreditScoreIcon,
+  ClearIcon,
   VerifiedUserIcon,
+  SearchIcon,
   EditIcon,
   ContentPasteGoIcon,
   CardWrapper,
@@ -60,4 +72,15 @@ export {
   renderButton,
   timeStamp,
   checkIpfs,
+  TradeWrapper,
+  myPageAxios,
+  processTradeData,
+  TradeMain,
+  ConfirmTrade,
+  CancelTrade,
+  AcceptTrade,
+  getVaults,
+  getVault,
+  voteToCandid,
+  getContribution,
 };

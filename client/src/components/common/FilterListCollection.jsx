@@ -4,7 +4,7 @@ import {
   KeyboardArrowUpIcon,
   FilterList,
   FilterTitle,
-} from "../common";
+} from "../../common";
 import Collection from "./Collection";
 import styled from "styled-components";
 

@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { UserContext } from "../App";
+import { UserContext } from "../../App";
 
 const LoginWrapper = styled.div`
   cursor: pointer;
@@ -9,7 +9,7 @@ const LoginWrapper = styled.div`
 
 const Login = () => {
   const navigate = useNavigate();
-  const { user, setUser } = useContext(UserContext);
+  const { user, setUser, score } = useContext(UserContext);
 
   const handleLogin = async () => {
     if (!user) {
@@ -26,7 +26,11 @@ const Login = () => {
 
   return (
     <LoginWrapper onClick={handleLogin}>
-      {!user ? "Login" : `${user.slice(2, 5)}...${user.slice(-3)}`}
+      {!user
+        ? "Login"
+        : `${user.slice(2, 5)}...${user.slice(-3)} (${
+            score.probability === "" ? 0 : score.probability
+          }%)`}
     </LoginWrapper>
   );
 };

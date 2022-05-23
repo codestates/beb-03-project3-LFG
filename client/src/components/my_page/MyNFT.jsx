@@ -9,7 +9,7 @@ import {
   Title,
   Name,
   Button,
-} from "../common";
+} from "../../common";
 
 const ButtonWrapper = styled.div`
   margin-top: 1rem;

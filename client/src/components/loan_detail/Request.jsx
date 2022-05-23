@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { HelpOutline } from "../common";
+import { HelpOutline } from "../../common";
 
 const RequestDiv = styled.div``;
 const Property = styled.div`

@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
-import { Button, EditIcon, ContentPasteGoIcon } from "../common";
-import MenuTab from "./MenuTab";
+import { UserContext } from "../../App";
+import {
+  Button,
+  EditIcon,
+  ContentPasteGoIcon,
+  CreditScoreIcon,
+} from "../../common";
+import MenuTab from "../common/MenuTab";
 
 const ProfileWrapper = styled.div`
   margin: auto;
@@ -106,12 +112,14 @@ const MenuWrapper = styled.div`
   }
 `;
 
-const Profile = (props) => {
+const Profile = ({ tabs, setTabs }) => {
+  const { score } = useContext(UserContext);
+
   const tabArr = [
     { name: "MY NFTS" },
     { name: "MY LISTED LOANS" },
     { name: "FUNDED LOANS" },
-    { name: "OPEN TRADES" },
+    { name: "CREATED TRADES" },
     { name: "INCOMING OFFERS" },
   ];
 
@@ -141,14 +149,17 @@ const Profile = (props) => {
           </ButtonWrapper>
           <ConnectDiscord>
             <DiscordWrapper>
-              <Discord />
+              <CreditScoreIcon />
             </DiscordWrapper>
-            <ConnectBtn>Connect Discord</ConnectBtn>
+            <ConnectBtn>
+              Contribution Score: {score.votePoint} (
+              {score.probability === "" ? 0 : score.probability} %)
+            </ConnectBtn>
           </ConnectDiscord>
         </UserInfo>
       </ProfileDiv>
       <MenuWrapper>
-        <MenuTab menus={tabArr} {...props} />
+        <MenuTab menus={tabArr} tabs={tabs} setTabs={setTabs} />
       </MenuWrapper>
     </ProfileWrapper>
   );

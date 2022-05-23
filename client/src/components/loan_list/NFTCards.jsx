@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import LoadingSpinner from "./LoadingSpinner";
+import LoadingSpinner from "../common/LoadingSpinner";
 import NFTCard from "./NFTCard";
 
 const CardsWrapper = styled.div`

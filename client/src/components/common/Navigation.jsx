@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { Close, MenuIcon, KeyboardArrowDownIcon } from "../common";
+import { Close, MenuIcon, KeyboardArrowDownIcon } from "../../common";
 import Logo from "./Logo";
 import Login from "./Login";
 
@@ -77,8 +77,20 @@ const Navigation = ({ dropdown, handleDropDown }) => {
           >
             LOANS
           </Nav>
-          <Nav>TRADES</Nav>
-          <Nav>TRADE APP</Nav>
+          <Nav
+            onClick={() => {
+              navigate("/trade-create");
+            }}
+          >
+            TRADE
+          </Nav>
+          <Nav
+            onClick={() => {
+              navigate("/vote-list");
+            }}
+          >
+            VOTE
+          </Nav>
           <Nav>STAKE</Nav>
           <Nav>
             <KeyboardArrowDownIcon />
@@ -86,7 +98,7 @@ const Navigation = ({ dropdown, handleDropDown }) => {
           </Nav>
         </Navs>
         <LoginWrapper>
-          <Login>Login</Login>
+          <Login />
         </LoginWrapper>
         <Menu onClick={handleDropDown}>
           Menu
