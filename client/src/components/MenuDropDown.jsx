@@ -39,13 +39,19 @@ const MenuDropDown = ({ handleDropDown }) => {
         >
           Loans
         </DropDownMenu>
-        <DropDownMenu>Trades</DropDownMenu>
         <DropDownMenu
           onClick={() => {
             navigate("/trade-create");
           }}
         >
-          Trade App
+          Trade
+        </DropDownMenu>
+        <DropDownMenu
+          onClick={() => {
+            navigate("/vote-list");
+          }}
+        >
+          Vote
         </DropDownMenu>
         <DropDownMenu>Stake</DropDownMenu>
         <DropDownMenu

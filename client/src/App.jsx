@@ -13,6 +13,10 @@ import Trade from "./pages/Trade";
 import ConfirmTrade from "./pages/ConfirmTrade";
 import IReceive from "./pages/IReceive";
 import CreatedTrade from "./pages/CreatedTrade";
+import VoteList from "./pages/VoteList";
+import RandomNFTVote from "./pages/RandomNFTVote";
+import Vote from "./pages/Vote";
+import NFTHolderVote from "./pages/NFTHolderVote";
 
 export const UserContext = createContext({
   user: null,
@@ -76,6 +80,11 @@ const App = () => {
               <Route path="your-offer-selection" element={<IOffer />} />
               <Route path="confirm-trade" element={<ConfirmTrade />} />
               <Route path="created" element={<CreatedTrade />} />
+            </Route>
+            <Route path="/vote-list" element={<Vote />}>
+              <Route index element={<VoteList />} />
+              <Route path="random-nft/:id" element={<RandomNFTVote />} />
+              <Route path="nft-holder/:id" element={<NFTHolderVote />} />
             </Route>
           </Routes>
         )}

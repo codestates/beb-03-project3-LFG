@@ -1,6 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import { Button, EditIcon, ContentPasteGoIcon } from "../common";
+import {
+  Button,
+  EditIcon,
+  ContentPasteGoIcon,
+  CreditScoreIcon,
+} from "../common";
 import MenuTab from "./MenuTab";
 
 const ProfileWrapper = styled.div`
@@ -106,7 +111,7 @@ const MenuWrapper = styled.div`
   }
 `;
 
-const Profile = (props) => {
+const Profile = ({ tabs, setTabs, score }) => {
   const tabArr = [
     { name: "MY NFTS" },
     { name: "MY LISTED LOANS" },
@@ -141,14 +146,14 @@ const Profile = (props) => {
           </ButtonWrapper>
           <ConnectDiscord>
             <DiscordWrapper>
-              <Discord />
+              <CreditScoreIcon />
             </DiscordWrapper>
-            <ConnectBtn>Connect Discord</ConnectBtn>
+            <ConnectBtn>Contribution Score: {score}</ConnectBtn>
           </ConnectDiscord>
         </UserInfo>
       </ProfileDiv>
       <MenuWrapper>
-        <MenuTab menus={tabArr} {...props} />
+        <MenuTab menus={tabArr} tabs={tabs} setTabs={setTabs} />
       </MenuWrapper>
     </ProfileWrapper>
   );
