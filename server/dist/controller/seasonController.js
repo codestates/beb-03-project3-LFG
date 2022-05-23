@@ -75,14 +75,18 @@ var seasonVote = function (req, res, next) { return __awaiter(void 0, void 0, vo
                 id = req.params.id;
                 _a = req.body, userAddress = _a.userAddress, nftAddress = _a.nftAddress;
                 return [4 /*yield*/, pointInfo_1.PointInfo.findOne({ userAddress: userAddress }).then(function (info) { return __awaiter(void 0, void 0, void 0, function () {
-                        var votePoint;
+                        var votePoint_1;
                         return __generator(this, function (_a) {
                             switch (_a.label) {
                                 case 0:
-                                    votePoint = info.votePoint;
+                                    if (!(info === null)) return [3 /*break*/, 1];
+                                    res.status(400).json({ message: 'fail, you have no votePoint' });
+                                    return [3 /*break*/, 4];
+                                case 1:
+                                    votePoint_1 = info.votePoint;
                                     info.votePoint = 0;
                                     return [4 /*yield*/, info.save()];
-                                case 1:
+                                case 2:
                                     _a.sent();
                                     return [4 /*yield*/, season_1.Season.findOne({ _id: id }).then(function (season) { return __awaiter(void 0, void 0, void 0, function () {
                                             var _i, _a, elem;
@@ -92,7 +96,7 @@ var seasonVote = function (req, res, next) { return __awaiter(void 0, void 0, vo
                                                         for (_i = 0, _a = season.candidate; _i < _a.length; _i++) {
                                                             elem = _a[_i];
                                                             if (elem.nftAddress === nftAddress) {
-                                                                elem.vote += votePoint;
+                                                                elem.vote += votePoint_1;
                                                                 break;
                                                             }
                                                         }
@@ -104,9 +108,10 @@ var seasonVote = function (req, res, next) { return __awaiter(void 0, void 0, vo
                                                 }
                                             });
                                         }); })];
-                                case 2:
+                                case 3:
                                     _a.sent();
-                                    return [2 /*return*/];
+                                    _a.label = 4;
+                                case 4: return [2 /*return*/];
                             }
                         });
                     }); })];
