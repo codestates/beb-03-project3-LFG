@@ -13,13 +13,6 @@ export const userPoint = async (req, res, next) => {
   if (rawTotal.length === 0) {
     res.status(200).json({ message: 'succeed', votePoint: 0, probability: '0' });
   } else {
-<<<<<<< HEAD
-    res.json({
-      message: 'succeed'
-      votePoint: userPointInfo.votePoint,
-      probabilty: Number((userPointInfo.accPoint / total) * 100).toFixed(3),
-    });
-=======
     const { total } = rawTotal[0];
     const userPointInfo = await PointInfo.findOne({ userAddress: userAddress });
     if (userPointInfo === null) {
@@ -31,6 +24,5 @@ export const userPoint = async (req, res, next) => {
         probabilty: Number((userPointInfo.accPoint / total) * 100).toFixed(3),
       });
     }
->>>>>>> 0120a81 (Fix: season error handling)
   }
 };
