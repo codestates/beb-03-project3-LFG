@@ -36,37 +36,16 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.respondTrades = exports.offerTrades = void 0;
-var trade_1 = require("../db/trade");
-var offerTrades = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var userAddress, offerList;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                userAddress = req.body.userAddress;
-                return [4 /*yield*/, trade_1.Trade.find({ offerAddress: userAddress.toLowerCase() })];
-            case 1:
-                offerList = _a.sent();
-                console.log('offerTrades', offerList);
-                res.status(200).json({ message: 'succeed', offerList: offerList });
-                return [2 /*return*/];
-        }
-    });
-}); };
-exports.offerTrades = offerTrades;
-var respondTrades = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var userAddress, respondList;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                userAddress = req.body.userAddress;
-                return [4 /*yield*/, trade_1.Trade.find({ respondAddress: userAddress.toLowerCase() })];
-            case 1:
-                respondList = _a.sent();
-                console.log('respondTrades', respondList);
-                res.status(200).json({ message: 'succeed', respondList: respondList });
-                return [2 /*return*/];
-        }
-    });
-}); };
-exports.respondTrades = respondTrades;
+exports.viewAgenda = exports.agendaVote = exports.agendaList = void 0;
+var agendaList = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () { return __generator(this, function (_a) {
+    return [2 /*return*/];
+}); }); };
+exports.agendaList = agendaList;
+var agendaVote = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () { return __generator(this, function (_a) {
+    return [2 /*return*/];
+}); }); };
+exports.agendaVote = agendaVote;
+var viewAgenda = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () { return __generator(this, function (_a) {
+    return [2 /*return*/];
+}); }); };
+exports.viewAgenda = viewAgenda;

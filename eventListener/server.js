@@ -64,7 +64,7 @@ const loanSubscrpition = caver.rpc.klay.subscribe(
           break;
         case defaultTopic:
           console.log(res);
-          liquidateLoan(res.address);
+          liquidateLoan(res.address, res.data);
           break;
         default:
           break;
