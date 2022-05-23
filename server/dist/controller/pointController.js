@@ -54,11 +54,16 @@ var userPoint = function (req, res, next) { return __awaiter(void 0, void 0, voi
                     ])];
             case 1:
                 rawTotal = _a.sent();
+                if (!(rawTotal.length === 0)) return [3 /*break*/, 2];
+                res.status(200).json({ message: 'succeed', votePoint: 0, probability: '0' });
+                return [3 /*break*/, 4];
+            case 2:
                 total = rawTotal[0].total;
                 return [4 /*yield*/, pointInfo_1.PointInfo.findOne({ userAddress: userAddress })];
-            case 2:
+            case 3:
                 userPointInfo = _a.sent();
                 if (userPointInfo === null) {
+<<<<<<< HEAD
                     res.json({
                         votePoint: 0,
                         probability: '0',
@@ -66,11 +71,23 @@ var userPoint = function (req, res, next) { return __awaiter(void 0, void 0, voi
                 }
                 else {
                     res.json({
+=======
+                    res.status(200).json({ message: 'succeed', votePoint: 0, probability: '0' });
+                }
+                else {
+                    res.status(200).json({
+                        message: 'succeed',
+>>>>>>> 0120a81 (Fix: season error handling)
                         votePoint: userPointInfo.votePoint,
                         probabilty: Number((userPointInfo.accPoint / total) * 100).toFixed(3),
                     });
                 }
+<<<<<<< HEAD
                 return [2 /*return*/];
+=======
+                _a.label = 4;
+            case 4: return [2 /*return*/];
+>>>>>>> 0120a81 (Fix: season error handling)
         }
     });
 }); };

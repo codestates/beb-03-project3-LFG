@@ -18,20 +18,24 @@ export const seasonVote = async (req, res, next) => {
   const { userAddress, nftAddress } = req.body;
 
   await PointInfo.findOne({ userAddress: userAddress }).then(async (info) => {
-    const { votePoint } = info;
+    if (info === null) {
+      res.status(400).json({ message: 'fail, you have no votePoint' });
+    } else {
+      const { votePoint } = info;
 
-    info.votePoint = 0;
-    await info.save();
+      info.votePoint = 0;
+      await info.save();
 
-    await Season.findOne({ _id: id }).then(async (season) => {
-      for (const elem of season.candidate) {
-        if (elem.nftAddress === nftAddress) {
-          elem.vote += votePoint;
-          break;
+      await Season.findOne({ _id: id }).then(async (season) => {
+        for (const elem of season.candidate) {
+          if (elem.nftAddress === nftAddress) {
+            elem.vote += votePoint;
+            break;
+          }
         }
-      }
-      await season.save();
-      res.status(200).json({ message: 'succeed', season });
-    });
+        await season.save();
+        res.status(200).json({ message: 'succeed', season });
+      });
+    }
   });
 };
