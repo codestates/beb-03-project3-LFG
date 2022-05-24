@@ -1,99 +1,68 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.5.6;
 
-contract Ballot {
+import "./klay_contracts/token/KIP17/IKIP17.sol";
+
+contract Vote {
     enum ProsAndCons { CONS, PROS, DRAW }
 
     struct Voter {
-        uint weight;
+        address voter;
         bool voted;
-        address delegate;
         ProsAndCons vote;
     }
 
     address public chairperson;
 
     struct Proposal {
-        string name;
+        uint id;
         uint pros;
         uint cons;
     }
 
-    mapping(address => Voter) public voters;
+    bool isVoting;
+    mapping(uint => Voter) public voters;
     Proposal public proposal;
+    IKIP17 _ikip17;
+    ProsAndCons public result;
 
-    constructor(string memory _proposal) public {
+    constructor(IKIP17 ikip17, uint _id) public {
         chairperson = msg.sender;
-        voters[chairperson].weight = 1;
-
-        proposal.name = _proposal;
+        proposal.id = _id;
+        isVoting = true;
+        _ikip17 = ikip17;
     }
 
-    function giveRightToVote(address voter) external {
-        require(msg.sender == chairperson, "Only chairperson can give right to vote.");
-        require(
-            !voters[voter].voted,
-            "The voter already voted."
-        );
-        require(voters[voter].weight == 0);
-        voters[voter].weight = 1;
+    modifier checkVotingState() {
+        require(isVoting, "voting closed");
+        _;
     }
 
-    function giveRightToVoteBatch(address[] calldata _voters) external {
-        require(msg.sender == chairperson, "Only chairperson can give right to vote.");
-        for (uint i; i < _voters.length; i++) {
-            require(
-                !voters[_voters[i]].voted,
-                "The voter already voted."
-            );
-            require(voters[_voters[i]].weight == 0);
-            voters[_voters[i]].weight = 1;
-        }
+    modifier isOwner() {
+        require(msg.sender == chairperson, "not the owner");
+        _;
     }
 
-    function delegate(address to) external {
-        Voter storage sender = voters[msg.sender];
-        require(!sender.voted, "You already voted");
-        require(to != msg.sender, "Self-delegation is disallowed.");
+    function daoNFT() internal view returns (IKIP17){
+        return _ikip17;
+    }
 
-        while (voters[to].delegate != address(0)) {
-            to = voters[to].delegate;
+    function vote(uint256[] calldata tokenIds, ProsAndCons pc) external checkVotingState {
+        for (uint i; i < tokenIds.length; i++) {
+            require(!voters[tokenIds[i]].voted, "already voted");
+            require(daoNFT().ownerOf(tokenIds[i]) == msg.sender, "not the owner of tokenId");
 
-            // We found a loop in the delegation, not allowed.
-            require(to != msg.sender, "Found loop in delegation.");
-        }
-
-        Voter storage delegated_ = voters[to];
-
-        require(delegated_.weight >= 1);
-        sender.voted = true;
-        sender.delegate = to;
-        if (delegated_.voted) {
-            if (delegated_.vote == ProsAndCons.CONS) {
-                proposal.cons += sender.weight;
-            } else if (delegated_.vote == ProsAndCons.PROS) {
-                proposal.pros += sender.weight;
+            if (pc == ProsAndCons.PROS) {
+                voters[tokenIds[i]] = Voter(msg.sender, true, ProsAndCons.PROS);
+                proposal.pros++;
+            } else if (pc == ProsAndCons.CONS) {
+                voters[tokenIds[i]] = Voter(msg.sender, true, ProsAndCons.CONS);
+                proposal.cons++;
             }
-        } else {
-            delegated_.weight += sender.weight;
         }
     }
 
-    function vote(ProsAndCons prosAndCons) external {
-        Voter storage sender = voters[msg.sender];
-        require(sender.weight != 0, "Has no right to vote");
-        require(!sender.voted, "Already voted.");
-        sender.voted = true;
-        sender.vote = prosAndCons;
-
-        if (prosAndCons == ProsAndCons.PROS) {
-            proposal.pros += sender.weight;
-        } else if (prosAndCons == ProsAndCons.CONS) {
-            proposal.cons += sender.weight;
-        }
-    }
-
-    function winning() public view returns (ProsAndCons) {
+    function getResult() public view checkVotingState returns (ProsAndCons) {
         if (proposal.pros > proposal.cons) {
             return ProsAndCons.PROS;
         } else if (proposal.pros < proposal.cons) {
@@ -101,5 +70,16 @@ contract Ballot {
         } else {
             return ProsAndCons.DRAW;
         }
+    }
+
+    function closeVote() external checkVotingState isOwner {
+        ProsAndCons _result = getResult();
+        result = _result;
+
+        isVoting = false;
+    }
+
+    function isClosed() external view returns (bool) {
+        return isVoting;
     }
 }

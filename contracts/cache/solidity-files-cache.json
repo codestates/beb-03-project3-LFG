@@ -5651,9 +5651,86 @@
       ]
     },
     "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/Vote.sol": {
-      "lastModificationDate": 1653325448422,
-      "contentHash": "179e124f6ee1085e9fecc7b0ed10a12f",
+      "lastModificationDate": 1653375673770,
+      "contentHash": "2bd301353241cfd6d0894796cd6d671a",
       "sourceName": "contracts/Vote.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./klay_contracts/token/KIP17/IKIP17.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.6"
+      ],
+      "artifacts": [
+        "Vote"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/Trading.sol": {
+      "lastModificationDate": 1653365260162,
+      "contentHash": "309ed35982d73df531bc10b1c9744de8",
+      "sourceName": "contracts/Trading.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./klay_contracts/token/KIP17/IKIP17Receiver.sol",
+        "./klay_contracts/token/KIP17/IKIP17.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.0"
+      ],
+      "artifacts": [
+        "Counters",
+        "SafeMath",
+        "Trading"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/KIP17LFG.sol": {
+      "lastModificationDate": 1653325497482,
+      "contentHash": "1260065ed9112f4a5b9abf1aa219751b",
+      "sourceName": "contracts/KIP17LFG.sol",
       "solcConfig": {
         "version": "0.5.12",
         "settings": {
@@ -5679,10 +5756,62 @@
       },
       "imports": [],
       "versionPragmas": [
-        "^0.5.6"
+        "^0.5.0",
+        "^0.5.0",
+        "^0.5.0",
+        "^0.5.0",
+        "^0.5.0",
+        "^0.5.0",
+        "^0.5.0",
+        "^0.5.0",
+        "^0.5.0",
+        "^0.5.0",
+        "^0.5.0",
+        "^0.5.0",
+        "^0.5.0",
+        "^0.5.0",
+        "^0.5.0",
+        "^0.5.0",
+        "^0.5.0",
+        "^0.5.0",
+        "^0.5.0",
+        "^0.5.0",
+        "^0.5.0",
+        "^0.5.0",
+        "^0.5.0",
+        "^0.5.0",
+        "^0.5.0",
+        "^0.5.0",
+        "^0.5.0"
       ],
       "artifacts": [
-        "Ballot"
+        "Address",
+        "Counters",
+        "IERC721Receiver",
+        "IKIP13",
+        "IKIP17",
+        "IKIP17Enumerable",
+        "IKIP17Metadata",
+        "IKIP17Receiver",
+        "KIP13",
+        "KIP17",
+        "KIP17Burnable",
+        "KIP17Enumerable",
+        "KIP17Full",
+        "KIP17Kbirdz",
+        "KIP17LFGToken",
+        "KIP17Metadata",
+        "KIP17MetadataMintable",
+        "KIP17Mintable",
+        "KIP17Pausable",
+        "MerkleProof",
+        "MinterRole",
+        "Ownable",
+        "Pausable",
+        "PauserRole",
+        "Roles",
+        "SafeMath",
+        "String"
       ]
     }
   }
