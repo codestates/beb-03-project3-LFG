@@ -63,31 +63,17 @@ var userPoint = function (req, res, next) { return __awaiter(void 0, void 0, voi
             case 3:
                 userPointInfo = _a.sent();
                 if (userPointInfo === null) {
-<<<<<<< HEAD
-                    res.json({
-                        votePoint: 0,
-                        probability: '0',
-                    });
-                }
-                else {
-                    res.json({
-=======
                     res.status(200).json({ message: 'succeed', votePoint: 0, probability: '0' });
                 }
                 else {
                     res.status(200).json({
                         message: 'succeed',
->>>>>>> 0120a81 (Fix: season error handling)
                         votePoint: userPointInfo.votePoint,
-                        probabilty: Number((userPointInfo.accPoint / total) * 100).toFixed(3),
+                        probability: Number((userPointInfo.accPoint / total) * 100).toFixed(3),
                     });
                 }
-<<<<<<< HEAD
-                return [2 /*return*/];
-=======
                 _a.label = 4;
             case 4: return [2 /*return*/];
->>>>>>> 0120a81 (Fix: season error handling)
         }
     });
 }); };

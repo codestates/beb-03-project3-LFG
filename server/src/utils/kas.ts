@@ -5,7 +5,7 @@ dotenv.config();
 // Cypress : 8217
 // Baobab : 1001
 const chainId: Number = 1001;
-const caver = new CaverExtKAS(chainId, process.env.accessKeyId, process.env.secretAccessKey);
+export const caver = new CaverExtKAS(chainId, process.env.accessKeyId, process.env.secretAccessKey);
 caver.initKASAPI(chainId, process.env.accessKeyId, process.env.secretAccessKey);
 caver.initTokenHistoryAPI(chainId, process.env.accessKeyId, process.env.secretAccessKey);
 
