@@ -21,7 +21,7 @@ export const userPoint = async (req, res, next) => {
       res.status(200).json({
         message: 'succeed',
         votePoint: userPointInfo.votePoint,
-        probabilty: Number((userPointInfo.accPoint / total) * 100).toFixed(3),
+        probability: Number((userPointInfo.accPoint / total) * 100).toFixed(3),
       });
     }
   }
