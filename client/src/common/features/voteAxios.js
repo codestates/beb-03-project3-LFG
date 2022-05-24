@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getVotes } from "./vote";
+import { checkClosed, getVotes } from "./vote";
 
 export const getVaults = async (setVaultList) => {
   const response = await axios.get("http://127.0.0.1:4002/vote/season");
@@ -41,10 +41,11 @@ export const getAgendaInformation = async (
   user,
   setAgenda,
   setTokenIds,
-  setProsCons
+  setProsCons,
+  setIsClosed
 ) => {
   const response = await axios.post(`http://127.0.0.1:4002/vote/agenda/${id}`, {
-    userAddres: user,
+    userAddress: user,
   });
 
   if (response.data.message === "succeed") {
@@ -52,6 +53,7 @@ export const getAgendaInformation = async (
     setTokenIds((prev) => response.data.tokenList);
 
     getVotes(response.data.agenda.agendaAddress, setProsCons);
+    checkClosed(response.data.agenda.agendaAddress, setIsClosed);
   } else {
     return;
   }

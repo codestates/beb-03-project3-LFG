@@ -47,8 +47,6 @@ var getHistory = function (req, res, next) { return __awaiter(void 0, void 0, vo
                 })];
             case 1:
                 historyList = _a.sent();
-                //TODO
-                //query parameter filter 구현
                 console.log(historyList);
                 console.log('getHistory');
                 res.status(200).json({ message: 'succeed', historyList: historyList });

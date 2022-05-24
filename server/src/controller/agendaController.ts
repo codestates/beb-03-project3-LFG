@@ -17,6 +17,7 @@ export const viewAgenda = async (req, res, next) => {
     const { id } = req.params;
     const { userAddress } = req.body;
     const agenda = await Agenda.findOne({ agendaId: id }).select('-_id');
+
     if (agenda === null) {
       next();
     }

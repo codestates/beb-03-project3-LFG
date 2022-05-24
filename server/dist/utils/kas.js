@@ -40,9 +40,7 @@ exports.getNFT = exports.getBlockNumber = exports.caver = void 0;
 var CaverExtKAS = require("caver-js-ext-kas");
 var dotenv = require("dotenv");
 dotenv.config();
-// Cypress : 8217
-// Baobab : 1001
-var chainId = 1001;
+var chainId = Number(process.env.CHAIN_ID);
 exports.caver = new CaverExtKAS(chainId, process.env.accessKeyId, process.env.secretAccessKey);
 exports.caver.initKASAPI(chainId, process.env.accessKeyId, process.env.secretAccessKey);
 exports.caver.initTokenHistoryAPI(chainId, process.env.accessKeyId, process.env.secretAccessKey);

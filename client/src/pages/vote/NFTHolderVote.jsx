@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useOutletContext, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { Button, getAgendaInformation, vote } from "../../common";
@@ -65,10 +65,18 @@ const NFTHolderVote = () => {
   const [agenda, setAgenda] = useState(null);
   const [tokenIds, setTokenIds] = useState([]);
   const [prosCons, setProsCons] = useState({ pros: 0, cons: 0 });
+  const [isClosed, setIsClosed] = useState(false);
 
   useEffect(() => {
-    getAgendaInformation(id, user, setAgenda, setTokenIds, setProsCons);
-  }, []);
+    getAgendaInformation(
+      id,
+      user,
+      setAgenda,
+      setTokenIds,
+      setProsCons,
+      setIsClosed
+    );
+  }, [id, user]);
 
   return (
     <Div>
@@ -91,24 +99,28 @@ const NFTHolderVote = () => {
               </ProsCons>
             </div>
             <VoteDescription>{agenda.description}</VoteDescription>
-            <ButtonWrapper>
-              <Vote
-                onClick={async () => {
-                  await vote(tokenIds, agenda.agendaAddress, 1, user);
-                  window.location.reload();
-                }}
-              >
-                Pros
-              </Vote>
-              <Vote
-                onClick={async () => {
-                  await vote(tokenIds, agenda.agendaAddress, 0, user);
-                  window.location.reload();
-                }}
-              >
-                Cons
-              </Vote>
-            </ButtonWrapper>
+            {isClosed ? (
+              <div>Closed</div>
+            ) : (
+              <ButtonWrapper>
+                <Vote
+                  onClick={async () => {
+                    await vote(tokenIds, agenda.agendaAddress, 1, user);
+                    window.location.reload();
+                  }}
+                >
+                  Pros
+                </Vote>
+                <Vote
+                  onClick={async () => {
+                    await vote(tokenIds, agenda.agendaAddress, 0, user);
+                    window.location.reload();
+                  }}
+                >
+                  Cons
+                </Vote>
+              </ButtonWrapper>
+            )}
           </VoteWrapper>
         </>
       )}

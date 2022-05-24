@@ -21,7 +21,7 @@ export const getVotes = async (voteAddr, setProsCons) => {
 };
 
 export const vote = async (tokenIds, voteAddr, pc, user) => {
-  const voteEncoded = window.caver.abi.encodeFunctionCal(
+  const voteEncoded = window.caver.abi.encodeFunctionCall(
     {
       name: "vote",
       type: "function",
@@ -40,4 +40,20 @@ export const vote = async (tokenIds, voteAddr, pc, user) => {
     data: voteEncoded,
     gas: "10000000",
   });
+};
+
+export const checkClosed = async (voteAddr, setIsClosed) => {
+  const closeABI = [
+    {
+      name: "isClosed",
+      type: "function",
+      inputs: [],
+      outputs: [{ type: "bool", name: "" }],
+    },
+  ];
+
+  const voteContract = new window.caver.klay.Contract(closeABI, voteAddr);
+  const isClosed = await voteContract.methods.isClosed().call();
+
+  setIsClosed((prev) => !isClosed);
 };
