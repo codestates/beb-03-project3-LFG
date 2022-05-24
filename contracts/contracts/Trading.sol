@@ -1,8 +1,8 @@
 pragma solidity ^0.5.0;
 pragma experimental ABIEncoderV2;
 
-import "@klaytn/contracts/token/KIP17/IKIP17Receiver.sol";
-import "@klaytn/contracts/token/KIP17/IKIP17.sol";
+import "./klay_contracts/token/KIP17/IKIP17Receiver.sol";
+import "./klay_contracts/token/KIP17/IKIP17.sol";
 
 library SafeMath {
     /**
