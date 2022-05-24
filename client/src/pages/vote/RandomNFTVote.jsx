@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useOutletContext, useParams } from "react-router-dom";
+import { useOutletContext, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { Button, getVault, voteToCandid } from "../../common";
 import LoadingSpinner from "../../components/common/LoadingSpinner";
@@ -71,7 +71,6 @@ const VoteBtn = styled(Button)`
 `;
 
 const RandomNFTVote = () => {
-  const navigate = useNavigate();
   const params = useParams();
   const [season, setSeason] = useState(null);
   const [totalVote, setTotalVote] = useState(0);
@@ -113,7 +112,8 @@ const RandomNFTVote = () => {
                   <VoteBtn
                     onClick={async () => {
                       await voteToCandid(season._id, data.nftAddress, user);
-                      navigate(`/vote-list/random-nft/${season._id}`);
+                      alert("vote succeed");
+                      window.location.reload();
                     }}
                   >
                     Vote

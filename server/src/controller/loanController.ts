@@ -20,23 +20,23 @@ export const getLoan = async (req, res, next) => {
   // const { data } = await axios.get(loan.tokenURI);
   // const loanInfo = data;
   loanInfo.floorPrice = 'N/A';
-  try {
-    const res = await sdk['retrieving-collection-stats']({ collection_slug: loanInfo.projectName });
-    console.log('res', res);
-    const client = new CoinGeckoClient({
-      timeout: 10000,
-      autoRetry: true,
-    });
-    const simplePrice = await client.simplePrice({
-      ids: 'klay-token',
-      vs_currencies: 'eth',
-    });
-    const floorPrice = Number(res.stats.floor_price) / Number(simplePrice['klay-token'].eth);
-    // if (floorPrice === undefined) {
-    //   loanInfo['floorPrice'] = 'N/A';
-    // }
-  } catch (err) {
-    console.log(err);
-  }
+  // try {
+  // const res = await sdk['retrieving-collection-stats']({ collection_slug: loanInfo.projectName });
+  // console.log('res', res);
+  // const client = new CoinGeckoClient({
+  //   timeout: 10000,
+  //   autoRetry: true,
+  // });
+  // const simplePrice = await client.simplePrice({
+  //   ids: 'klay-token',
+  //   vs_currencies: 'eth',
+  // });
+  // const floorPrice = Number(res.stats.floor_price) / Number(simplePrice['klay-token'].eth);
+  // if (floorPrice === undefined) {
+  //   loanInfo['floorPrice'] = 'N/A';
+  // }
+  // } catch (err) {
+  //   console.log(err);
+  // }
   res.status(200).json({ message: 'succeed', loanInfo });
 };

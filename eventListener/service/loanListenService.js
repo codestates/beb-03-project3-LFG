@@ -12,7 +12,8 @@ const deployLoan = async (newLoanAddressData) => {
   const { debtor, creditor, period, amount, rateAmount, ikip17, tokenId } =
     await loanContract.methods.term().call();
   const { tokenUri } = await caver.kas.tokenHistory.getNFT(ikip17, tokenId);
-  const { projectName, team } = await NftList.findOne({ nftAddress: ikip17 });
+
+  const { projectName, team } = await NftList.findOne({ nftAddress: ikip17.toLowerCase() });
 
   const loan = new Loan({
     debtor: debtor,
