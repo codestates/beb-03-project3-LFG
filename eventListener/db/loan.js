@@ -17,7 +17,7 @@ const loanSchema = new mongoose.Schema(
     endAt: { type: Number, default: null },
     paidBackTime: { type: Number, default: null },
     paidBackAmount: { type: String, default: null },
-    state: String, // created, canceled, funded, paidBack, defaulted 대문자 // (status === FUNDED && endTime < nowTime) => 채권자가 아직 담보물을 안 찾아간, 지불기한은 끝난 상태
+    state: String, // CREATED, CANCELLED, FUNDED, PAIDBACK, DEFAULTED // (status === FUNDED && endTime < nowTime) => 채권자가 아직 담보물을 안 찾아간, 지불기한은 끝난 상태
   },
   { timestamps: true }
 );

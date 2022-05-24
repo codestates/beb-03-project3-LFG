@@ -28,9 +28,8 @@ const { startTrade, endTrade, failTrade } = require('./service/tradingListenServ
 setInterval(async () => {
   try {
     const blockNumber = await caver.rpc.klay.getBlockNumber();
-    // console.log(blockNumber);
   } catch (e) {
-    console.log(e);
+    // console.log(e);
   }
 }, 30000);
 
@@ -48,23 +47,23 @@ const loanSubscrpition = caver.rpc.klay.subscribe(
           break;
         case cancelTopic:
           console.log(res);
-          cancelLoan(res.address);
+          cancelLoan(res.address.toLowerCase());
           break;
         case editTopic:
           console.log(res);
-          editLoan(res.address, res.data);
+          editLoan(res.address.toLowerCase(), res.data);
           break;
         case fundTopic:
           console.log(res);
-          fundLoan(res.address, res.data);
+          fundLoan(res.address.toLowerCase(), res.data);
           break;
         case repayTopic:
           console.log(res);
-          repayLoan(res.address, res.data);
+          repayLoan(res.address.toLowerCase(), res.data);
           break;
         case defaultTopic:
           console.log(res);
-          liquidateLoan(res.address, res.data);
+          liquidateLoan(res.address.toLowerCase(), res.data);
           break;
         default:
           break;
@@ -86,7 +85,7 @@ const tradeSubscription = caver.rpc.klay.subscribe(
       switch (res.topics[0]) {
         case startTopic:
           console.log(res);
-          startTrade(res.address, res.data);
+          startTrade(res.address.toLowerCase(), res.data);
           break;
         case endTopic:
           console.log(res);
