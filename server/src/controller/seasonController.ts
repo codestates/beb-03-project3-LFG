@@ -2,40 +2,60 @@ import { PointInfo } from '../db/pointInfo';
 import { Season } from '../db/season';
 
 export const seasonList = async (req, res, next) => {
-  const list = await Season.find({}).select('_id title');
-  res.status(200).json({ message: 'succeed', list });
+  try {
+    const list = await Season.find({}).select('_id title');
+    res.status(200).json({ message: 'succeed', list });
+  } catch (error) {
+    next(error);
+  }
 };
 
 export const viewSeason = async (req, res, next) => {
-  const { id } = req.params;
-  const season = await Season.findOne({ _id: id });
-
-  res.status(200).json({ message: 'succeed', season });
+  try {
+    const { id } = req.params;
+    const season = await Season.findOne({ _id: id });
+    if (season === null) {
+      next();
+    }
+    res.status(200).json({ message: 'succeed', season });
+  } catch (error) {
+    next(error);
+  }
 };
 
 export const seasonVote = async (req, res, next) => {
-  const { id } = req.params;
-  const { userAddress, nftAddress } = req.body;
+  try {
+    const { id } = req.params;
+    const { userAddress, nftAddress } = req.body;
 
-  await PointInfo.findOne({ userAddress: userAddress }).then(async (info) => {
-    if (info === null) {
-      res.status(400).json({ message: 'fail, you have no votePoint' });
-    } else {
-      const { votePoint } = info;
+    await PointInfo.findOne({ userAddress: userAddress.toLowerCase() }).then(async (info) => {
+      if (info === null) {
+        res.status(400).json({ message: 'fail, you have no votePoint' });
+      } else {
+        const { votePoint } = info;
 
-      info.votePoint = 0;
-      await info.save();
-
-      await Season.findOne({ _id: id }).then(async (season) => {
-        for (const elem of season.candidate) {
-          if (elem.nftAddress === nftAddress) {
-            elem.vote += votePoint;
-            break;
-          }
+        info.votePoint = 0;
+        const infoRes = await info.save();
+        if (infoRes === null) {
+          next();
         }
-        await season.save();
-        res.status(200).json({ message: 'succeed', season });
-      });
-    }
-  });
+
+        await Season.findOne({ _id: id }).then(async (season) => {
+          for (const elem of season.candidate) {
+            if (elem.nftAddress.toLowerCase() === nftAddress.toLowerCase()) {
+              elem.vote += votePoint;
+              break;
+            }
+          }
+          const seasonRes = await season.save();
+          if (seasonRes === null) {
+            next();
+          }
+          res.status(200).json({ message: 'succeed', season });
+        });
+      }
+    });
+  } catch (error) {
+    next(error);
+  }
 };

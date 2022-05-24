@@ -1,28 +1,27 @@
 import { PointInfo } from '../db/pointInfo';
 
 export const userPoint = async (req, res, next) => {
-  const { userAddress } = req.body;
-  const rawTotal = await PointInfo.aggregate([
-    {
-      $group: {
-        _id: null,
-        total: { $sum: '$accPoint' },
+  try {
+    const { userAddress } = req.body;
+    const rawTotal = await PointInfo.aggregate([
+      {
+        $group: {
+          _id: null,
+          total: { $sum: '$accPoint' },
+        },
       },
-    },
-  ]);
-  if (rawTotal.length === 0) {
-    res.status(200).json({ message: 'succeed', votePoint: 0, probability: '0' });
-  } else {
-    const { total } = rawTotal[0];
-    const userPointInfo = await PointInfo.findOne({ userAddress: userAddress });
-    if (userPointInfo === null) {
-      res.status(200).json({ message: 'succeed', votePoint: 0, probability: '0' });
-    } else {
-      res.status(200).json({
-        message: 'succeed',
-        votePoint: userPointInfo.votePoint,
-        probability: Number((userPointInfo.accPoint / total) * 100).toFixed(3),
-      });
+    ]);
+    const responseRes = { message: 'succeed', votePoint: 0, probability: '0' };
+    if (rawTotal.length !== 0) {
+      const userPointInfo = await PointInfo.findOne({ userAddress: userAddress.toLowerCase() });
+      if (userPointInfo !== null) {
+        const { total } = rawTotal[0];
+        responseRes.votePoint = userPointInfo.votePoint;
+        responseRes.probability = Number((userPointInfo.accPoint / total) * 100).toFixed(3);
+      }
     }
+    res.status(200).json(responseRes);
+  } catch (error) {
+    next(error);
   }
 };

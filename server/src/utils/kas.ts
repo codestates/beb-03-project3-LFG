@@ -2,9 +2,7 @@ import * as CaverExtKAS from 'caver-js-ext-kas';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
-// Cypress : 8217
-// Baobab : 1001
-const chainId: Number = 1001;
+const chainId: Number = Number(process.env.CHAIN_ID);
 export const caver = new CaverExtKAS(chainId, process.env.accessKeyId, process.env.secretAccessKey);
 caver.initKASAPI(chainId, process.env.accessKeyId, process.env.secretAccessKey);
 caver.initTokenHistoryAPI(chainId, process.env.accessKeyId, process.env.secretAccessKey);
