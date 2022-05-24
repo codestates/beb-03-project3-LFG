@@ -36,21 +36,21 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getNFT = exports.getBlockNumber = void 0;
+exports.getNFT = exports.getBlockNumber = exports.caver = void 0;
 var CaverExtKAS = require("caver-js-ext-kas");
 var dotenv = require("dotenv");
 dotenv.config();
 // Cypress : 8217
 // Baobab : 1001
 var chainId = 1001;
-var caver = new CaverExtKAS(chainId, process.env.accessKeyId, process.env.secretAccessKey);
-caver.initKASAPI(chainId, process.env.accessKeyId, process.env.secretAccessKey);
-caver.initTokenHistoryAPI(chainId, process.env.accessKeyId, process.env.secretAccessKey);
+exports.caver = new CaverExtKAS(chainId, process.env.accessKeyId, process.env.secretAccessKey);
+exports.caver.initKASAPI(chainId, process.env.accessKeyId, process.env.secretAccessKey);
+exports.caver.initTokenHistoryAPI(chainId, process.env.accessKeyId, process.env.secretAccessKey);
 var getBlockNumber = function () { return __awaiter(void 0, void 0, void 0, function () {
     var blockNumber;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, caver.rpc.klay.getBlockNumber()];
+            case 0: return [4 /*yield*/, exports.caver.rpc.klay.getBlockNumber()];
             case 1:
                 blockNumber = _a.sent();
                 return [2 /*return*/, blockNumber];
@@ -67,7 +67,7 @@ var getNFT = function (contractAddress, ownerAddress) { return __awaiter(void 0,
                 _b.label = 1;
             case 1:
                 _b.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, caver.kas.tokenHistory.getNFTListByOwner(contractAddress, ownerAddress)];
+                return [4 /*yield*/, exports.caver.kas.tokenHistory.getNFTListByOwner(contractAddress, ownerAddress)];
             case 2:
                 result = _b.sent();
                 for (_i = 0, _a = result.items; _i < _a.length; _i++) {

@@ -36,16 +36,46 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.viewAgenda = exports.agendaVote = exports.agendaList = void 0;
-var agendaList = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () { return __generator(this, function (_a) {
-    return [2 /*return*/];
-}); }); };
+exports.viewAgenda = exports.agendaList = void 0;
+var dotenv = require("dotenv");
+var agenda_1 = require("../db/agenda");
+var kas_1 = require("../utils/kas");
+dotenv.config();
+var agendaList = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var list;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, agenda_1.Agenda.find({}).select('-_id')];
+            case 1:
+                list = _a.sent();
+                res.status(200).json({ message: 'succeed', list: list });
+                return [2 /*return*/];
+        }
+    });
+}); };
 exports.agendaList = agendaList;
-var agendaVote = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () { return __generator(this, function (_a) {
-    return [2 /*return*/];
-}); }); };
-exports.agendaVote = agendaVote;
-var viewAgenda = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () { return __generator(this, function (_a) {
-    return [2 /*return*/];
-}); }); };
+var viewAgenda = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var id, userAddress, agenda, result, tokenList, _i, _a, elem, tokenId;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
+            case 0:
+                id = req.params.id;
+                userAddress = req.body.userAddress;
+                return [4 /*yield*/, agenda_1.Agenda.findOne({ agendaId: id }).select('-_id')];
+            case 1:
+                agenda = _b.sent();
+                return [4 /*yield*/, kas_1.caver.kas.tokenHistory.getNFTListByOwner(process.env.OASIS_ADDRESS, userAddress)];
+            case 2:
+                result = _b.sent();
+                tokenList = [];
+                for (_i = 0, _a = result.items; _i < _a.length; _i++) {
+                    elem = _a[_i];
+                    tokenId = elem.tokenId;
+                    tokenList.push(parseInt(tokenId, 16));
+                }
+                res.status(200).json({ message: 'succeed', agenda: agenda, tokenList: tokenList });
+                return [2 /*return*/];
+        }
+    });
+}); };
 exports.viewAgenda = viewAgenda;
