@@ -5651,8 +5651,8 @@
       ]
     },
     "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/Vote.sol": {
-      "lastModificationDate": 1653367849468,
-      "contentHash": "ff93dabb610350a9307787ed675abbf4",
+      "lastModificationDate": 1653375673770,
+      "contentHash": "2bd301353241cfd6d0894796cd6d671a",
       "sourceName": "contracts/Vote.sol",
       "solcConfig": {
         "version": "0.5.12",

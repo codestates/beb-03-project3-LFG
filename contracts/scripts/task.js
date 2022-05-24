@@ -32,3 +32,14 @@ task("owner", "Get the chairperson of the vote").setAction(async function (
 
   console.log(`Contract chairperson is : ${owner}`);
 });
+
+task("close", "close the vote").setAction(async function (taskArguments, hre) {
+  const contract = await getContract(
+    "Vote",
+    hre,
+    "0x1a92b5f978a2391d7a6d9b5c0084b96e667bcadb"
+  );
+
+  const receipt = await contract.closeVote();
+  console.log(receipt);
+});

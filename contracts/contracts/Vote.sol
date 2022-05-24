@@ -49,7 +49,7 @@ contract Vote {
 
     function vote(uint256[] calldata tokenIds, ProsAndCons pc) external checkVotingState {
         for (uint i; i < tokenIds.length; i++) {
-            require(voters[tokenIds[i]].voted, "already voted");
+            require(!voters[tokenIds[i]].voted, "already voted");
             require(daoNFT().ownerOf(tokenIds[i]) == msg.sender, "not the owner of tokenId");
 
             if (pc == ProsAndCons.PROS) {
