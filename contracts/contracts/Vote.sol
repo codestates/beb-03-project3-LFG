@@ -78,4 +78,8 @@ contract Vote {
 
         isVoting = false;
     }
+
+    function isClosed() external view returns (bool) {
+        return isVoting;
+    }
 }

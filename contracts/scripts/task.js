@@ -12,8 +12,8 @@ task("deploy", "Deploys the Vote.sol contract").setAction(async function (
     deployer
   );
   const vote = await voteContractFactory.deploy(
-    "0xae0f3b010cec518db205f5baf849b8865309bf52",
-    0
+    "0xe6f023036c06862d9a8e00cea169653f1cb1ab14",
+    1
   );
   console.log(`Contract deployed to address: ${vote.address}`);
 });
@@ -25,7 +25,7 @@ task("owner", "Get the chairperson of the vote").setAction(async function (
   const contract = await getContract(
     "Vote",
     hre,
-    "0x9EE9474ADa6dd6308C7770c79f693AfE4050f53D"
+    "0x28A88C2d66F914A84eB042C2f4827F204141266b"
   );
 
   const owner = await contract.chairperson();

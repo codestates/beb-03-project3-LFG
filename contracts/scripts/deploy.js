@@ -3,10 +3,11 @@ async function main() {
 
   console.log(`Deploying contracts with the account: ${deployer.address}`);
   console.log(`Account balance: ${(await deployer.getBalance()).toString()}`);
+
   const Vote = await ethers.getContractFactory("Vote");
   const vote = await Vote.deploy(
-    "0xae0f3b010cec518db205f5baf849b8865309bf52",
-    0
+    "0xe6f023036c06862d9a8e00cea169653f1cb1ab14",
+    1
   );
 
   console.log(`Contract deployed to address: ${vote.address}`);
