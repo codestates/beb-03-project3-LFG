@@ -1,0 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.voteRouter = void 0;
+var express = require("express");
+var agendaController_1 = require("../controller/agendaController");
+var seasonController_1 = require("../controller/seasonController");
+var voteRouter = express.Router();
+exports.voteRouter = voteRouter;
+voteRouter.get('/season', seasonController_1.seasonList);
+voteRouter.get('/season/:id', seasonController_1.viewSeason);
+voteRouter.post('/season/:id', seasonController_1.seasonVote);
+voteRouter.get('/agenda', agendaController_1.agendaList);
+voteRouter.post('/agenda/:id', agendaController_1.viewAgenda);
