@@ -1,9 +1,10 @@
-import * as dotenv from 'dotenv';
+import dotenv from 'dotenv';
+import {Request, Response, NextFunction} from 'express';
 import { Agenda } from '../db/agenda';
 import { caver } from '../utils/kas';
 dotenv.config();
 
-export const agendaList = async (req, res, next) => {
+export const agendaList = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const list = await Agenda.find({}).select('agendaId title');
     res.status(200).json({ message: 'succeed', list });
@@ -12,7 +13,7 @@ export const agendaList = async (req, res, next) => {
   }
 };
 
-export const viewAgenda = async (req, res, next) => {
+export const viewAgenda = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { id } = req.params;
     const { userAddress } = req.body;

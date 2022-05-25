@@ -1,10 +1,10 @@
-import * as dotenv from 'dotenv';
+import dotenv from 'dotenv';
+dotenv.config();
 import { createServer } from 'http';
 import app from './app';
-import { DBinit } from './db/mongodb';
-dotenv.config();
+import { DBinit } from './utils/connect';
 
-const port: number = Number(process.env.PORT) || 4002;
+const port = Number(process.env.PORT) || 4002;
 
 const server = createServer(app);
 

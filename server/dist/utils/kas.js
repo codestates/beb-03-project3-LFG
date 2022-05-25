@@ -35,13 +35,16 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getNFT = exports.getBlockNumber = exports.caver = void 0;
-var CaverExtKAS = require("caver-js-ext-kas");
-var dotenv = require("dotenv");
-dotenv.config();
+var caver_js_ext_kas_1 = __importDefault(require("caver-js-ext-kas"));
+var dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
 var chainId = Number(process.env.CHAIN_ID);
-exports.caver = new CaverExtKAS(chainId, process.env.accessKeyId, process.env.secretAccessKey);
+exports.caver = new caver_js_ext_kas_1.default(chainId, process.env.accessKeyId, process.env.secretAccessKey);
 exports.caver.initKASAPI(chainId, process.env.accessKeyId, process.env.secretAccessKey);
 exports.caver.initTokenHistoryAPI(chainId, process.env.accessKeyId, process.env.secretAccessKey);
 var getBlockNumber = function () { return __awaiter(void 0, void 0, void 0, function () {

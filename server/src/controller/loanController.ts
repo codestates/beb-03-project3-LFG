@@ -1,9 +1,10 @@
-import { CoinGeckoClient } from 'coingecko-api-v3';
-import * as dotenv from 'dotenv';
-import { Loan } from '../db/loan';
+import dotenv from 'dotenv';
 dotenv.config();
+import { CoinGeckoClient } from 'coingecko-api-v3';
+import { Loan } from '../db/loan';
+import {NextFunction, Request, Response} from "express";
 
-export const getLoans = async (req, res, next) => {
+export const getLoans = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const loanList = await Loan.find({}).select(
       '_id debtor creditor state tokenURI tokenId amount rateAmount period projectName'
@@ -14,9 +15,11 @@ export const getLoans = async (req, res, next) => {
   }
 };
 
+// import {Api} from 'api';
+// const sdk = Api('@opensea/v1.0#5zrwe3ql2r2e6mn');
 const sdk = require('api')('@opensea/v1.0#5zrwe3ql2r2e6mn');
 
-export const getLoan = async (req, res, next) => {
+export const getLoan = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const loanInfo = await Loan.findOne({ _id: req.params.id });
     if (loanInfo === null) {
@@ -37,8 +40,7 @@ export const getLoan = async (req, res, next) => {
           ids: 'klay-token',
           vs_currencies: 'eth',
         });
-        const floorPrice = Number(res.stats.floor_price) / Number(simplePrice['klay-token'].eth);
-        loanInfo.floorPrice = floorPrice;
+        loanInfo.floorPrice = Number(res.stats.floor_price) / Number(simplePrice['klay-token'].eth);
       }
     }
     res.status(200).json({ message: 'succeed', loanInfo });

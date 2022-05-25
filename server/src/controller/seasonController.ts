@@ -1,7 +1,8 @@
 import { PointInfo } from '../db/pointInfo';
 import { Season } from '../db/season';
+import {NextFunction, Request, Response} from "express";
 
-export const seasonList = async (req, res, next) => {
+export const seasonList = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const list = await Season.find({}).select('_id title');
     res.status(200).json({ message: 'succeed', list });
@@ -10,7 +11,7 @@ export const seasonList = async (req, res, next) => {
   }
 };
 
-export const viewSeason = async (req, res, next) => {
+export const viewSeason = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { id } = req.params;
     const season = await Season.findOne({ _id: id });
@@ -23,7 +24,7 @@ export const viewSeason = async (req, res, next) => {
   }
 };
 
-export const seasonVote = async (req, res, next) => {
+export const seasonVote = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { id } = req.params;
     const { userAddress, nftAddress } = req.body;

@@ -35,12 +35,15 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getLoan = exports.getLoans = void 0;
+var dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
 var coingecko_api_v3_1 = require("coingecko-api-v3");
-var dotenv = require("dotenv");
 var loan_1 = require("../db/loan");
-dotenv.config();
 var getLoans = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var loanList, error_1;
     return __generator(this, function (_a) {
@@ -61,6 +64,8 @@ var getLoans = function (req, res, next) { return __awaiter(void 0, void 0, void
     });
 }); };
 exports.getLoans = getLoans;
+// import {Api} from 'api';
+// const sdk = Api('@opensea/v1.0#5zrwe3ql2r2e6mn');
 var sdk = require('api')('@opensea/v1.0#5zrwe3ql2r2e6mn');
 var getLoan = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var loanInfo, res_1, client, simplePrice, floorPrice, err_1;

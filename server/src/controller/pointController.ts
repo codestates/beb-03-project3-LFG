@@ -1,6 +1,7 @@
 import { PointInfo } from '../db/pointInfo';
+import {NextFunction, Request, Response} from "express";
 
-export const userPoint = async (req, res, next) => {
+export const userPoint = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { userAddress } = req.body;
     const rawTotal = await PointInfo.aggregate([

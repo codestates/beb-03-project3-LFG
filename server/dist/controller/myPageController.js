@@ -60,7 +60,7 @@ var getWhiteListNFT = function (req, res, next) { return __awaiter(void 0, void 
                                 if (tempList) {
                                     tempList.map(function (nft) {
                                         nft['projectName'] = whiteList.projectName;
-                                        nft['team'] = whiteList.team;
+                                        nft['team'] = String(whiteList.team);
                                         nft['nftAddress'] = whiteList.nftAddress;
                                     });
                                     myNftList = myNftList.concat(tempList);

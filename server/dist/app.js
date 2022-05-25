@@ -1,17 +1,21 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-var cors = require("cors");
-var express = require("express");
+var express_1 = __importDefault(require("express"));
+var cors_1 = __importDefault(require("cors"));
 var loan_1 = require("./router/loan");
 var myPage_1 = require("./router/myPage");
 var point_1 = require("./router/point");
 var trade_1 = require("./router/trade");
 var vote_1 = require("./router/vote");
-var sdk = require('api')('@opensea/v1.0#5zrwe3ql2r2e6mn');
-var app = express();
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cors({
+// import {Api} from 'api';
+// const sdk = Api('@opensea/v1.0#5zrwe3ql2r2e6mn');
+var app = (0, express_1.default)();
+app.use(express_1.default.json());
+app.use(express_1.default.urlencoded({ extended: true }));
+app.use((0, cors_1.default)({
     origin: '*',
     credentials: true,
     allowedHeaders: '*',

@@ -1,19 +1,20 @@
 import { NftList } from '../db/nftlist';
-import { getNFT } from '../utils/kas';
+import {getNFT, nftInfo} from '../utils/kas';
+import {NextFunction, Request, Response} from "express";
 
-export const getWhiteListNFT = async (req, res, next) => {
+export const getWhiteListNFT = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { userAddress } = req.body;
-    let myNftList = [];
+    let myNftList : nftInfo[] = [];
 
     const whiteLists = await NftList.find({});
     for (const whiteList of whiteLists) {
       const tempList = await getNFT(whiteList.nftAddress, userAddress);
       if (tempList) {
         tempList.map((nft) => {
-          nft['projectName'] = whiteList.projectName;
-          nft['team'] = whiteList.team;
-          nft['nftAddress'] = whiteList.nftAddress;
+          nft['projectName'] = whiteList.projectName as string;
+          nft['team'] = String(whiteList.team);
+          nft['nftAddress'] = whiteList.nftAddress as string;
         });
         myNftList = myNftList.concat(tempList);
       }
