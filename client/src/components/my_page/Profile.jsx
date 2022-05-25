@@ -135,7 +135,7 @@ const Profile = ({ tabs, setTabs }) => {
           <Description>
             Description <EditIcon />
           </Description>
-          <ButtonWrapper>
+          {/* <ButtonWrapper>
             <CopyProfileBtn>
               <ContentPasteGoIcon
                 style={{ color: "white", marginRight: "0.5rem" }}
@@ -146,14 +146,15 @@ const Profile = ({ tabs, setTabs }) => {
               <Discord />
               Join LFG discord
             </JoinDiscordBtn>
-          </ButtonWrapper>
+          </ButtonWrapper> */}
           <ConnectDiscord>
             <DiscordWrapper>
               <CreditScoreIcon />
             </DiscordWrapper>
+            <ConnectBtn>Vote Point: {score.votePoint}</ConnectBtn>
             <ConnectBtn>
-              Contribution Score: {score.votePoint} (
-              {score.probability === "" ? 0 : score.probability} %)
+              Contribution Score:{" "}
+              {score.probability === "" ? 0 : score.probability} %
             </ConnectBtn>
           </ConnectDiscord>
         </UserInfo>
