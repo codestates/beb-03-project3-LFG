@@ -3,10 +3,11 @@
  */
 require("@nomiclabs/hardhat-ethers");
 require("./scripts/task.js");
+require("./scripts/nftTask.js");
 require("dotenv").config();
 
 module.exports = {
-  defaultNetwork: "ganache",
+  defaultNetwork: "baobab",
   networks: {
     ganache: {
       url: "http://127.0.0.1:8545",
