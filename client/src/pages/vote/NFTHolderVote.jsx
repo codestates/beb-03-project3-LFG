@@ -20,17 +20,23 @@ const Description = styled.div`
 `;
 
 const VoteWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 800px;
   padding: 2rem;
   background-color: whitesmoke;
-  width: 800px;
 
   & > div:first-child {
-    display: flex;
-    gap: 3rem;
-    justify-content: center;
-
     padding-bottom: 3rem;
     border-bottom: 1px solid gray;
+  }
+
+  & > div {
+    & > div:first-child {
+      display: flex;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
   }
 `;
 
@@ -50,14 +56,30 @@ const ProsCons = styled.div`
 
 const VoteDescription = styled.div`
   margin-top: 3rem;
+  & > div {
+    margin-top: 1.2rem;
+  }
 `;
 
 const ButtonWrapper = styled.div`
   display: flex;
   gap: 2rem;
+  width: 100%;
+  justify-content: space-around;
 `;
 
-const Vote = styled(Button)``;
+const Vote = styled(Button)`
+  background-color: aliceblue;
+  width: 10rem;
+  transition: all 0.3s ease;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.75);
+
+  &:hover {
+    box-shadow: -7px -7px 20px 0px #fff9, -4px -4px 5px 0px #fff9,
+      7px 7px 20px 0px #0002, 4px 4px 5px 0px #0001;
+    opacity: 1;
+  }
+`;
 
 const NFTHolderVote = () => {
   const { id } = useParams();
@@ -89,38 +111,45 @@ const NFTHolderVote = () => {
           </Description>
           <VoteWrapper>
             <div>
-              <ProsCons>
-                <div>Pros</div>
-                <div>{prosCons.pros}</div>
-              </ProsCons>
-              <ProsCons>
-                <div>Cons</div>
-                <div>{prosCons.cons}</div>
-              </ProsCons>
+              <div>
+                <ProsCons>
+                  <div>Pros</div>
+                  <div>{prosCons.pros}</div>
+                </ProsCons>
+                <ProsCons>
+                  <div>Cons</div>
+                  <div>{prosCons.cons}</div>
+                </ProsCons>
+              </div>
+              <div>
+                {isClosed ? (
+                  <div>Closed</div>
+                ) : (
+                  <ButtonWrapper>
+                    <Vote
+                      onClick={async () => {
+                        await vote(tokenIds, agenda.agendaAddress, 1, user);
+                        window.location.reload();
+                      }}
+                    >
+                      Pros
+                    </Vote>
+                    <Vote
+                      onClick={async () => {
+                        await vote(tokenIds, agenda.agendaAddress, 0, user);
+                        window.location.reload();
+                      }}
+                    >
+                      Cons
+                    </Vote>
+                  </ButtonWrapper>
+                )}
+              </div>
             </div>
-            <VoteDescription>{agenda.description}</VoteDescription>
-            {isClosed ? (
-              <div>Closed</div>
-            ) : (
-              <ButtonWrapper>
-                <Vote
-                  onClick={async () => {
-                    await vote(tokenIds, agenda.agendaAddress, 1, user);
-                    window.location.reload();
-                  }}
-                >
-                  Pros
-                </Vote>
-                <Vote
-                  onClick={async () => {
-                    await vote(tokenIds, agenda.agendaAddress, 0, user);
-                    window.location.reload();
-                  }}
-                >
-                  Cons
-                </Vote>
-              </ButtonWrapper>
-            )}
+            <VoteDescription>
+              <h2>{agenda.title}</h2>
+              <div>{agenda.description}</div>
+            </VoteDescription>
           </VoteWrapper>
         </>
       )}

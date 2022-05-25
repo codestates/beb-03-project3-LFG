@@ -3,9 +3,9 @@ import { Outlet } from "react-router-dom";
 import { UserContext } from "../../App";
 
 const Vote = () => {
-  const { user } = useContext(UserContext);
+  const { user, score } = useContext(UserContext);
 
-  return <Outlet context={{ user }} />;
+  return <Outlet context={{ user, score }} />;
 };
 
 export default Vote;
