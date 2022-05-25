@@ -13,6 +13,7 @@ const Div = styled.div`
 const Description = styled.div`
   padding: 1rem;
   margin-top: 95px;
+  margin-bottom: 3rem;
   font-size: 1.5rem;
   display: flex;
   align-items: center;
@@ -25,10 +26,18 @@ const VoteWrapper = styled.div`
   width: 800px;
   padding: 2rem;
   background-color: whitesmoke;
+  position: relative;
 
   & > div:first-child {
     padding-bottom: 3rem;
     border-bottom: 1px solid gray;
+  }
+
+  & > div:last-child {
+    font-size: 0.8rem;
+    position: absolute;
+    right: 0;
+    top: -2rem;
   }
 
   & > div {
@@ -83,9 +92,10 @@ const Vote = styled(Button)`
 
 const NFTHolderVote = () => {
   const { id } = useParams();
-  const { user } = useOutletContext();
+  const { user, setShowAlert, setAlertState } = useOutletContext();
   const [agenda, setAgenda] = useState(null);
   const [tokenIds, setTokenIds] = useState([]);
+  const [possibleTokenIds, setPossibleTokenIds] = useState([]);
   const [prosCons, setProsCons] = useState({ pros: 0, cons: 0 });
   const [isClosed, setIsClosed] = useState(false);
 
@@ -96,7 +106,8 @@ const NFTHolderVote = () => {
       setAgenda,
       setTokenIds,
       setProsCons,
-      setIsClosed
+      setIsClosed,
+      setPossibleTokenIds
     );
   }, [id, user]);
 
@@ -107,7 +118,7 @@ const NFTHolderVote = () => {
       ) : (
         <>
           <Description>
-            <div>{agenda.title}</div>
+            <div>Proposal - #{id}</div>
           </Description>
           <VoteWrapper>
             <div>
@@ -128,16 +139,36 @@ const NFTHolderVote = () => {
                   <ButtonWrapper>
                     <Vote
                       onClick={async () => {
-                        await vote(tokenIds, agenda.agendaAddress, 1, user);
-                        window.location.reload();
+                        if (possibleTokenIds.length === 0) {
+                          setAlertState((prev) => {
+                            return {
+                              message: "you don't have oasis nft",
+                              status: "FAILED",
+                            };
+                          });
+                          setShowAlert(true);
+                        } else {
+                          await vote(tokenIds, agenda.agendaAddress, 1, user);
+                          window.location.reload();
+                        }
                       }}
                     >
                       Pros
                     </Vote>
                     <Vote
                       onClick={async () => {
-                        await vote(tokenIds, agenda.agendaAddress, 0, user);
-                        window.location.reload();
+                        if (possibleTokenIds.length === 0) {
+                          setAlertState((prev) => {
+                            return {
+                              message: "you don't have oasis nft",
+                              status: "FAILED",
+                            };
+                          });
+                          setShowAlert(true);
+                        } else {
+                          await vote(tokenIds, agenda.agendaAddress, 0, user);
+                          window.location.reload();
+                        }
                       }}
                     >
                       Cons
@@ -150,6 +181,7 @@ const NFTHolderVote = () => {
               <h2>{agenda.title}</h2>
               <div>{agenda.description}</div>
             </VoteDescription>
+            <div>Possible Oasis NFTS to vote: {possibleTokenIds.length}</div>
           </VoteWrapper>
         </>
       )}

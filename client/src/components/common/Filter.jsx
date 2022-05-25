@@ -38,10 +38,7 @@ const Filter = () => {
     { name: "Amount (KLAY)" },
     { name: "Collections" },
     { name: "Total Interest Amount (KLAY)" },
-    { name: "Return Rate (%)" },
-    { name: "Loan to Floor (%)" },
     { name: "Loan Period (Days)" },
-    { name: "APY (%)" },
   ];
 
   return (

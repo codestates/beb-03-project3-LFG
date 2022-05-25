@@ -1,12 +1,7 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
 import { UserContext } from "../../App";
-import {
-  Button,
-  EditIcon,
-  ContentPasteGoIcon,
-  CreditScoreIcon,
-} from "../../common";
+import { Button, EditIcon, CreditScoreIcon } from "../../common";
 import MenuTab from "../common/MenuTab";
 
 const ProfileWrapper = styled.div`
@@ -59,29 +54,6 @@ const Description = styled.div`
   & > svg {
     cursor: pointer;
   }
-`;
-const ButtonWrapper = styled.div`
-  display: flex;
-`;
-
-const CopyProfileBtn = styled(Button)`
-  background-color: salmon;
-`;
-
-const JoinDiscordBtn = styled(Button)`
-  margin-left: 1rem;
-  background-color: tomato;
-
-  & > img {
-    margin-right: 0.5rem;
-  }
-`;
-
-const Discord = styled.img.attrs({
-  src: "/test/Discord-Logo-White.svg",
-  alt: "discord",
-})`
-  width: 20px;
 `;
 
 const ConnectDiscord = styled.div`
