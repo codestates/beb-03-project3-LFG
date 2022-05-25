@@ -135,18 +135,6 @@ const Profile = ({ tabs, setTabs }) => {
           <Description>
             Description <EditIcon />
           </Description>
-          {/* <ButtonWrapper>
-            <CopyProfileBtn>
-              <ContentPasteGoIcon
-                style={{ color: "white", marginRight: "0.5rem" }}
-              />
-              Copy my profile link
-            </CopyProfileBtn>
-            <JoinDiscordBtn>
-              <Discord />
-              Join LFG discord
-            </JoinDiscordBtn>
-          </ButtonWrapper> */}
           <ConnectDiscord>
             <DiscordWrapper>
               <CreditScoreIcon />
