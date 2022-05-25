@@ -74,7 +74,7 @@ const RandomNFTVote = () => {
   const params = useParams();
   const [season, setSeason] = useState(null);
   const [totalVote, setTotalVote] = useState(0);
-  const { user, score } = useOutletContext();
+  const { user, score, setShowAlert, setAlertState } = useOutletContext();
 
   const calrate = (val, total) => {
     return ((val / total) * 100).toFixed(2);
@@ -112,10 +112,15 @@ const RandomNFTVote = () => {
                   <VoteBtn
                     onClick={async () => {
                       if (score.votePoint === 0) {
-                        alert("you have no votePoint");
+                        setAlertState((prev) => {
+                          return {
+                            message: "you have no vote point!",
+                            status: "FAILED",
+                          };
+                        });
+                        setShowAlert(true);
                       } else {
                         await voteToCandid(season._id, data.nftAddress, user);
-                        alert("vote succeed");
                         window.location.reload();
                       }
                     }}

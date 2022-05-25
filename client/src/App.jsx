@@ -17,18 +17,17 @@ import VoteList from "./pages/vote/VoteList";
 import RandomNFTVote from "./pages/vote/RandomNFTVote";
 import Vote from "./pages/vote/Vote";
 import NFTHolderVote from "./pages/vote/NFTHolderVote";
+import Alert from "./components/common/Alert";
 
-export const UserContext = createContext({
-  user: null,
-  helperContract: null,
-  setUser: () => {},
-});
+export const UserContext = createContext({});
 
 const App = () => {
   const [dropdown, setDropdown] = useState(false);
   const [helperContract, setHelperContract] = useState(null);
   const [user, setUser] = useState(null);
   const [score, setScore] = useState({ votePoint: 0, probability: "" });
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertState, setAlertState] = useState({ message: "", status: "" });
 
   const isUnlocked = async () => {
     const ok = await window.klaytn._kaikas.isUnlocked();
@@ -63,7 +62,16 @@ const App = () => {
   };
 
   return (
-    <UserContext.Provider value={{ user, helperContract, score, setUser }}>
+    <UserContext.Provider
+      value={{
+        user,
+        helperContract,
+        score,
+        setUser,
+        setShowAlert,
+        setAlertState,
+      }}
+    >
       <Rootdiv>
         <Navigation dropdown={dropdown} handleDropDown={handleDropDown} />
 
@@ -92,6 +100,7 @@ const App = () => {
           </Routes>
         )}
       </Rootdiv>
+      {showAlert ? <Alert {...alertState} setShowAlert={setShowAlert} /> : ""}
     </UserContext.Provider>
   );
 };

@@ -56,7 +56,8 @@ const IconWrapper = styled.div`
 
 const TradeApp = () => {
   const navigate = useNavigate();
-  const { counterParty, setCounterParty, user } = useOutletContext();
+  const { counterParty, setCounterParty, user, setShowAlert, setAlertState } =
+    useOutletContext();
 
   return (
     <Div>
@@ -85,7 +86,13 @@ const TradeApp = () => {
         <Button
           onClick={() => {
             if (!user) {
-              alert("please login!");
+              setAlertState((prev) => {
+                return {
+                  message: "Please login!",
+                  status: "FAILED",
+                };
+              });
+              setShowAlert(true);
               return;
             }
 
@@ -97,7 +104,13 @@ const TradeApp = () => {
               )
                 navigate("/trade-create/add-counterparty-wallet");
             } catch (err) {
-              alert(err);
+              setAlertState((prev) => {
+                return {
+                  message: err.message,
+                  status: "FAILED",
+                };
+              });
+              setShowAlert(true);
             }
           }}
         >
