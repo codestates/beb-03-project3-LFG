@@ -2,9 +2,12 @@ import axios from "axios";
 import { getMetadata } from "./getMetadata";
 
 export const getContribution = async (user, setScore) => {
-  const response = await axios.post("http://127.0.0.1:4002/point", {
-    userAddress: user.toLowerCase(),
-  });
+  const response = await axios.post(
+    "http://ec2-3-101-79-116.us-west-1.compute.amazonaws.com:4002/point",
+    {
+      userAddress: user.toLowerCase(),
+    }
+  );
 
   setScore((prev) => response.data);
 };
@@ -15,9 +18,12 @@ export const myPageAxios = async (user, tabs, setNFTs, setData) => {
       // request myNFTs
       const {
         data: { myNftList },
-      } = await axios.post("http://127.0.0.1:4002/myPage", {
-        userAddress: user,
-      });
+      } = await axios.post(
+        "http://ec2-3-101-79-116.us-west-1.compute.amazonaws.com:4002/myPage",
+        {
+          userAddress: user,
+        }
+      );
 
       const promises = myNftList.map((d) => getMetadata(d.tokenURI));
       Promise.all(promises).then((resolve) => {
@@ -42,9 +48,12 @@ export const myPageAxios = async (user, tabs, setNFTs, setData) => {
       // requset trade I Offer and My Trade History
       const {
         data: { offerList },
-      } = await axios.post("http://127.0.0.1:4002/trade/offer", {
-        userAddress: user.toLowerCase(),
-      });
+      } = await axios.post(
+        "http://ec2-3-101-79-116.us-west-1.compute.amazonaws.com:4002/trade/offer",
+        {
+          userAddress: user.toLowerCase(),
+        }
+      );
 
       processTradeData(offerList, setData);
       break;
@@ -52,9 +61,12 @@ export const myPageAxios = async (user, tabs, setNFTs, setData) => {
       // request Trade I Offered
       const {
         data: { respondList },
-      } = await axios.post("http://127.0.0.1:4002/trade/respond", {
-        userAddress: user.toLowerCase(),
-      });
+      } = await axios.post(
+        "http://ec2-3-101-79-116.us-west-1.compute.amazonaws.com:4002/trade/respond",
+        {
+          userAddress: user.toLowerCase(),
+        }
+      );
 
       processTradeData(respondList, setData);
       break;

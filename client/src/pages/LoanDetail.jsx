@@ -32,7 +32,7 @@ const LoanDetail = ({ create, edit }) => {
       // 이미 만들어진 LoanRequest에 대해서 db에서 Loan데이터를 받아오는 경우 nftAddress, tokenId, debtor, state를 만족하는 것을 가지고 온다
       const get = async () => {
         const data = await axios.get(
-          `http://127.0.0.1:4002/loan/${params.hash}`
+          `http://ec2-3-101-79-116.us-west-1.compute.amazonaws.com:4002/loan/${params.hash}`
         );
         getMetadata(data.data.loanInfo.tokenURI).then((result) => {
           setNft((prev) => {

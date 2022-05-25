@@ -68,7 +68,9 @@ const LoanList = () => {
     //   },
     // ];
     const getList = async () => {
-      const db = await axios.get("http://127.0.0.1:4002/loan");
+      const db = await axios.get(
+        "http://ec2-3-101-79-116.us-west-1.compute.amazonaws.com:4002/loan"
+      );
       const promises = db.data.loanList.map((d) => getMetadata(d.tokenURI));
       Promise.all(promises).then((result) => {
         setNfts((prev) =>
