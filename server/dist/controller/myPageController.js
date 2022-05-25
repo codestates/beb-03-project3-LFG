@@ -40,10 +40,11 @@ exports.getWhiteListNFT = void 0;
 var nftlist_1 = require("../db/nftlist");
 var kas_1 = require("../utils/kas");
 var getWhiteListNFT = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var userAddress, myNftList, whiteLists, _loop_1, _i, whiteLists_1, whiteList;
+    var userAddress, myNftList, whiteLists, _loop_1, _i, whiteLists_1, whiteList, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
+                _a.trys.push([0, 6, , 7]);
                 userAddress = req.body.userAddress;
                 myNftList = [];
                 return [4 /*yield*/, nftlist_1.NftList.find({})];
@@ -82,7 +83,12 @@ var getWhiteListNFT = function (req, res, next) { return __awaiter(void 0, void 
                 return [3 /*break*/, 2];
             case 5:
                 res.status(200).json({ message: 'succeed', myNftList: myNftList });
-                return [2 /*return*/];
+                return [3 /*break*/, 7];
+            case 6:
+                error_1 = _a.sent();
+                next(error_1);
+                return [3 /*break*/, 7];
+            case 7: return [2 /*return*/];
         }
     });
 }); };

@@ -1,10 +1,8 @@
-//const NftList = require('../db/nftList');
 const caver = require('../caver');
 const tradingAbi = require('../config/Trading.json');
 const Trade = require('../db/trade');
 const NftList = require('../db/nftList');
 
-// p2p trade
 const startTrade = async (tradeAddress, data) => {
   try {
     const targetTradeId = caver.utils.hexToNumber(data.substr(0, 66));
@@ -31,7 +29,7 @@ const startTrade = async (tradeAddress, data) => {
           const curNFT = {
             tokenURI: tokenUri,
             tokenId: offerIdList[i],
-            nftAddress: offerNFTList[i],
+            nftAddress: offerNFTList[i].toLowerCase(),
             projectName: whiteList.projectName,
             team: whiteList.team,
           };
@@ -50,7 +48,7 @@ const startTrade = async (tradeAddress, data) => {
           const curNFT = {
             tokenURI: tokenUri,
             tokenId: respondIdList[i],
-            nftAddress: respondNFTList[i],
+            nftAddress: respondNFTList[i].toLowerCase(),
             projectName: whiteList.projectName,
             team: whiteList.team,
           };
@@ -85,21 +83,43 @@ const startTrade = async (tradeAddress, data) => {
       status: getStatus(status), // "CREATED", CANCELLED, FINISHED
     });
 
-    const res = await trade.save();
-    console.log(res);
+    const tradeRes = await trade.save();
+    if (tradeRes === null) {
+      throw Error(`cannot save trade! check : ${tradeId}`);
+    }
   } catch (error) {
     console.log(error);
   }
 };
 
 const endTrade = async (data) => {
-  const targetTradeId = caver.utils.hexToNumber(data.substr(0, 66));
-  await Trade.findOneAndUpdate({ tradeId: targetTradeId }, { $set: { status: 'FINISHED' } });
+  try {
+    const targetTradeId = caver.utils.hexToNumber(data.substr(0, 66));
+    const tradeRes = await Trade.findOneAndUpdate(
+      { tradeId: targetTradeId },
+      { $set: { status: 'FINISHED' } }
+    );
+    if (tradeRes === null) {
+      throw Error(`there is no trade! check : ${targetTradeId}`);
+    }
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const failTrade = async (data) => {
-  const targetTradeId = caver.utils.hexToNumber(data.substr(0, 66));
-  await Trade.findOneAndUpdate({ tradeId: targetTradeId }, { $set: { status: 'CANCELLED' } });
+  try {
+    const targetTradeId = caver.utils.hexToNumber(data.substr(0, 66));
+    const tradeRes = await Trade.findOneAndUpdate(
+      { tradeId: targetTradeId },
+      { $set: { status: 'CANCELLED' } }
+    );
+    if (tradeRes === null) {
+      throw Error(`there is no trade! check : ${targetTradeId}`);
+    }
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 module.exports = {

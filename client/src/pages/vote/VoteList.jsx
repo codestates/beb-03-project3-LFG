@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { getVaults } from "../../common";
+import { getAgendas, getVaults } from "../../common";
 
 const Div = styled.div`
   display: flex;
@@ -38,8 +38,10 @@ const Item = styled.div`
 const VoteList = () => {
   const navigate = useNavigate();
   const [vaultList, setVaultList] = useState([]);
+  const [agendaList, setAgendaList] = useState([]);
   useEffect(() => {
     getVaults(setVaultList);
+    getAgendas(setAgendaList);
   }, []);
 
   return (
@@ -59,20 +61,16 @@ const VoteList = () => {
       </List>
       <Description>Vote List For NFT Holders</Description>
       <List>
-        <Item
-          onClick={() => {
-            navigate("/vote-list/nft-holder/0");
-          }}
-        >
-          vote0
-        </Item>
-        <Item
-          onClick={() => {
-            navigate("/vote-list/nft-holder/1");
-          }}
-        >
-          vote1
-        </Item>
+        {agendaList.map((agenda, idx) => (
+          <Item
+            key={agenda.agendaId}
+            onClick={() => {
+              navigate(`/vote-list/nft-holder/${agenda.agendaId}`);
+            }}
+          >
+            {agenda.title}
+          </Item>
+        ))}
       </List>
     </Div>
   );

@@ -39,33 +39,43 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.respondTrades = exports.offerTrades = void 0;
 var trade_1 = require("../db/trade");
 var offerTrades = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var userAddress, offerList;
+    var userAddress, offerList, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
+                _a.trys.push([0, 2, , 3]);
                 userAddress = req.body.userAddress;
                 return [4 /*yield*/, trade_1.Trade.find({ offerAddress: userAddress.toLowerCase() })];
             case 1:
                 offerList = _a.sent();
-                console.log('offerTrades', offerList);
                 res.status(200).json({ message: 'succeed', offerList: offerList });
-                return [2 /*return*/];
+                return [3 /*break*/, 3];
+            case 2:
+                error_1 = _a.sent();
+                next(error_1);
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
         }
     });
 }); };
 exports.offerTrades = offerTrades;
 var respondTrades = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var userAddress, respondList;
+    var userAddress, respondList, error_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
+                _a.trys.push([0, 2, , 3]);
                 userAddress = req.body.userAddress;
                 return [4 /*yield*/, trade_1.Trade.find({ respondAddress: userAddress.toLowerCase() })];
             case 1:
                 respondList = _a.sent();
-                console.log('respondTrades', respondList);
                 res.status(200).json({ message: 'succeed', respondList: respondList });
-                return [2 /*return*/];
+                return [3 /*break*/, 3];
+            case 2:
+                error_2 = _a.sent();
+                next(error_2);
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
         }
     });
 }); };
