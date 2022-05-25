@@ -5,12 +5,21 @@ import MyNFTs from "../components/my_page/MyNFTs";
 import NFTAttributeModal from "../components/my_page/NFTAttributeModal";
 import { UserContext } from "../App";
 import TradeHistory from "../components/my_page/TradeHistory";
+import NFTCards from "../components/loan_list/NFTCards";
+import styled from "styled-components";
+
+const CardsWrapper = styled.div`
+  width: 85%;
+  margin: auto;
+  margin-bottom: 5rem;
+`;
 
 const MyPage = () => {
   const [modalData, setModalData] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const [nfts, setNfts] = useState([]);
   const [trades, setTrades] = useState([]);
+  const [loans, setLoans] = useState([]);
   const [tabs, setTabs] = useState(0);
   const { user } = useContext(UserContext);
 
@@ -18,13 +27,13 @@ const MyPage = () => {
   //"https://dweb.link/ipfs/QmYDvPAXtiJg7s8JdRBSLWdgSphQdac8j1YuQNNxcGE1hg/0.png"
 
   useEffect(() => {
-    setNfts((prev) => []);
-    setTrades((prev) => []);
-    myPageAxios(user, tabs, setNfts, setTrades);
+    // setNfts((prev) => []);
+    // setTrades((prev) => []);
+    myPageAxios(user, tabs, setNfts, setTrades, setLoans);
   }, [user, tabs]);
 
   const renderData = () => {
-    if (tabs === 0 || tabs === 1 || tabs === 2) {
+    if (tabs === 0) {
       return (
         <>
           <MyNFTs
@@ -34,6 +43,31 @@ const MyPage = () => {
           />
           {isOpen && <NFTAttributeModal data={modalData} />}
         </>
+      );
+    } else if (tabs === 1 || tabs === 2) {
+      return (
+        <CardsWrapper>
+          <NFTCards
+            nfts={loans.filter(
+              (data) =>
+                data.state === "CREATED" &&
+                data.debtor.toLowerCase() === user.toLowerCase()
+            )}
+          />
+        </CardsWrapper>
+      );
+    } else if (tabs === 2) {
+      return (
+        <CardsWrapper>
+          <NFTCards
+            nfts={loans.filter(
+              (data) =>
+                data.state === "FUNDED" &&
+                (data.debtor.toLowerCase() === user.toLowerCase() ||
+                  data.creditor.toLowerCase() === user.toLowerCase())
+            )}
+          />
+        </CardsWrapper>
       );
     } else {
       return <TradeHistory tabs={tabs} nfts={trades} />;

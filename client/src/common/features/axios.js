@@ -12,7 +12,7 @@ export const getContribution = async (user, setScore) => {
   setScore((prev) => response.data);
 };
 
-export const myPageAxios = async (user, tabs, setNFTs, setData) => {
+export const myPageAxios = async (user, tabs, setNFTs, setData, setLoans) => {
   switch (tabs) {
     case 0:
       // request myNFTs
@@ -40,9 +40,38 @@ export const myPageAxios = async (user, tabs, setNFTs, setData) => {
       break;
     case 1:
       // request myListed Loans
+      let { data } = await axios.get(
+        "http://ec2-3-101-79-116.us-west-1.compute.amazonaws.com:4002/loan"
+      );
+      let promises1 = data.loanList.map((d) => getMetadata(d.tokenURI));
+      Promise.all(promises1).then((result) => {
+        setLoans((prev) =>
+          result.map((elem, idx) => {
+            return {
+              ...elem.data,
+              ...data.loanList[idx],
+            };
+          })
+        );
+      });
       break;
     case 2:
       // request Funded Loans
+      let response = await axios.get(
+        "http://ec2-3-101-79-116.us-west-1.compute.amazonaws.com:4002/loan"
+      );
+      let data2 = response.data;
+      let promises2 = data2.loanList.map((d) => getMetadata(d.tokenURI));
+      Promise.all(promises2).then((result) => {
+        setLoans((prev) =>
+          result.map((elem, idx) => {
+            return {
+              ...elem.data,
+              ...data2.loanList[idx],
+            };
+          })
+        );
+      });
       break;
     case 3:
       // requset trade I Offer and My Trade History
