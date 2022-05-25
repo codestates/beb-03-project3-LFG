@@ -44,8 +44,6 @@ const App = () => {
       setUser((prev) => accounts[0]);
     });
 
-    getContribution(user, setScore);
-
     setHelperContract((prev) => {
       const contract = new window.caver.contract(
         HelperAbi,
@@ -54,6 +52,8 @@ const App = () => {
 
       return contract;
     });
+
+    if (user) getContribution(user, setScore);
   }, [user]);
 
   const handleDropDown = () => {

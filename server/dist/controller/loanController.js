@@ -38,20 +38,25 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getLoan = exports.getLoans = void 0;
 var coingecko_api_v3_1 = require("coingecko-api-v3");
+var dotenv = require("dotenv");
 var loan_1 = require("../db/loan");
+dotenv.config();
 var getLoans = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var loanList;
+    var loanList, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, loan_1.Loan.find({}).select('_id debtor creditor state tokenURI tokenId amount rateAmount period projectName')];
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, loan_1.Loan.find({}).select('_id debtor creditor state tokenURI tokenId amount rateAmount period projectName')];
             case 1:
                 loanList = _a.sent();
-                //TODO
-                //query parameter filter 구현
-                console.log(loanList);
-                console.log('getLoans');
                 res.status(200).json({ message: 'succeed', loanList: loanList });
-                return [2 /*return*/];
+                return [3 /*break*/, 3];
+            case 2:
+                error_1 = _a.sent();
+                next(error_1);
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
         }
     });
 }); };
@@ -61,19 +66,22 @@ var getLoan = function (req, res, next) { return __awaiter(void 0, void 0, void 
     var loanInfo, res_1, client, simplePrice, floorPrice, err_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, loan_1.Loan.findOne({ _id: req.params.id })];
+            case 0:
+                _a.trys.push([0, 5, , 6]);
+                return [4 /*yield*/, loan_1.Loan.findOne({ _id: req.params.id })];
             case 1:
                 loanInfo = _a.sent();
-                // const { data } = await axios.get(loan.tokenURI);
-                // const loanInfo = data;
+                if (loanInfo === null) {
+                    next();
+                }
                 loanInfo.floorPrice = 'N/A';
-                _a.label = 2;
+                if (!(process.env.CHAIN_ID === process.env.MAINNET)) return [3 /*break*/, 4];
+                return [4 /*yield*/, sdk['retrieving-collection-stats']({
+                        collection_slug: loanInfo.projectName,
+                    })];
             case 2:
-                _a.trys.push([2, 5, , 6]);
-                return [4 /*yield*/, sdk['retrieving-collection-stats']({ collection_slug: loanInfo.projectName })];
-            case 3:
                 res_1 = _a.sent();
-                console.log('res', res_1);
+                if (!res_1.success) return [3 /*break*/, 4];
                 client = new coingecko_api_v3_1.CoinGeckoClient({
                     timeout: 10000,
                     autoRetry: true,
@@ -82,17 +90,19 @@ var getLoan = function (req, res, next) { return __awaiter(void 0, void 0, void 
                         ids: 'klay-token',
                         vs_currencies: 'eth',
                     })];
-            case 4:
+            case 3:
                 simplePrice = _a.sent();
                 floorPrice = Number(res_1.stats.floor_price) / Number(simplePrice['klay-token'].eth);
+                loanInfo.floorPrice = floorPrice;
+                _a.label = 4;
+            case 4:
+                res.status(200).json({ message: 'succeed', loanInfo: loanInfo });
                 return [3 /*break*/, 6];
             case 5:
                 err_1 = _a.sent();
                 console.log(err_1);
                 return [3 /*break*/, 6];
-            case 6:
-                res.status(200).json({ message: 'succeed', loanInfo: loanInfo });
-                return [2 /*return*/];
+            case 6: return [2 /*return*/];
         }
     });
 }); };

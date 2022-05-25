@@ -1,5 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useOutletContext, useParams } from "react-router-dom";
 import styled from "styled-components";
+import { Button, getAgendaInformation, vote } from "../../common";
+import LoadingSpinner from "../../components/common/LoadingSpinner";
 
 const Div = styled.div`
   display: flex;
@@ -49,23 +52,78 @@ const VoteDescription = styled.div`
   margin-top: 3rem;
 `;
 
+const ButtonWrapper = styled.div`
+  display: flex;
+  gap: 2rem;
+`;
+
+const Vote = styled(Button)``;
+
 const NFTHolderVote = () => {
+  const { id } = useParams();
+  const { user } = useOutletContext();
+  const [agenda, setAgenda] = useState(null);
+  const [tokenIds, setTokenIds] = useState([]);
+  const [prosCons, setProsCons] = useState({ pros: 0, cons: 0 });
+  const [isClosed, setIsClosed] = useState(false);
+
+  useEffect(() => {
+    getAgendaInformation(
+      id,
+      user,
+      setAgenda,
+      setTokenIds,
+      setProsCons,
+      setIsClosed
+    );
+  }, [id, user]);
+
   return (
     <Div>
-      <Description>Fee Change</Description>
-      <VoteWrapper>
-        <div>
-          <ProsCons>
-            <div>Pros</div>
-            <div>1</div>
-          </ProsCons>
-          <ProsCons>
-            <div>Cons</div>
-            <div>2</div>
-          </ProsCons>
-        </div>
-        <VoteDescription></VoteDescription>
-      </VoteWrapper>
+      {agenda === null ? (
+        <LoadingSpinner />
+      ) : (
+        <>
+          <Description>
+            <div>{agenda.title}</div>
+          </Description>
+          <VoteWrapper>
+            <div>
+              <ProsCons>
+                <div>Pros</div>
+                <div>{prosCons.pros}</div>
+              </ProsCons>
+              <ProsCons>
+                <div>Cons</div>
+                <div>{prosCons.cons}</div>
+              </ProsCons>
+            </div>
+            <VoteDescription>{agenda.description}</VoteDescription>
+            {isClosed ? (
+              <div>Closed</div>
+            ) : (
+              <ButtonWrapper>
+                <Vote
+                  onClick={async () => {
+                    await vote(tokenIds, agenda.agendaAddress, 1, user);
+                    window.location.reload();
+                  }}
+                >
+                  Pros
+                </Vote>
+                <Vote
+                  onClick={async () => {
+                    await vote(tokenIds, agenda.agendaAddress, 0, user);
+                    window.location.reload();
+                  }}
+                >
+                  Cons
+                </Vote>
+              </ButtonWrapper>
+            )}
+          </VoteWrapper>
+        </>
+      )}
     </Div>
   );
 };

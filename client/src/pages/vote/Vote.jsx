@@ -5,7 +5,7 @@ import { UserContext } from "../../App";
 const Vote = () => {
   const { user } = useContext(UserContext);
 
-  return <Outlet user={user} />;
+  return <Outlet context={{ user }} />;
 };
 
 export default Vote;
