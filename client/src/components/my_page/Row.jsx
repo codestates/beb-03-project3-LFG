@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { UserContext } from "../../App";
-import { Button } from "../../common";
+import { Button, renderContent } from "../../common";
 
 const Wrapper = styled.div`
   display: grid;
@@ -54,6 +54,13 @@ const Img = styled.img.attrs((props) => ({
   border-radius: 0.5rem;
 `;
 
+const Video = styled.video`
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-left: -5px;
+  border-radius: 0.5rem;
+`;
+
 const KlayIcon = styled.img.attrs((props) => ({
   src: props.fig,
 }))`
@@ -69,12 +76,12 @@ const Row = ({ data }) => {
     <Wrapper status={data.status}>
       <RecNfts>
         {user.toLowerCase() === data.respondAddress
-          ? data.offerNFTList.map((metadata, idx) => (
-              <Img key={idx} fig={metadata.image} />
-            ))
-          : data.respondNFTList.map((metadata, idx) => (
-              <Img key={idx} fig={metadata.image} />
-            ))}
+          ? data.offerNFTList.map((metadata, idx) =>
+              renderContent(metadata, Video, Img, idx)
+            )
+          : data.respondNFTList.map((metadata, idx) =>
+              renderContent(metadata, Video, Img, idx)
+            )}
       </RecNfts>
       <RecKlay>
         <KlayIcon fig="https://s2.coinmarketcap.com/static/img/coins/64x64/4256.png" />
@@ -84,12 +91,12 @@ const Row = ({ data }) => {
       </RecKlay>
       <OffNfts>
         {user.toLowerCase() === data.respondAddress
-          ? data.respondNFTList.map((metadata, idx) => (
-              <Img key={idx} fig={metadata.image} />
-            ))
-          : data.offerNFTList.map((metadata, idx) => (
-              <Img key={idx} fig={metadata.image} />
-            ))}
+          ? data.respondNFTList.map((metadata, idx) =>
+              renderContent(metadata, Video, Img, idx)
+            )
+          : data.offerNFTList.map((metadata, idx) =>
+              renderContent(metadata, Video, Img, idx)
+            )}
       </OffNfts>
       <OffKlay>
         <KlayIcon fig="https://s2.coinmarketcap.com/static/img/coins/64x64/4256.png" />

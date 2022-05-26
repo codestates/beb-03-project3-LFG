@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import LoanDescription from "../components/loan_list/LoanDescription";
 import Filter from "../components/common/Filter";
 import NFTCards from "../components/loan_list/NFTCards";
-import { Rootdiv, getMetadata } from "../common";
+import { Rootdiv, setNFTData } from "../common";
 import styled from "styled-components";
 import LoadingSpinner from "../components/common/LoadingSpinner";
 import { UserContext } from "../App";
@@ -55,12 +55,12 @@ const LoanList = () => {
       const db = await axios.get(
         "http://ec2-3-101-79-116.us-west-1.compute.amazonaws.com:4002/loan"
       );
-      const promises = db.data.loanList.map((d) => getMetadata(d.tokenURI));
+      const promises = db.data.loanList.map((d) => setNFTData(d.tokenURI));
       Promise.all(promises).then((result) => {
         setNfts((prev) =>
           result.map((data, idx) => {
             return {
-              ...data.data,
+              ...data,
               ...db.data.loanList[idx],
             };
           })

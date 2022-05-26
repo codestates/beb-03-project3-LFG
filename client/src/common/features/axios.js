@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getMetadata } from "./getMetadata";
+import { setNFTData } from "./getMetadata";
 
 export const getContribution = async (user, setScore) => {
   const response = await axios.post(
@@ -25,12 +25,12 @@ export const myPageAxios = async (user, tabs, setNFTs, setData, setLoans) => {
         }
       );
 
-      const promises = myNftList.map((d) => getMetadata(d.tokenURI));
+      const promises = myNftList.map((d) => setNFTData(d.tokenURI));
       Promise.all(promises).then((resolve) => {
         setNFTs((prev) =>
           resolve.map((data, idx) => {
             return {
-              ...data.data,
+              ...data,
               ...myNftList[idx],
             };
           })
@@ -43,12 +43,12 @@ export const myPageAxios = async (user, tabs, setNFTs, setData, setLoans) => {
       let { data } = await axios.get(
         "http://ec2-3-101-79-116.us-west-1.compute.amazonaws.com:4002/loan"
       );
-      let promises1 = data.loanList.map((d) => getMetadata(d.tokenURI));
+      let promises1 = data.loanList.map((d) => setNFTData(d.tokenURI));
       Promise.all(promises1).then((result) => {
         setLoans((prev) =>
           result.map((elem, idx) => {
             return {
-              ...elem.data,
+              ...elem,
               ...data.loanList[idx],
             };
           })
@@ -61,12 +61,12 @@ export const myPageAxios = async (user, tabs, setNFTs, setData, setLoans) => {
         "http://ec2-3-101-79-116.us-west-1.compute.amazonaws.com:4002/loan"
       );
       let data2 = response.data;
-      let promises2 = data2.loanList.map((d) => getMetadata(d.tokenURI));
+      let promises2 = data2.loanList.map((d) => setNFTData(d.tokenURI));
       Promise.all(promises2).then((result) => {
         setLoans((prev) =>
           result.map((elem, idx) => {
             return {
-              ...elem.data,
+              ...elem,
               ...data2.loanList[idx],
             };
           })
@@ -107,15 +107,13 @@ export const myPageAxios = async (user, tabs, setNFTs, setData, setLoans) => {
 export const processTradeData = async (tradeData, setTradeData) => {
   tradeData.forEach((data) => {
     const receivePromise = data.respondNFTList.map((data) =>
-      getMetadata(data.tokenURI)
+      setNFTData(data.tokenURI)
     );
     const offerPromise = data.offerNFTList.map((data) =>
-      getMetadata(data.tokenURI)
+      setNFTData(data.tokenURI)
     );
 
-    Promise.all([...receivePromise, ...offerPromise]).then((resolve) => {
-      let metadata = resolve.map((resp) => resp.data);
-
+    Promise.all([...receivePromise, ...offerPromise]).then((metadata) => {
       setTradeData((prev) => {
         let ids = prev.map((data) => data._id);
         if (ids.includes(data._id)) {

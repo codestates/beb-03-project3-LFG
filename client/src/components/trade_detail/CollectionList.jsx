@@ -4,6 +4,7 @@ import {
   VerifiedUserIcon,
   KeyboardArrowDownIcon,
   KeyboardArrowUpIcon,
+  renderContent,
 } from "../../common";
 
 const Title = styled.div`
@@ -27,6 +28,13 @@ const Title = styled.div`
 const Img = styled.img.attrs((props) => ({
   src: props.fig,
 }))`
+  width: 7rem;
+  height: 7rem;
+
+  border-radius: 1rem;
+`;
+
+const Video = styled.video`
   width: 7rem;
   height: 7rem;
 
@@ -109,7 +117,7 @@ const SmallNFTCard = ({ coll, setSelected, selectedNFTs }) => {
         }
       }}
     >
-      <Img fig={coll.image} />
+      {renderContent(coll, Video, Img)}
       <div>{`${coll.projectName} #${coll.tokenId}`}</div>
     </SmallCardWrapper>
   );

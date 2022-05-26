@@ -3,7 +3,7 @@ import styled from "styled-components";
 import NFTDetails from "../components/loan_detail/NFTDetails";
 import LoanRequest from "../components/loan_detail/LoanRequest";
 import { useLocation, useParams } from "react-router-dom";
-import { getMetadata } from "../common";
+import { setNFTData } from "../common";
 import LoadingSpinner from "../components/common/LoadingSpinner";
 import axios from "axios";
 
@@ -34,11 +34,11 @@ const LoanDetail = ({ create, edit }) => {
         const data = await axios.get(
           `http://ec2-3-101-79-116.us-west-1.compute.amazonaws.com:4002/loan/${params.hash}`
         );
-        getMetadata(data.data.loanInfo.tokenURI).then((result) => {
+        setNFTData(data.data.loanInfo.tokenURI).then((result) => {
           setNft((prev) => {
             return {
               ...data.data.loanInfo,
-              ...result.data,
+              ...result,
             };
           });
         });

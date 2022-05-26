@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { AccessTimeIcon } from "../../common";
+import { AccessTimeIcon, renderContent } from "../../common";
 
 const CardWrapper = styled.div`
   background-color: var(--main-theme);
@@ -28,6 +28,10 @@ const FigureWrapper = styled.div`
 const Figure = styled.img.attrs((props) => ({
   src: props.fig,
 }))`
+  width: 100%;
+`;
+
+const Video = styled.video`
   width: 100%;
 `;
 const FigCaption = styled.div``;
@@ -113,7 +117,7 @@ const NFTCard = ({ nft }) => {
           navigate(`/loans/${nft._id}`);
         }}
       >
-        <Figure fig={nft.image} />
+        {renderContent(nft, Video, Figure)}
         <FigCaption>
           <Title>{nft.projectName}</Title>
           <Name>{nft.name}</Name>
