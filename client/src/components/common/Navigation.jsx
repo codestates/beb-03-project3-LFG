@@ -91,11 +91,6 @@ const Navigation = ({ dropdown, handleDropDown }) => {
           >
             VOTE
           </Nav>
-          <Nav>STAKE</Nav>
-          <Nav>
-            <KeyboardArrowDownIcon />
-            MORE
-          </Nav>
         </Navs>
         <LoginWrapper>
           <Login />

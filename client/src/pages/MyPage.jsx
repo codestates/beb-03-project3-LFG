@@ -14,6 +14,10 @@ const CardsWrapper = styled.div`
   margin-bottom: 5rem;
 `;
 
+const Title = styled.div`
+  font-size: 1.3rem;
+`;
+
 const MyPage = () => {
   const [modalData, setModalData] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
@@ -47,6 +51,7 @@ const MyPage = () => {
     } else if (tabs === 1 || tabs === 2) {
       return (
         <CardsWrapper>
+          <Title>My Wallet</Title>
           <NFTCards
             nfts={loans.filter(
               (data) =>
@@ -59,6 +64,7 @@ const MyPage = () => {
     } else if (tabs === 2) {
       return (
         <CardsWrapper>
+          <Title>My Wallet</Title>
           <NFTCards
             nfts={loans.filter(
               (data) =>

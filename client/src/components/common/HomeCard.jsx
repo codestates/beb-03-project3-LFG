@@ -14,7 +14,7 @@ const CardWrapper = styled.div`
   z-index: -100;
 
   width: 15rem;
-  height: 28rem;
+  height: 26rem;
 `;
 
 const State = styled.div`
