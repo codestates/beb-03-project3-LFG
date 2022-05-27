@@ -5,7 +5,7 @@ const Button = styled.button`
   outline: none;
   border-radius: 3rem;
   padding: 0.75rem;
-  font-family: "Knewave-Regular";
+  font-family: "FixedSys";
   display: flex;
   align-items: center;
   transition: 0.1s all ease-in;
