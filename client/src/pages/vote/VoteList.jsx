@@ -46,7 +46,7 @@ const VoteList = () => {
 
   return (
     <Div>
-      <Description>Vote List</Description>
+      <Description>Season Vote</Description>
       <List>
         {vaultList.map((vault, idx) => (
           <Item
@@ -59,7 +59,7 @@ const VoteList = () => {
           </Item>
         ))}
       </List>
-      <Description>Vote List For NFT Holders</Description>
+      <Description>DAO Vote</Description>
       <List>
         {agendaList.map((agenda, idx) => (
           <Item

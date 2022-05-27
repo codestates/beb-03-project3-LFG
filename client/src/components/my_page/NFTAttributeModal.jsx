@@ -101,7 +101,6 @@ const NFTAttributeModal = ({ data }) => {
         </ModalCaption>
         <FigureWrapper>
           {renderContent(data, ModalVideo, ModalFigure)}
-          <ModalFigure fig={data.image} />
           <AttributeDiv>
             {data.attributes.map((attr, idx) => (
               <AttributeCard

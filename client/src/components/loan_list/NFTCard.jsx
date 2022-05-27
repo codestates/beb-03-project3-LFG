@@ -24,6 +24,17 @@ const State = styled.div`
 const FigureWrapper = styled.div`
   border-bottom: 1px solid tomato;
   padding-bottom: 0.75rem;
+  flex: 1 1 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  & > div:first-child {
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
 `;
 const Figure = styled.img.attrs((props) => ({
   src: props.fig,
@@ -117,7 +128,7 @@ const NFTCard = ({ nft }) => {
           navigate(`/loans/${nft._id}`);
         }}
       >
-        {renderContent(nft, Video, Figure)}
+        <div>{renderContent(nft, Video, Figure)}</div>
         <FigCaption>
           <Title>{nft.projectName}</Title>
           <Name>{nft.name}</Name>

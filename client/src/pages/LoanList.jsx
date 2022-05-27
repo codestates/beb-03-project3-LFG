@@ -29,7 +29,7 @@ const LoanList = () => {
   const [nfts, setNfts] = useState([]);
   const [renderedNfts, setRenderedNFTs] = useState([]);
   const [tabs, setTabs] = useState(0);
-  const [filters, setFilters] = useState({});
+  // const [filters, setFilters] = useState({});
 
   useEffect(() => {
     // const db = [

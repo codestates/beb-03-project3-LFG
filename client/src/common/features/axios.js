@@ -12,10 +12,18 @@ export const getContribution = async (user, setScore) => {
   setScore((prev) => response.data);
 };
 
-export const myPageAxios = async (user, tabs, setNFTs, setData, setLoans) => {
+export const myPageAxios = async (
+  user,
+  tabs,
+  setNFTs,
+  setData,
+  setLoans,
+  setLoading
+) => {
   switch (tabs) {
     case 0:
       // request myNFTs
+      setLoading(true);
       const {
         data: { myNftList },
       } = await axios.post(
@@ -24,7 +32,6 @@ export const myPageAxios = async (user, tabs, setNFTs, setData, setLoans) => {
           userAddress: user,
         }
       );
-
       const promises = myNftList.map((d) => setNFTData(d.tokenURI));
       Promise.all(promises).then((resolve) => {
         setNFTs((prev) =>
@@ -36,7 +43,7 @@ export const myPageAxios = async (user, tabs, setNFTs, setData, setLoans) => {
           })
         );
       });
-
+      setLoading(false);
       break;
     case 1:
       // request myListed Loans

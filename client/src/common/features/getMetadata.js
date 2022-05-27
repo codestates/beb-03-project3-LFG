@@ -26,12 +26,20 @@ export const setNFTData = async (tokenURI) => {
     tokenURI = ipfsToHttp(tokenURI);
   }
 
-  const metadataResponse = await axios.get(tokenURI);
-  const contentResponse = await axios.get(metadataResponse.data.image);
+  let uri = tokenURI.startsWith("ipfs") ? ipfsToHttp(tokenURI) : tokenURI;
+
+  const metadataResponse = await axios.get(uri);
+
+  let contentURI = metadataResponse.data.image.startsWith("ipfs")
+    ? ipfsToHttp(metadataResponse.data.image)
+    : metadataResponse.data.image;
+
+  const contentResponse = await axios.get(contentURI);
 
   let type = contentResponse.headers["content-type"];
   return {
     ...metadataResponse.data,
+    image: contentURI,
     type,
   };
 };

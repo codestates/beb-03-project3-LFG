@@ -23,6 +23,12 @@ const Video = styled.video`
   width: 100%;
 `;
 
+const ContentWrapper = styled.div`
+  display: flex;
+  flex: 1 1 0;
+  align-items: center;
+`;
+
 const MyNFT = ({ data, setIsOpen, setModalData }) => {
   const navigate = useNavigate();
 
@@ -38,7 +44,7 @@ const MyNFT = ({ data, setIsOpen, setModalData }) => {
   return (
     <CardWrapper>
       <FigureWrapper onClick={openModal}>
-        {renderContent(data, Video, Figure)}
+        <ContentWrapper>{renderContent(data, Video, Figure)}</ContentWrapper>
         <FigCaption>
           <Title>{`${data.projectName} #${data.tokenId}`}</Title>
           <Name>{data.team}</Name>

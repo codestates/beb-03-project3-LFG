@@ -12,6 +12,7 @@ const DetailRootDiv = styled.div`
   margin: auto;
   gap: 5rem;
   margin-bottom: 1rem;
+  height: 100vh;
 
   @media (max-width: 1000px) {
     flex-direction: column;

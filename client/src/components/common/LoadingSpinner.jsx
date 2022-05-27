@@ -11,8 +11,14 @@ const move = keyframes`
 `;
 const Wrapper = styled.div`
   margin: auto;
-  margin-top: 500px;
   position: relative;
+
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   & > div:first-child {
     position: absolute;

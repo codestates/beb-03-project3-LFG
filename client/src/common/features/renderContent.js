@@ -1,7 +1,7 @@
 export const renderContent = (data, Video, Img, idx) => {
-  if (data.type === "viode/mp4") {
+  if (data.type === "video/mp4") {
     return (
-      <Video autoPlay controls>
+      <Video controls>
         <source src={data.image} type="video/mp4" />
       </Video>
     );

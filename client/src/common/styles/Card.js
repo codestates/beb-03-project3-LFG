@@ -13,6 +13,10 @@ const CardWrapper = styled.div`
 const FigureWrapper = styled.div`
   border-bottom: 1px solid tomato;
   padding-bottom: 0.75rem;
+  flex: 1 1 0;
+
+  display: flex;
+  flex-direction: column;
 `;
 const Figure = styled.img.attrs((props) => ({
   src: props.fig,

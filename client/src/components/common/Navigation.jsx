@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { Close, MenuIcon, KeyboardArrowDownIcon } from "../../common";
+import { Close, MenuIcon } from "../../common";
 import Logo from "./Logo";
 import Login from "./Login";
 

@@ -5,9 +5,14 @@ import AttributeCard from "./AttributeCard";
 
 const DetailDiv = styled(Rootdiv)`
   align-items: center;
+  justify-content: center;
 `;
 const TitleWrapper = styled.div`
   padding-top: 90px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   text-align: center;
   & > * {
     margin-bottom: 1rem;
@@ -33,14 +38,12 @@ const NFTImage = styled.img.attrs((props) => ({
 
 const Video = styled.video`
   width: 375px;
-  height: 375px;
   border-radius: 1rem;
   margin-bottom: 1.5rem;
 `;
 
 const Attributes = styled.div`
   width: 768px;
-  margin: auto;
   background-color: var(--main-theme);
   padding: 0.5rem 2rem 0.5rem 0.5rem;
 `;
