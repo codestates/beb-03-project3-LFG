@@ -40,42 +40,59 @@ exports.seasonVote = exports.viewSeason = exports.seasonList = void 0;
 var pointInfo_1 = require("../db/pointInfo");
 var season_1 = require("../db/season");
 var seasonList = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var list;
+    var list, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, season_1.Season.find({}).select('_id title')];
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, season_1.Season.find({}).select('_id title')];
             case 1:
                 list = _a.sent();
                 res.status(200).json({ message: 'succeed', list: list });
-                return [2 /*return*/];
+                return [3 /*break*/, 3];
+            case 2:
+                error_1 = _a.sent();
+                next(error_1);
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
         }
     });
 }); };
 exports.seasonList = seasonList;
 var viewSeason = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var id, season;
+    var id, season, error_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
+                _a.trys.push([0, 2, , 3]);
                 id = req.params.id;
                 return [4 /*yield*/, season_1.Season.findOne({ _id: id })];
             case 1:
                 season = _a.sent();
+                if (season === null) {
+                    next();
+                }
                 res.status(200).json({ message: 'succeed', season: season });
-                return [2 /*return*/];
+                return [3 /*break*/, 3];
+            case 2:
+                error_2 = _a.sent();
+                next(error_2);
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
         }
     });
 }); };
 exports.viewSeason = viewSeason;
 var seasonVote = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var id, _a, userAddress, nftAddress;
+    var id_1, _a, userAddress, nftAddress_1, error_3;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
-                id = req.params.id;
-                _a = req.body, userAddress = _a.userAddress, nftAddress = _a.nftAddress;
-                return [4 /*yield*/, pointInfo_1.PointInfo.findOne({ userAddress: userAddress }).then(function (info) { return __awaiter(void 0, void 0, void 0, function () {
-                        var votePoint_1;
+                _b.trys.push([0, 2, , 3]);
+                id_1 = req.params.id;
+                _a = req.body, userAddress = _a.userAddress, nftAddress_1 = _a.nftAddress;
+                return [4 /*yield*/, pointInfo_1.PointInfo.findOne({ userAddress: userAddress.toLowerCase() }).then(function (info) { return __awaiter(void 0, void 0, void 0, function () {
+                        var votePoint_1, infoRes;
                         return __generator(this, function (_a) {
                             switch (_a.label) {
                                 case 0:
@@ -87,22 +104,28 @@ var seasonVote = function (req, res, next) { return __awaiter(void 0, void 0, vo
                                     info.votePoint = 0;
                                     return [4 /*yield*/, info.save()];
                                 case 2:
-                                    _a.sent();
-                                    return [4 /*yield*/, season_1.Season.findOne({ _id: id }).then(function (season) { return __awaiter(void 0, void 0, void 0, function () {
-                                            var _i, _a, elem;
+                                    infoRes = _a.sent();
+                                    if (infoRes === null) {
+                                        next();
+                                    }
+                                    return [4 /*yield*/, season_1.Season.findOne({ _id: id_1 }).then(function (season) { return __awaiter(void 0, void 0, void 0, function () {
+                                            var _i, _a, elem, seasonRes;
                                             return __generator(this, function (_b) {
                                                 switch (_b.label) {
                                                     case 0:
                                                         for (_i = 0, _a = season.candidate; _i < _a.length; _i++) {
                                                             elem = _a[_i];
-                                                            if (elem.nftAddress === nftAddress) {
+                                                            if (elem.nftAddress.toLowerCase() === nftAddress_1.toLowerCase()) {
                                                                 elem.vote += votePoint_1;
                                                                 break;
                                                             }
                                                         }
                                                         return [4 /*yield*/, season.save()];
                                                     case 1:
-                                                        _b.sent();
+                                                        seasonRes = _b.sent();
+                                                        if (seasonRes === null) {
+                                                            next();
+                                                        }
                                                         res.status(200).json({ message: 'succeed', season: season });
                                                         return [2 /*return*/];
                                                 }
@@ -117,7 +140,12 @@ var seasonVote = function (req, res, next) { return __awaiter(void 0, void 0, vo
                     }); })];
             case 1:
                 _b.sent();
-                return [2 /*return*/];
+                return [3 /*break*/, 3];
+            case 2:
+                error_3 = _b.sent();
+                next(error_3);
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
         }
     });
 }); };

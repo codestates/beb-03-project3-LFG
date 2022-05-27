@@ -1,27 +1,35 @@
-import { CoinGeckoClient } from 'coingecko-api-v3';
-import * as dotenv from 'dotenv';
-import { Loan } from '../db/loan';
+import dotenv from 'dotenv';
 dotenv.config();
+import { CoinGeckoClient } from 'coingecko-api-v3';
+import { Loan } from '../db/loan';
+import {NextFunction, Request, Response} from "express";
+import {badRequest, internal} from "../error/apiError";
 
-export const getLoans = async (req, res, next) => {
+export const getLoans = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const loanList = await Loan.find({}).select(
       '_id debtor creditor state tokenURI tokenId amount rateAmount period projectName'
     );
     res.status(200).json({ message: 'succeed', loanList });
   } catch (error) {
-    next(error);
+    if(error){
+      next(internal('cannot fetch loan list', error));
+    }
   }
 };
 
+// import {Api} from 'api';
+// const sdk = Api('@opensea/v1.0#5zrwe3ql2r2e6mn');
 const sdk = require('api')('@opensea/v1.0#5zrwe3ql2r2e6mn');
 
-export const getLoan = async (req, res, next) => {
+export const getLoan = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const loanInfo = await Loan.findOne({ _id: req.params.id });
-    if (loanInfo === null) {
-      next();
+    const id = req.params.id;
+    if(!id){
+      next(badRequest("id parameter is required"));
     }
+
+    const loanInfo = await Loan.findOne({ _id: req.params.id });
     loanInfo.floorPrice = 'N/A';
     if (process.env.CHAIN_ID === process.env.MAINNET) {
       const res = await sdk['retrieving-collection-stats']({
@@ -37,12 +45,13 @@ export const getLoan = async (req, res, next) => {
           ids: 'klay-token',
           vs_currencies: 'eth',
         });
-        const floorPrice = Number(res.stats.floor_price) / Number(simplePrice['klay-token'].eth);
-        loanInfo.floorPrice = floorPrice;
+        loanInfo.floorPrice = Number(res.stats.floor_price) / Number(simplePrice['klay-token'].eth);
       }
     }
     res.status(200).json({ message: 'succeed', loanInfo });
-  } catch (err) {
-    console.log(err);
+  } catch (error) {
+    if(error){
+      next(internal('cannot fetch list'));
+    }
   }
 };

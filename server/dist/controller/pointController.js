@@ -39,10 +39,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.userPoint = void 0;
 var pointInfo_1 = require("../db/pointInfo");
 var userPoint = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var userAddress, rawTotal, total, userPointInfo;
+    var userAddress, rawTotal, responseRes, userPointInfo, total, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
+                _a.trys.push([0, 4, , 5]);
                 userAddress = req.body.userAddress;
                 return [4 /*yield*/, pointInfo_1.PointInfo.aggregate([
                         {
@@ -54,26 +55,25 @@ var userPoint = function (req, res, next) { return __awaiter(void 0, void 0, voi
                     ])];
             case 1:
                 rawTotal = _a.sent();
-                if (!(rawTotal.length === 0)) return [3 /*break*/, 2];
-                res.status(200).json({ message: 'succeed', votePoint: 0, probability: '0' });
-                return [3 /*break*/, 4];
+                responseRes = { message: 'succeed', votePoint: 0, probability: '0' };
+                if (!(rawTotal.length !== 0)) return [3 /*break*/, 3];
+                return [4 /*yield*/, pointInfo_1.PointInfo.findOne({ userAddress: userAddress.toLowerCase() })];
             case 2:
-                total = rawTotal[0].total;
-                return [4 /*yield*/, pointInfo_1.PointInfo.findOne({ userAddress: userAddress })];
-            case 3:
                 userPointInfo = _a.sent();
-                if (userPointInfo === null) {
-                    res.status(200).json({ message: 'succeed', votePoint: 0, probability: '0' });
+                if (userPointInfo !== null) {
+                    total = rawTotal[0].total;
+                    responseRes.votePoint = userPointInfo.votePoint;
+                    responseRes.probability = Number((userPointInfo.accPoint / total) * 100).toFixed(3);
                 }
-                else {
-                    res.status(200).json({
-                        message: 'succeed',
-                        votePoint: userPointInfo.votePoint,
-                        probability: Number((userPointInfo.accPoint / total) * 100).toFixed(3),
-                    });
-                }
-                _a.label = 4;
-            case 4: return [2 /*return*/];
+                _a.label = 3;
+            case 3:
+                res.status(200).json(responseRes);
+                return [3 /*break*/, 5];
+            case 4:
+                error_1 = _a.sent();
+                next(error_1);
+                return [3 /*break*/, 5];
+            case 5: return [2 /*return*/];
         }
     });
 }); };

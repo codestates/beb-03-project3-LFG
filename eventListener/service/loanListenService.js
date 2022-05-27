@@ -13,7 +13,7 @@ const deployLoan = async (newLoanAddressData) => {
     const { debtor, creditor, period, amount, rateAmount, ikip17, tokenId } =
       await loanContract.methods.term().call();
     const { tokenUri } = await caver.kas.tokenHistory.getNFT(ikip17, tokenId);
-    const { projectName, team } = await NftList.findOne({ nftAddress: ikip17.toLowercase() });
+    const { projectName, team } = await NftList.findOne({ nftAddress: ikip17.toLowerCase() });
     if (projectName === null || team === null) {
       throw Error('cannot find projectName or team');
     }

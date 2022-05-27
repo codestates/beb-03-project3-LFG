@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "prestart": "tsc",
-    "start": "tsc && nodemon --watch dist --exec ts-node dist/www.js"
+    "start": "tsc && nodemon --watch dist --exec ts-node dist/server.js"
   },
   "author": "",
   "license": "ISC",
@@ -33,6 +33,8 @@
     "cors": "^2.8.5",
     "esm": "^3.2.25",
     "express": "^4.18.1",
-    "mongoose": "^6.3.3"
+    "mongoose": "^6.3.3",
+    "winston": "^3.7.2",
+    "winston-daily-rotate-file": "^4.6.1"
   }
 }

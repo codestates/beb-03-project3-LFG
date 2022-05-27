@@ -1,5 +1,5 @@
 // File: contracts\introspection\IKIP13.sol
-  
+
 pragma solidity ^0.5.0;
 /**
  * @dev Interface of the KIP-13 standard, as defined in the

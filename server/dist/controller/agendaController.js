@@ -35,35 +35,49 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.viewAgenda = exports.agendaList = void 0;
-var dotenv = require("dotenv");
+var dotenv_1 = __importDefault(require("dotenv"));
 var agenda_1 = require("../db/agenda");
 var kas_1 = require("../utils/kas");
-dotenv.config();
+dotenv_1.default.config();
 var agendaList = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var list;
+    var list, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, agenda_1.Agenda.find({}).select('-_id')];
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, agenda_1.Agenda.find({}).select('agendaId title')];
             case 1:
                 list = _a.sent();
                 res.status(200).json({ message: 'succeed', list: list });
-                return [2 /*return*/];
+                return [3 /*break*/, 3];
+            case 2:
+                error_1 = _a.sent();
+                next(error_1);
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
         }
     });
 }); };
 exports.agendaList = agendaList;
 var viewAgenda = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var id, userAddress, agenda, result, tokenList, _i, _a, elem, tokenId;
+    var id, userAddress, agenda, result, tokenList, _i, _a, elem, tokenId, error_2;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
+                _b.trys.push([0, 3, , 4]);
                 id = req.params.id;
                 userAddress = req.body.userAddress;
                 return [4 /*yield*/, agenda_1.Agenda.findOne({ agendaId: id }).select('-_id')];
             case 1:
                 agenda = _b.sent();
+                if (agenda === null) {
+                    next();
+                }
                 return [4 /*yield*/, kas_1.caver.kas.tokenHistory.getNFTListByOwner(process.env.OASIS_ADDRESS, userAddress)];
             case 2:
                 result = _b.sent();
@@ -74,7 +88,12 @@ var viewAgenda = function (req, res, next) { return __awaiter(void 0, void 0, vo
                     tokenList.push(parseInt(tokenId, 16));
                 }
                 res.status(200).json({ message: 'succeed', agenda: agenda, tokenList: tokenList });
-                return [2 /*return*/];
+                return [3 /*break*/, 4];
+            case 3:
+                error_2 = _b.sent();
+                next(error_2);
+                return [3 /*break*/, 4];
+            case 4: return [2 /*return*/];
         }
     });
 }); };

@@ -1,14 +1,16 @@
-import * as cors from 'cors';
-import * as express from 'express';
+import express, { Request, Response, NextFunction } from 'express';
+import cors from 'cors';
 import { loanRouter } from './router/loan';
 import { myPageRouter } from './router/myPage';
 import { pointRouter } from './router/point';
 import { tradeRouter } from './router/trade';
 import { voteRouter } from './router/vote';
+import {ApiError} from "./error/apiError";
 
-const sdk = require('api')('@opensea/v1.0#5zrwe3ql2r2e6mn');
+// import {Api} from 'api';
+// const sdk = Api('@opensea/v1.0#5zrwe3ql2r2e6mn');
 
-const app: express.Application = express();
+const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -21,7 +23,7 @@ app.use(
   })
 );
 
-app.get('/', (req: express.Request, res: express.Response, next: express.NextFunction) => {
+app.get('/', (req: Request, res: Response, next: NextFunction) => {
   res.send('homepage');
 });
 
@@ -32,9 +34,8 @@ app.use('/vote', voteRouter);
 app.use('/point', pointRouter);
 // app.use('/history', historyRouter);
 
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(404).send({ status: 404, message: 'cannot find website' });
+app.use((err: ApiError | any, req:Request, res:Response, next:NextFunction) => {
+  res.status(err.code).send({ status: err.code, message: err.msg });
 });
 
 export default app;
