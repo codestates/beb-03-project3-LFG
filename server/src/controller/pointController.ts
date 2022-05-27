@@ -1,9 +1,14 @@
 import { PointInfo } from '../db/pointInfo';
 import {NextFunction, Request, Response} from "express";
+import {badRequest, internal} from "../error/apiError";
 
 export const userPoint = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { userAddress } = req.body;
+    if(!userAddress){
+      next(badRequest("user field is required"));
+    }
+
     const rawTotal = await PointInfo.aggregate([
       {
         $group: {
@@ -23,6 +28,8 @@ export const userPoint = async (req: Request, res: Response, next: NextFunction)
     }
     res.status(200).json(responseRes);
   } catch (error) {
-    next(error);
+    if(error){
+      next(internal('cannot user Point', error));
+    }
   }
 };

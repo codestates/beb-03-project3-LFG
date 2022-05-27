@@ -1,13 +1,16 @@
 import { PointInfo } from '../db/pointInfo';
 import { Season } from '../db/season';
 import {NextFunction, Request, Response} from "express";
+import {badRequest, internal} from "../error/apiError";
 
 export const seasonList = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const list = await Season.find({}).select('_id title');
     res.status(200).json({ message: 'succeed', list });
   } catch (error) {
-    next(error);
+    if(error){
+      next(internal('cannot fetch season list', error));
+    }
   }
 };
 
@@ -15,12 +18,14 @@ export const viewSeason = async (req: Request, res: Response, next: NextFunction
   try {
     const { id } = req.params;
     const season = await Season.findOne({ _id: id });
-    if (season === null) {
-      next();
+    if(!id){
+      next(badRequest("id parameter is required"));
     }
     res.status(200).json({ message: 'succeed', season });
   } catch (error) {
-    next(error);
+    if(error){
+      next(internal('cannot fetch this season topic', error));
+    }
   }
 };
 
@@ -38,7 +43,7 @@ export const seasonVote = async (req: Request, res: Response, next: NextFunction
         info.votePoint = 0;
         const infoRes = await info.save();
         if (infoRes === null) {
-          next();
+          next(internal(`cannot reduce point : ${userAddress}`));
         }
 
         await Season.findOne({ _id: id }).then(async (season) => {
@@ -50,7 +55,7 @@ export const seasonVote = async (req: Request, res: Response, next: NextFunction
           }
           const seasonRes = await season.save();
           if (seasonRes === null) {
-            next();
+            next(internal(`cannot add point : ${userAddress} to ${id}`));
           }
           res.status(200).json({ message: 'succeed', season });
         });

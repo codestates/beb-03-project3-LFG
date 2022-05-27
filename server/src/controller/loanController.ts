@@ -3,6 +3,7 @@ dotenv.config();
 import { CoinGeckoClient } from 'coingecko-api-v3';
 import { Loan } from '../db/loan';
 import {NextFunction, Request, Response} from "express";
+import {badRequest, internal} from "../error/apiError";
 
 export const getLoans = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -11,7 +12,9 @@ export const getLoans = async (req: Request, res: Response, next: NextFunction) 
     );
     res.status(200).json({ message: 'succeed', loanList });
   } catch (error) {
-    next(error);
+    if(error){
+      next(internal('cannot fetch loan list', error));
+    }
   }
 };
 
@@ -21,10 +24,12 @@ const sdk = require('api')('@opensea/v1.0#5zrwe3ql2r2e6mn');
 
 export const getLoan = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const loanInfo = await Loan.findOne({ _id: req.params.id });
-    if (loanInfo === null) {
-      next();
+    const id = req.params.id;
+    if(!id){
+      next(badRequest("id parameter is required"));
     }
+
+    const loanInfo = await Loan.findOne({ _id: req.params.id });
     loanInfo.floorPrice = 'N/A';
     if (process.env.CHAIN_ID === process.env.MAINNET) {
       const res = await sdk['retrieving-collection-stats']({
@@ -44,7 +49,9 @@ export const getLoan = async (req: Request, res: Response, next: NextFunction) =
       }
     }
     res.status(200).json({ message: 'succeed', loanInfo });
-  } catch (err) {
-    console.log(err);
+  } catch (error) {
+    if(error){
+      next(internal('cannot fetch list'));
+    }
   }
 };

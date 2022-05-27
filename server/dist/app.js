@@ -31,7 +31,6 @@ app.use('/vote', vote_1.voteRouter);
 app.use('/point', point_1.pointRouter);
 // app.use('/history', historyRouter);
 app.use(function (err, req, res, next) {
-    console.error(err.stack);
-    res.status(404).send({ status: 404, message: 'cannot find website' });
+    res.status(err.code).send({ status: err.code, message: err.msg });
 });
 exports.default = app;

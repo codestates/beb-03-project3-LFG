@@ -5,6 +5,7 @@ import { myPageRouter } from './router/myPage';
 import { pointRouter } from './router/point';
 import { tradeRouter } from './router/trade';
 import { voteRouter } from './router/vote';
+import {ApiError} from "./error/apiError";
 
 // import {Api} from 'api';
 // const sdk = Api('@opensea/v1.0#5zrwe3ql2r2e6mn');
@@ -33,9 +34,8 @@ app.use('/vote', voteRouter);
 app.use('/point', pointRouter);
 // app.use('/history', historyRouter);
 
-app.use((err: Error, req:Request, res:Response, next:NextFunction) => {
-  console.error(err.stack);
-  res.status(404).send({ status: 404, message: 'cannot find website' });
+app.use((err: ApiError | any, req:Request, res:Response, next:NextFunction) => {
+  res.status(err.code).send({ status: err.code, message: err.msg });
 });
 
 export default app;
