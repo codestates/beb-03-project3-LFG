@@ -92,8 +92,16 @@ const TradeNFTWrapper = styled.div`
 const IReceive = () => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
-  const { counterParty, receives, setReceives, setNftModal, setShow, user } =
-    useOutletContext();
+  const {
+    counterParty,
+    receives,
+    setReceives,
+    setNftModal,
+    setShow,
+    user,
+    setShowAlert,
+    setAlertState,
+  } = useOutletContext();
 
   useEffect(() => {
     if (!user || counterParty === "") {
@@ -178,7 +186,13 @@ const IReceive = () => {
           <Button
             onClick={() => {
               if (receives.nfts.length === 0) {
-                alert("choose at least 1 nft");
+                setAlertState((prev) => {
+                  return {
+                    message: "choose at least 1 NFT!",
+                    status: "FAILED",
+                  };
+                });
+                setShowAlert(true);
                 return;
               }
 

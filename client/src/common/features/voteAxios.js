@@ -1,5 +1,5 @@
 import axios from "axios";
-import { checkClosed, getVotes } from "./vote";
+import { checkClosed, getPossibleTokenIdToVote, getVotes } from "./vote";
 
 export const getVaults = async (setVaultList) => {
   const response = await axios.get(
@@ -51,7 +51,8 @@ export const getAgendaInformation = async (
   setAgenda,
   setTokenIds,
   setProsCons,
-  setIsClosed
+  setIsClosed,
+  setPossibleTokenIds
 ) => {
   const response = await axios.post(
     `http://ec2-3-101-79-116.us-west-1.compute.amazonaws.com:4002/vote/agenda/${id}`,
@@ -66,6 +67,11 @@ export const getAgendaInformation = async (
 
     getVotes(response.data.agenda.agendaAddress, setProsCons);
     checkClosed(response.data.agenda.agendaAddress, setIsClosed);
+    getPossibleTokenIdToVote(
+      response.data.tokenList,
+      response.data.agenda.agendaAddress,
+      setPossibleTokenIds
+    );
   } else {
     return;
   }

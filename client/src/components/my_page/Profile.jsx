@@ -1,12 +1,7 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
 import { UserContext } from "../../App";
-import {
-  Button,
-  EditIcon,
-  ContentPasteGoIcon,
-  CreditScoreIcon,
-} from "../../common";
+import { Button, EditIcon, CreditScoreIcon } from "../../common";
 import MenuTab from "../common/MenuTab";
 
 const ProfileWrapper = styled.div`
@@ -60,29 +55,6 @@ const Description = styled.div`
     cursor: pointer;
   }
 `;
-const ButtonWrapper = styled.div`
-  display: flex;
-`;
-
-const CopyProfileBtn = styled(Button)`
-  background-color: salmon;
-`;
-
-const JoinDiscordBtn = styled(Button)`
-  margin-left: 1rem;
-  background-color: tomato;
-
-  & > img {
-    margin-right: 0.5rem;
-  }
-`;
-
-const Discord = styled.img.attrs({
-  src: "/test/Discord-Logo-White.svg",
-  alt: "discord",
-})`
-  width: 20px;
-`;
 
 const ConnectDiscord = styled.div`
   margin-top: 1.5rem;
@@ -135,25 +107,14 @@ const Profile = ({ tabs, setTabs }) => {
           <Description>
             Description <EditIcon />
           </Description>
-          <ButtonWrapper>
-            <CopyProfileBtn>
-              <ContentPasteGoIcon
-                style={{ color: "white", marginRight: "0.5rem" }}
-              />
-              Copy my profile link
-            </CopyProfileBtn>
-            <JoinDiscordBtn>
-              <Discord />
-              Join LFG discord
-            </JoinDiscordBtn>
-          </ButtonWrapper>
           <ConnectDiscord>
             <DiscordWrapper>
               <CreditScoreIcon />
             </DiscordWrapper>
+            <ConnectBtn>Vote Point: {score.votePoint}</ConnectBtn>
             <ConnectBtn>
-              Contribution Score: {score.votePoint} (
-              {score.probability === "" ? 0 : score.probability} %)
+              Contribution Score:{" "}
+              {score.probability === "" ? 0 : score.probability} %
             </ConnectBtn>
           </ConnectDiscord>
         </UserInfo>

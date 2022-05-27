@@ -100,6 +100,8 @@ const IOffer = () => {
     setNftModal,
     setShow,
     user,
+    setShowAlert,
+    setAlertState,
   } = useOutletContext();
 
   useEffect(() => {
@@ -188,7 +190,13 @@ const IOffer = () => {
           <Button
             onClick={() => {
               if (offers.nfts.length === 0 && offers.klay === "") {
-                alert("choose your offer");
+                setAlertState((prev) => {
+                  return {
+                    message: "Choose your offer!",
+                    status: "FAILED",
+                  };
+                });
+                setShowAlert(true);
                 return;
               }
 

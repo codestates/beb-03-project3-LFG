@@ -9,7 +9,8 @@ const LoginWrapper = styled.div`
 
 const Login = () => {
   const navigate = useNavigate();
-  const { user, setUser, score } = useContext(UserContext);
+  const { user, setUser, score, setShowAlert, setAlertState } =
+    useContext(UserContext);
 
   const handleLogin = async () => {
     if (!user) {
@@ -17,7 +18,13 @@ const Login = () => {
         const accounts = await window.klaytn.enable();
         setUser((prev) => accounts[0]);
       } else {
-        alert("Install Kaikas!!");
+        setAlertState((prev) => {
+          return {
+            message: "Install KaiKas!!",
+            status: "FAILED",
+          };
+        });
+        setShowAlert(true);
       }
     } else {
       navigate("/profile/wallet");

@@ -1,22 +1,37 @@
 import axios from "axios";
 import CID from "cids";
 
-export const checkIpfs = (url) => {
-  if (url.startsWith("ipfs")) {
-    let str = url.slice(7).split("/");
-    let cid0 = str[0];
-    let cid1 = new CID(cid0).toV1().toString("base32");
+export const ipfsToHttp = (uri) => {
+  let str = uri.slice(7).split("/");
+  let cid0, cid1;
 
-    return "https://dweb.link/ipfs/" + cid1 + "/" + str.slice(1).join("/");
-  } else {
-    return url;
-  }
+  cid0 = str[0];
+  cid1 = new CID(cid0).toV1().toString("base32");
+
+  return "https://dweb.link/ipfs/" + cid1 + "/" + str.slice(1).join("/");
 };
 
-export const getMetadata = async (url) => {
-  let fixed_url = checkIpfs(url);
+export const getMetadata = async (uri) => {
+  if (uri.startsWith("ipfs")) {
+    uri = ipfsToHttp(uri);
+  }
 
-  const result = await axios.get(fixed_url);
+  const result = await axios.get(uri);
 
   return result;
+};
+
+export const setNFTData = async (tokenURI) => {
+  if (tokenURI.startsWith("ipfs")) {
+    tokenURI = ipfsToHttp(tokenURI);
+  }
+
+  const metadataResponse = await axios.get(tokenURI);
+  const contentResponse = await axios.get(metadataResponse.data.image);
+
+  let type = contentResponse.headers["content-type"];
+  return {
+    ...metadataResponse.data,
+    type,
+  };
 };

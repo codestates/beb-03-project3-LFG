@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Button, Rootdiv, SearchIcon, getMetadata } from "../../common";
+import { Button, Rootdiv, SearchIcon, setNFTData } from "../../common";
 import CollectionList from "./CollectionList";
 import axios from "axios";
 
@@ -71,7 +71,7 @@ const IconWrapper = styled.div`
   height: 35px;
   width: 35px;
 
-  display: flex;
+  display: flex;data
   justify-content: center;
   align-items: center;
 `;
@@ -116,12 +116,12 @@ const AddNFTsModal = ({
         }
       );
 
-      const promises = myNftList.map((d) => getMetadata(d.tokenURI));
+      const promises = myNftList.map((d) => setNFTData(d.tokenURI));
       Promise.all(promises).then((resolve) => {
         setMyNFTs((prev) =>
           resolve.map((data, idx) => {
             return {
-              ...data.data,
+              ...data,
               ...myNftList[idx],
             };
           })

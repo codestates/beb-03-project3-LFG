@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Rootdiv, VerifiedUserIcon } from "../../common";
+import { renderContent, Rootdiv, VerifiedUserIcon } from "../../common";
 import AttributeCard from "./AttributeCard";
 
 const DetailDiv = styled(Rootdiv)`
@@ -25,6 +25,13 @@ const Verified = styled.div`
 const NFTImage = styled.img.attrs((props) => ({
   src: props.fig,
 }))`
+  width: 375px;
+  height: 375px;
+  border-radius: 1rem;
+  margin-bottom: 1.5rem;
+`;
+
+const Video = styled.video`
   width: 375px;
   height: 375px;
   border-radius: 1rem;
@@ -81,7 +88,7 @@ const NFTDetails = ({ data }) => {
           LFG Verified
         </Verified>
       </TitleWrapper>
-      <NFTImage fig={data.image} />
+      {renderContent(data, Video, NFTImage)}
       <Attributes>
         <div>Attributes ({data.attributes.length})</div>
         <AttributeDiv>

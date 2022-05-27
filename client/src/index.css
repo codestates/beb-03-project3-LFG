@@ -2,6 +2,7 @@
   --main-theme: #ff9632;
   --nav-font-size: 16px;
   --nav-bar-height: 79px;
+  --main-font: "FiraSans";
 }
 
 * {
@@ -10,7 +11,7 @@
 
 body {
   margin: 0;
-  font-family: "Knewave-Regular", -apple-system, BlinkMacSystemFont, "Segoe UI",
+  font-family: "Fixedsys", -apple-system, BlinkMacSystemFont, "Segoe UI",
     "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
     "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -48,4 +49,22 @@ li {
   font-family: "Knewave-Regular";
   font-weight: 100;
   src: url("./fonts/Knewave-Regular.ttf");
+}
+
+@font-face {
+  font-family: "FiraSans";
+  font-weight: 100;
+  src: url("./fonts/FiraSans-Medium.ttf");
+}
+
+@font-face {
+  font-family: "OpenSans";
+  font-weight: bold;
+  src: url("./fonts/OpenSans-VariableFont_wdth,wght.ttf");
+}
+
+@font-face {
+  font-family: "FixedSys";
+  font-weight: 300;
+  src: url("./fonts/FSEX300.ttf");
 }
