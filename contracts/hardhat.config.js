@@ -2,7 +2,7 @@
  * @type import('hardhat/config').HardhatUserConfig
  */
 require("@nomiclabs/hardhat-ethers");
-require("./scripts/task.js");
+require("./scripts/voteTask.js");
 require("./scripts/nftTask.js");
 require("dotenv").config();
 

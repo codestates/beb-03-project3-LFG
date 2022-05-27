@@ -25,12 +25,39 @@ task("owner", "Get the chairperson of the vote").setAction(async function (
   const contract = await getContract(
     "Vote",
     hre,
-    "0x28A88C2d66F914A84eB042C2f4827F204141266b"
+    "0x67b3d383559E2c3E00abDED3E9cDf13c485e02EF"
   );
 
   const owner = await contract.chairperson();
 
   console.log(`Contract chairperson is : ${owner}`);
+});
+
+task("vote", "vote").setAction(async function (taskArguments, hre) {
+  const contract = await getContract(
+    "Vote",
+    hre,
+    "0x67b3d383559E2c3E00abDED3E9cDf13c485e02EF"
+  );
+
+  const receipt = await contract.vote([5], 0);
+
+  console.log(receipt);
+});
+
+task("isIdVoted", "check isVoted").setAction(async function (
+  taskArguments,
+  hre
+) {
+  const contract = await getContract(
+    "Vote",
+    hre,
+    "0x67b3d383559E2c3E00abDED3E9cDf13c485e02EF"
+  );
+
+  const receipt = await contract.isIdVoted(5);
+
+  console.log(receipt);
 });
 
 task("close", "close the vote").setAction(async function (taskArguments, hre) {
