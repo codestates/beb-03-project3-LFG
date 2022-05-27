@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { GitHub } from "../../common";
 import Logo from "./Logo";
@@ -36,9 +37,17 @@ const Link = styled.div`
 
 const Left = styled(FooterElems)``;
 const Middle = styled(FooterElems)``;
-const Right = styled(FooterElems)``;
+const Right = styled(FooterElems)`
+  & > li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+`;
 
 const Footer = () => {
+  const navigate = useNavigate();
+
   return (
     <FooterWrapper>
       <FooterDiv>
@@ -49,27 +58,45 @@ const Footer = () => {
             <br />
             for Klaytn NFTs
           </Desciription>
-          <Link
+        </Left>
+        <Middle>
+          <h3>Main</h3>
+          <li
+            onClick={() => {
+              navigate("/loans/listings");
+            }}
+          >
+            Loan Listings
+          </li>
+          <li
+            onClick={() => {
+              navigate("/trade-create");
+            }}
+          >
+            Open Trades
+          </li>
+        </Middle>
+        <Right>
+          <h3>Resources</h3>
+          <li
             onClick={() => {
               window.location.href =
                 "https://github.com/codestates/beb-03-project3-LFG";
             }}
           >
-            <GitHub />
-          </Link>
-        </Left>
-        <Middle>
-          <h3>My Account</h3>
-          <li>Open Trades</li>
-          <li>Trade Listings</li>
-          <li>Loan Listings</li>
-        </Middle>
-        <Right>
-          <h3>Resources</h3>
-          <li>Help & Support</li>
-          <li>Contact Us</li>
-          <li>Our Blog</li>
-          <li>Community</li>
+            <Link>
+              <GitHub />
+            </Link>
+            Github
+          </li>
+          <li
+            onClick={() => {
+              window.location.href =
+                "https://codestates.notion.site/2-20b061ab1aa04567828b8ae1feab1a5e";
+            }}
+          >
+            Notion
+          </li>
         </Right>
       </FooterDiv>
     </FooterWrapper>
