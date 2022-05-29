@@ -40,7 +40,7 @@ contract TestNFT is KIP17, KIP17Metadata {
         require(_exists(tokenId), "ERC721Metadata: URI query for nonexistent token");
 
         string memory baseURI = _baseURI();
-        return bytes(baseURI).length > 0 ? string(abi.encodePacked(baseURI, "/", uint2str(tokenId), ".json")) : "";
+        return bytes(baseURI).length > 0 ? string(abi.encodePacked(baseURI, "/", uint2str(tokenId))) : "";
     }
 
     function _baseURI() internal view returns (string memory) {

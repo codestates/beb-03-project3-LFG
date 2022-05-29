@@ -46,7 +46,7 @@ task("mint", "Mint the test nft")
   });
 
 // baseURI candidate
-// https://themetakongz.com/kongz/metadata -> CORS ERROR
+// https://bafybeigsmwo7robta2gfhvkzull422jjlf3ygbuggx7wax6atw7ipqsngi.ipfs.dweb.link/metadata-> CORS ERROR
 // https://miya.sunmiya.club
 // https://grilla-data.by-syl.com/json
 // ipfs://QmbAeKg7RuWW1YaoADLRmnd2trX6xebjqMeEECd8SHLsqE
@@ -56,7 +56,7 @@ task("mint", "Mint the test nft")
 // 영준 0xBEc3ccA3AbF992Ea770671E568BA8c2C90db271b
 // 민권 0xd5792936d4230b575342e08E3D5406029487Ee48
 
-// 메타콩즈 0x4f0aeD3e4c6192250b1b1a3c275Fd9F1Ef81974D
+// 메타콩즈 0x06A4445f22801b21A6e0b6F23dE5e859f361D8f7
 // 선미야 0xB8d71235403a3d762812548898704452B62b4234
 // Grilla 0xEdFC9fa2287FB153fFf1e9c26B297b9638759ff4
 // Oasis 0xc62Cd15Da898E7c9145f30d2D1311C8c9cB45b9A
