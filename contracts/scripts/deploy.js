@@ -27,3 +27,8 @@ task("deploy", "Helper, LoanFactory deploy").setAction(async function (
  * Helper Contract deployed to address: 0xdE8f4743F036BC8F6C8bAd19EB624E78B5bd5A33
  * LoanFactory deployed to address: 0x39fc2b6e139C7EbE17eaD8a9508fC2dA460aB08b
  */
+
+/** Mainnet
+ * Helper Contract deployed to address: 0x042FcFF41705B1B5A051CE3Ec1De7F518e6E06f3
+ * LoanFactory deployed to address: 0xE2b63108D196261D78CeaD014c83D109F7004645
+ */
