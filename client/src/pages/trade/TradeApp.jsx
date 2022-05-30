@@ -56,7 +56,8 @@ const IconWrapper = styled.div`
 
 const TradeApp = () => {
   const navigate = useNavigate();
-  const { counterParty, setCounterParty, user } = useOutletContext();
+  const { counterParty, setCounterParty, user, setShowAlert, setAlertState } =
+    useOutletContext();
 
   return (
     <Div>
@@ -65,9 +66,9 @@ const TradeApp = () => {
         <WalletMain>
           <div>Start a New P2P Trade</div>
           <div>
-            Welcome to the Safest place on Solana to trade NFTs P2P. Each trade
+            Welcome to the Safest place on Klaytn to trade NFTs P2P. Each trade
             can contain up to 6 NFTs in verified collections. To start a P2P
-            trade, enter the counterparty Solana wallet address below.
+            trade, enter the counterparty Klaytn wallet address below.
           </div>
           <div>Enter the Counterparty Wallet Address</div>
           <InputWrapper>
@@ -85,7 +86,13 @@ const TradeApp = () => {
         <Button
           onClick={() => {
             if (!user) {
-              alert("please login!");
+              setAlertState((prev) => {
+                return {
+                  message: "Please login!",
+                  status: "FAILED",
+                };
+              });
+              setShowAlert(true);
               return;
             }
 
@@ -97,7 +104,13 @@ const TradeApp = () => {
               )
                 navigate("/trade-create/add-counterparty-wallet");
             } catch (err) {
-              alert(err);
+              setAlertState((prev) => {
+                return {
+                  message: err.message,
+                  status: "FAILED",
+                };
+              });
+              setShowAlert(true);
             }
           }}
         >

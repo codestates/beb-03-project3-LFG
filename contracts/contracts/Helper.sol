@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.5.6;
 
-import "./LoanFactory.sol";
+import "./Loan.sol";
 
 contract Helper {
     function getBytecode(address _debtor, IKIP17 _ikip17, uint256 _tokenId, uint256 _period, uint256 _amount, uint256 _rateAmount) external pure returns (bytes memory) {

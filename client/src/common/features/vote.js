@@ -57,3 +57,29 @@ export const checkClosed = async (voteAddr, setIsClosed) => {
 
   setIsClosed((prev) => !isClosed);
 };
+
+export const getPossibleTokenIdToVote = async (
+  ids,
+  voteAddr,
+  setPossibleTokenIds
+) => {
+  const votedABI = [
+    {
+      name: "isIdVoted",
+      type: "function",
+      inputs: [{ type: "uint256", name: "id" }],
+      outputs: [{ type: "bool", name: "" }],
+    },
+  ];
+
+  const voteContract = new window.caver.klay.Contract(votedABI, voteAddr);
+  let possibleIds = [];
+
+  for (let id of ids) {
+    let ok = await voteContract.methods.isIdVoted(id).call();
+    if (!ok) {
+      possibleIds.push(id);
+    }
+  }
+  setPossibleTokenIds((prev) => possibleIds);
+};

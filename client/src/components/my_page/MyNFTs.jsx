@@ -39,7 +39,7 @@ const MyNFTs = ({ nfts, setIsOpen, setModalData }) => {
     <ListWrapper>
       <Title>My Wallet</Title>
       <Gallery>
-        {nfts?.map((data, idx) => (
+        {nfts.map((data, idx) => (
           <MyNFT
             key={idx}
             data={data}

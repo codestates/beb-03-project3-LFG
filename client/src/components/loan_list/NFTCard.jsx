@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { AccessTimeIcon } from "../../common";
+import { AccessTimeIcon, renderContent } from "../../common";
 
 const CardWrapper = styled.div`
   background-color: var(--main-theme);
@@ -24,10 +24,25 @@ const State = styled.div`
 const FigureWrapper = styled.div`
   border-bottom: 1px solid tomato;
   padding-bottom: 0.75rem;
+  flex: 1 1 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  & > div:first-child {
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
 `;
 const Figure = styled.img.attrs((props) => ({
   src: props.fig,
 }))`
+  width: 100%;
+`;
+
+const Video = styled.video`
   width: 100%;
 `;
 const FigCaption = styled.div``;
@@ -113,7 +128,7 @@ const NFTCard = ({ nft }) => {
           navigate(`/loans/${nft._id}`);
         }}
       >
-        <Figure fig={nft.image} />
+        <div>{renderContent(nft, Video, Figure)}</div>
         <FigCaption>
           <Title>{nft.projectName}</Title>
           <Name>{nft.name}</Name>

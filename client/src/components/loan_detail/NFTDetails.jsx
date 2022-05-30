@@ -1,13 +1,18 @@
 import React from "react";
 import styled from "styled-components";
-import { Rootdiv, VerifiedUserIcon } from "../../common";
+import { renderContent, Rootdiv, VerifiedUserIcon } from "../../common";
 import AttributeCard from "./AttributeCard";
 
 const DetailDiv = styled(Rootdiv)`
   align-items: center;
+  justify-content: center;
 `;
 const TitleWrapper = styled.div`
   padding-top: 90px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   text-align: center;
   & > * {
     margin-bottom: 1rem;
@@ -31,9 +36,14 @@ const NFTImage = styled.img.attrs((props) => ({
   margin-bottom: 1.5rem;
 `;
 
+const Video = styled.video`
+  width: 375px;
+  border-radius: 1rem;
+  margin-bottom: 1.5rem;
+`;
+
 const Attributes = styled.div`
   width: 768px;
-  margin: auto;
   background-color: var(--main-theme);
   padding: 0.5rem 2rem 0.5rem 0.5rem;
 `;
@@ -78,10 +88,10 @@ const NFTDetails = ({ data }) => {
         <Name>{data.team}</Name>
         <Verified>
           <VerifiedUserIcon />
-          LFG Verified
+          Oasis Verified
         </Verified>
       </TitleWrapper>
-      <NFTImage fig={data.image} />
+      {renderContent(data, Video, NFTImage)}
       <Attributes>
         <div>Attributes ({data.attributes.length})</div>
         <AttributeDiv>

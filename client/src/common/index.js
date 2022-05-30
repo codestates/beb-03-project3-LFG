@@ -28,7 +28,7 @@ import {
 import LoanFactoryAbi from "./abi/LoanFactory.json";
 import HelperAbi from "./abi/Helper.json";
 import KIP17Abi from "./abi/KIP17.json";
-import { getMetadata, checkIpfs } from "./features/getMetadata.js";
+import { getMetadata, ipfsToHttp, setNFTData } from "./features/getMetadata.js";
 import { renderButton } from "./features/button.js";
 import { timeStamp } from "./features/timeStamp.js";
 import { TradeWrapper, TradeMain } from "./styles/Trade.js";
@@ -46,8 +46,11 @@ import {
   getAgendaInformation,
 } from "./features/voteAxios.js";
 import { getVotes, vote } from "./features/vote.js";
+import { renderContent } from "./features/renderContent.js";
 
 export {
+  renderContent,
+  setNFTData,
   Button,
   FilterList,
   FilterTitle,
@@ -78,7 +81,7 @@ export {
   getMetadata,
   renderButton,
   timeStamp,
-  checkIpfs,
+  ipfsToHttp,
   TradeWrapper,
   myPageAxios,
   processTradeData,

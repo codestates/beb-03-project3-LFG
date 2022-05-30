@@ -9,6 +9,7 @@ import {
   Title,
   Name,
   Button,
+  renderContent,
 } from "../../common";
 
 const ButtonWrapper = styled.div`
@@ -16,6 +17,16 @@ const ButtonWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+`;
+
+const Video = styled.video`
+  width: 100%;
+`;
+
+const ContentWrapper = styled.div`
+  display: flex;
+  flex: 1 1 0;
+  align-items: center;
 `;
 
 const MyNFT = ({ data, setIsOpen, setModalData }) => {
@@ -33,7 +44,7 @@ const MyNFT = ({ data, setIsOpen, setModalData }) => {
   return (
     <CardWrapper>
       <FigureWrapper onClick={openModal}>
-        <Figure fig={data.image} />
+        <ContentWrapper>{renderContent(data, Video, Figure)}</ContentWrapper>
         <FigCaption>
           <Title>{`${data.projectName} #${data.tokenId}`}</Title>
           <Name>{data.team}</Name>

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import LoanDescription from "../components/loan_list/LoanDescription";
 import Filter from "../components/common/Filter";
 import NFTCards from "../components/loan_list/NFTCards";
-import { Rootdiv, getMetadata } from "../common";
+import { Rootdiv, setNFTData } from "../common";
 import styled from "styled-components";
 import LoadingSpinner from "../components/common/LoadingSpinner";
 import { UserContext } from "../App";
@@ -29,6 +29,7 @@ const LoanList = () => {
   const [nfts, setNfts] = useState([]);
   const [renderedNfts, setRenderedNFTs] = useState([]);
   const [tabs, setTabs] = useState(0);
+  // const [filters, setFilters] = useState({});
 
   useEffect(() => {
     // const db = [
@@ -49,34 +50,15 @@ const LoanList = () => {
     //     tokenURI:
     //       "https://ikzttp.mypinata.cloud/ipfs/QmQFkLSQysj94s5GvTHPyzTxrawwtjgiiYS2TBLgrvw8CW/0",
     //   },
-    //   {
-    //     _id: "1",
-    //     debtor: "0x24DaF1e6C925A61D9F186bF5232ed907Cfde15d9",
-    //     creditor: "",
-    //     startAt: "",
-    //     period: 86400 * 2,
-    //     amount: "10000000000000000000",
-    //     rateAmount: "1000000000000000000",
-    //     state: "CREATED",
-    //     nftAddress: "0xaE0F3B010cEc518dB205F5BAf849b8865309BF52",
-    //     tokenId: 1,
-    //     loanAddress: "0xf365eeb3dcf6ba8e5a8c9957a27adf265340c5ce",
-    //     projectName: "Azuki",
-    //     team: "",
-    //     tokenURI:
-    //       "https://ikzttp.mypinata.cloud/ipfs/QmQFkLSQysj94s5GvTHPyzTxrawwtjgiiYS2TBLgrvw8CW/1",
-    //   },
     // ];
     const getList = async () => {
-      const db = await axios.get(
-        "http://ec2-3-101-79-116.us-west-1.compute.amazonaws.com:4002/loan"
-      );
-      const promises = db.data.loanList.map((d) => getMetadata(d.tokenURI));
+      const db = await axios.get("https://oasis-fi.xyz/loan");
+      const promises = db.data.loanList.map((d) => setNFTData(d.tokenURI));
       Promise.all(promises).then((result) => {
         setNfts((prev) =>
           result.map((data, idx) => {
             return {
-              ...data.data,
+              ...data,
               ...db.data.loanList[idx],
             };
           })

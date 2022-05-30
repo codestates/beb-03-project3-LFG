@@ -53,7 +53,6 @@ const MenuDropDown = ({ handleDropDown }) => {
         >
           Vote
         </DropDownMenu>
-        <DropDownMenu>Stake</DropDownMenu>
         <DropDownMenu
           onClick={() => {
             navigate("/profile/wallet");

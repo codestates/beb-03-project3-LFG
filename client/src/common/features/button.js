@@ -37,7 +37,7 @@ export const renderButton = (navigate, user, data) => {
         <Btn
           onClick={async () => {
             await handleFundClick(user, data);
-            navigate(`/loans/${data._id}`);
+            window.location.reload();
           }}
         >
           Fund
@@ -50,7 +50,7 @@ export const renderButton = (navigate, user, data) => {
         <Btn
           onClick={async () => {
             await handleRepayClick(user, data);
-            navigate(`/loans/${data._id}`);
+            window.location.reload();
           }}
         >
           Repay
@@ -61,7 +61,7 @@ export const renderButton = (navigate, user, data) => {
         <Btn
           onClick={async () => {
             await handleTakeCollateralClick(user, data);
-            navigate(`/loans/${data._id}`);
+            window.location.reload();
           }}
         >
           Take Collateral

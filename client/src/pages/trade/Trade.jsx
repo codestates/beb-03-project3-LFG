@@ -9,7 +9,7 @@ const Trade = () => {
   const [counterParty, setCounterParty] = useState("");
   const [show, setShow] = useState(false);
   const [nftModal, setNftModal] = useState({});
-  const { user } = useContext(UserContext);
+  const { user, setShowAlert, setAlertState } = useContext(UserContext);
 
   useEffect(() => {
     setReceives((prev) => {
@@ -43,6 +43,8 @@ const Trade = () => {
           setNftModal,
           setShow,
           user,
+          setShowAlert,
+          setAlertState,
         }}
       />
       {show ? <NFTAttributeModal data={nftModal} /> : null}

@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { CardWrapper, Title, Name } from "../../common";
+import { CardWrapper, Title, Name, renderContent } from "../../common";
 import AttributeCard from "../loan_detail/AttributeCard";
 
 const Wrapper = styled.div`
@@ -66,6 +66,21 @@ const ModalFigure = styled.img.attrs((props) => ({
   }
 `;
 
+const ModalVideo = styled.video`
+  width: 300px;
+  height: 300px;
+
+  @media (max-width: 1000px) {
+    width: 200px;
+    height: 200px;
+  }
+
+  @media (max-width: 768px) {
+    width: 150px;
+    height: 150px;
+  }
+`;
+
 const AttributeDiv = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -85,7 +100,7 @@ const NFTAttributeModal = ({ data }) => {
           <Name>{data.team}</Name>
         </ModalCaption>
         <FigureWrapper>
-          <ModalFigure fig={data.image} />
+          {renderContent(data, ModalVideo, ModalFigure)}
           <AttributeDiv>
             {data.attributes.map((attr, idx) => (
               <AttributeCard

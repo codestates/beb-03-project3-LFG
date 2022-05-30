@@ -12,9 +12,9 @@ contract TestNFT is KIP17, KIP17Metadata {
     Counters.Counter private currentTokenId;
     string public baseTokenURI;
 
-    constructor() public KIP17Metadata("TEST NFT", "TFT") {
+    constructor(string memory name, string memory symbol, string memory _baseTokenURI) public KIP17Metadata(name, symbol) {
         owner = msg.sender;
-        baseTokenURI = "https://ikzttp.mypinata.cloud/ipfs/QmQFkLSQysj94s5GvTHPyzTxrawwtjgiiYS2TBLgrvw8CW";
+        baseTokenURI = _baseTokenURI;
     }
 
     function uint2str(uint _i) internal pure returns (string memory _uintAsString) {
@@ -47,9 +47,11 @@ contract TestNFT is KIP17, KIP17Metadata {
         return baseTokenURI;
     }
 
-    function mint() public {
+    function mint(address recipient) public {
+        require(msg.sender == owner, "not the owner");
+
         uint256 newItemId = currentTokenId.current();
         currentTokenId.increment();
-        _mint(owner, newItemId);
+        _mint(recipient, newItemId);
     }
 }

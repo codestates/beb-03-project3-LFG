@@ -1,59 +1,82 @@
 import axios from "axios";
-import { getMetadata } from "./getMetadata";
+import { setNFTData } from "./getMetadata";
 
 export const getContribution = async (user, setScore) => {
-  const response = await axios.post(
-    "http://ec2-3-101-79-116.us-west-1.compute.amazonaws.com:4002/point",
-    {
-      userAddress: user.toLowerCase(),
-    }
-  );
+  const response = await axios.post("https://oasis-fi.xyz/point", {
+    userAddress: user.toLowerCase(),
+  });
 
   setScore((prev) => response.data);
 };
 
-export const myPageAxios = async (user, tabs, setNFTs, setData) => {
+export const myPageAxios = async (
+  user,
+  tabs,
+  setNFTs,
+  setData,
+  setLoans,
+  setLoading
+) => {
   switch (tabs) {
     case 0:
       // request myNFTs
+      setLoading(true);
       const {
         data: { myNftList },
-      } = await axios.post(
-        "http://ec2-3-101-79-116.us-west-1.compute.amazonaws.com:4002/myPage",
-        {
-          userAddress: user,
-        }
-      );
-
-      const promises = myNftList.map((d) => getMetadata(d.tokenURI));
+      } = await axios.post("https://oasis-fi.xyz/myPage", {
+        userAddress: user,
+      });
+      const promises = myNftList.map((d) => setNFTData(d.tokenURI));
       Promise.all(promises).then((resolve) => {
         setNFTs((prev) =>
           resolve.map((data, idx) => {
             return {
-              ...data.data,
+              ...data,
               ...myNftList[idx],
             };
           })
         );
       });
-
+      setLoading(false);
       break;
     case 1:
       // request myListed Loans
+      let { data } = await axios.get("https://oasis-fi.xyz/loan");
+      let promises1 = data.loanList.map((d) => setNFTData(d.tokenURI));
+      Promise.all(promises1).then((result) => {
+        setLoans((prev) =>
+          result.map((elem, idx) => {
+            return {
+              ...elem,
+              ...data.loanList[idx],
+            };
+          })
+        );
+      });
       break;
     case 2:
       // request Funded Loans
+      let response = await axios.get("https://oasis-fi.xyz/loan");
+      let data2 = response.data;
+      let promises2 = data2.loanList.map((d) => setNFTData(d.tokenURI));
+      Promise.all(promises2).then((result) => {
+        setLoans((prev) =>
+          result.map((elem, idx) => {
+            return {
+              ...elem,
+              ...data2.loanList[idx],
+            };
+          })
+        );
+      });
       break;
     case 3:
       // requset trade I Offer and My Trade History
       const {
         data: { offerList },
-      } = await axios.post(
-        "http://ec2-3-101-79-116.us-west-1.compute.amazonaws.com:4002/trade/offer",
-        {
-          userAddress: user.toLowerCase(),
-        }
-      );
+      } = await axios.post("https://oasis-fi.xyz/trade/offer", {
+        userAddress: user.toLowerCase(),
+      });
 
       processTradeData(offerList, setData);
       break;
@@ -61,12 +84,9 @@ export const myPageAxios = async (user, tabs, setNFTs, setData) => {
       // request Trade I Offered
       const {
         data: { respondList },
-      } = await axios.post(
-        "http://ec2-3-101-79-116.us-west-1.compute.amazonaws.com:4002/trade/respond",
-        {
-          userAddress: user.toLowerCase(),
-        }
-      );
+      } = await axios.post("https://oasis-fi.xyz/trade/respond", {
+        userAddress: user.toLowerCase(),
+      });
 
       processTradeData(respondList, setData);
       break;
@@ -78,15 +98,13 @@ export const myPageAxios = async (user, tabs, setNFTs, setData) => {
 export const processTradeData = async (tradeData, setTradeData) => {
   tradeData.forEach((data) => {
     const receivePromise = data.respondNFTList.map((data) =>
-      getMetadata(data.tokenURI)
+      setNFTData(data.tokenURI)
     );
     const offerPromise = data.offerNFTList.map((data) =>
-      getMetadata(data.tokenURI)
+      setNFTData(data.tokenURI)
     );
 
-    Promise.all([...receivePromise, ...offerPromise]).then((resolve) => {
-      let metadata = resolve.map((resp) => resp.data);
-
+    Promise.all([...receivePromise, ...offerPromise]).then((metadata) => {
       setTradeData((prev) => {
         let ids = prev.map((data) => data._id);
         if (ids.includes(data._id)) {

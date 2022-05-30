@@ -3,7 +3,7 @@ import styled from "styled-components";
 import NFTDetails from "../components/loan_detail/NFTDetails";
 import LoanRequest from "../components/loan_detail/LoanRequest";
 import { useLocation, useParams } from "react-router-dom";
-import { getMetadata } from "../common";
+import { setNFTData } from "../common";
 import LoadingSpinner from "../components/common/LoadingSpinner";
 import axios from "axios";
 
@@ -12,6 +12,7 @@ const DetailRootDiv = styled.div`
   margin: auto;
   gap: 5rem;
   margin-bottom: 1rem;
+  height: 100vh;
 
   @media (max-width: 1000px) {
     flex-direction: column;
@@ -32,13 +33,13 @@ const LoanDetail = ({ create, edit }) => {
       // 이미 만들어진 LoanRequest에 대해서 db에서 Loan데이터를 받아오는 경우 nftAddress, tokenId, debtor, state를 만족하는 것을 가지고 온다
       const get = async () => {
         const data = await axios.get(
-          `http://ec2-3-101-79-116.us-west-1.compute.amazonaws.com:4002/loan/${params.hash}`
+          `https://oasis-fi.xyz/loan/${params.hash}`
         );
-        getMetadata(data.data.loanInfo.tokenURI).then((result) => {
+        setNFTData(data.data.loanInfo.tokenURI).then((result) => {
           setNft((prev) => {
             return {
               ...data.data.loanInfo,
-              ...result.data,
+              ...result,
             };
           });
         });

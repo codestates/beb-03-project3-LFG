@@ -70,7 +70,7 @@ const TradeNFT = ({ nft, setNftModal, setShow, setReceives }) => {
         <Information>
           <div>
             <VerifiedUserIcon />
-            LFG Verified
+            Oasis Verified
           </div>
           <div>{`${nft.projectName} #${nft.tokenId}`}</div>
           <div>{nft.team}</div>
