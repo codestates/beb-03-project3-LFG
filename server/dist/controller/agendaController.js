@@ -35,12 +35,15 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.viewAgenda = exports.agendaList = void 0;
-var dotenv = require("dotenv");
+var dotenv_1 = __importDefault(require("dotenv"));
 var agenda_1 = require("../db/agenda");
 var kas_1 = require("../utils/kas");
-dotenv.config();
+dotenv_1.default.config();
 var agendaList = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var list, error_1;
     return __generator(this, function (_a) {

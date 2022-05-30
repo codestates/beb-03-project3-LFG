@@ -29,7 +29,7 @@ setInterval(async () => {
   try {
     const blockNumber = await caver.rpc.klay.getBlockNumber();
   } catch (e) {
-    // console.log(e);
+    console.log(e);
   }
 }, 30000);
 
@@ -70,7 +70,6 @@ const loanSubscrpition = caver.rpc.klay.subscribe(
       }
     } catch (error) {
       console.log(error);
-      return;
     }
   }
 );
@@ -100,7 +99,6 @@ const tradeSubscription = caver.rpc.klay.subscribe(
       }
     } catch (error) {
       console.log(error);
-      return;
     }
   }
 );

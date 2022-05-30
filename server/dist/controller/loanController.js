@@ -35,12 +35,16 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getLoan = exports.getLoans = void 0;
+var dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
 var coingecko_api_v3_1 = require("coingecko-api-v3");
-var dotenv = require("dotenv");
 var loan_1 = require("../db/loan");
-dotenv.config();
+var apiError_1 = require("../error/apiError");
 var getLoans = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var loanList, error_1;
     return __generator(this, function (_a) {
@@ -54,26 +58,31 @@ var getLoans = function (req, res, next) { return __awaiter(void 0, void 0, void
                 return [3 /*break*/, 3];
             case 2:
                 error_1 = _a.sent();
-                next(error_1);
+                if (error_1) {
+                    next((0, apiError_1.internal)('cannot fetch loan list', error_1));
+                }
                 return [3 /*break*/, 3];
             case 3: return [2 /*return*/];
         }
     });
 }); };
 exports.getLoans = getLoans;
+// import {Api} from 'api';
+// const sdk = Api('@opensea/v1.0#5zrwe3ql2r2e6mn');
 var sdk = require('api')('@opensea/v1.0#5zrwe3ql2r2e6mn');
 var getLoan = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var loanInfo, res_1, client, simplePrice, floorPrice, err_1;
+    var id, loanInfo, res_1, client, simplePrice, error_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 5, , 6]);
+                id = req.params.id;
+                if (!id) {
+                    next((0, apiError_1.badRequest)("id parameter is required"));
+                }
                 return [4 /*yield*/, loan_1.Loan.findOne({ _id: req.params.id })];
             case 1:
                 loanInfo = _a.sent();
-                if (loanInfo === null) {
-                    next();
-                }
                 loanInfo.floorPrice = 'N/A';
                 if (!(process.env.CHAIN_ID === process.env.MAINNET)) return [3 /*break*/, 4];
                 return [4 /*yield*/, sdk['retrieving-collection-stats']({
@@ -92,15 +101,16 @@ var getLoan = function (req, res, next) { return __awaiter(void 0, void 0, void 
                     })];
             case 3:
                 simplePrice = _a.sent();
-                floorPrice = Number(res_1.stats.floor_price) / Number(simplePrice['klay-token'].eth);
-                loanInfo.floorPrice = floorPrice;
+                loanInfo.floorPrice = Number(res_1.stats.floor_price) / Number(simplePrice['klay-token'].eth);
                 _a.label = 4;
             case 4:
                 res.status(200).json({ message: 'succeed', loanInfo: loanInfo });
                 return [3 /*break*/, 6];
             case 5:
-                err_1 = _a.sent();
-                console.log(err_1);
+                error_2 = _a.sent();
+                if (error_2) {
+                    next((0, apiError_1.internal)('cannot fetch list'));
+                }
                 return [3 /*break*/, 6];
             case 6: return [2 /*return*/];
         }

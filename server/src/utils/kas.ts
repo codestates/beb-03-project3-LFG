@@ -1,5 +1,5 @@
-import * as CaverExtKAS from 'caver-js-ext-kas';
-import * as dotenv from 'dotenv';
+import CaverExtKAS from 'caver-js-ext-kas';
+import dotenv from 'dotenv';
 dotenv.config();
 
 const chainId: Number = Number(process.env.CHAIN_ID);
@@ -12,10 +12,12 @@ export const getBlockNumber = async () => {
   return blockNumber;
 };
 
-interface nftInfo {
+export interface nftInfo {
   tokenId: Number;
   tokenURI: string;
-  nftAddress: string;
+  nftAddress?: string;
+  projectName? : string,
+  team? : string,
 }
 
 export const getNFT = async (contractAddress: String, ownerAddress: String) => {
