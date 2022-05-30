@@ -1,4 +1,7 @@
 배포 링크: https://unique-mousse-f9209e.netlify.app/
+
+# 홈페이지 
+<img width="1413" alt="oasis-fi" src="https://user-images.githubusercontent.com/46487497/170937377-adfb4475-5a98-4038-aafb-f6b21d56d69f.png">
 ---
 # 문제의식
 
