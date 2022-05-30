@@ -1,7 +1,7 @@
 const { task } = require("hardhat/config");
 const { getContract } = require("./helpers.js");
 
-task("deploy", "Deploys the Vote.sol contract").setAction(async function (
+task("vote deploy", "Deploys the Vote.sol contract").setAction(async function (
   taskArguments,
   hre
 ) {
