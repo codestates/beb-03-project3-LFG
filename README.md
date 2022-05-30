@@ -1,8 +1,9 @@
-배포 링크: https://unique-mousse-f9209e.netlify.app/
+
 
 # 홈페이지 
-<img width="1413" alt="oasis-fi" src="https://user-images.githubusercontent.com/46487497/170937377-adfb4475-5a98-4038-aafb-f6b21d56d69f.png">
----
+<img width="1211" alt="스크린샷 2022-05-30 오후 4 16 36" src="https://user-images.githubusercontent.com/96699299/170937943-6fdce2bf-6916-46d2-ac82-5f9ccde8e2b1.png">
+배포 링크: https://unique-mousse-f9209e.netlify.app/
+
 # 문제의식
 
 대한민국에 사는 우리에게 대출은 익숙한 개념입니다.
