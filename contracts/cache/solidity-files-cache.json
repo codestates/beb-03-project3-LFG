@@ -2790,8 +2790,8 @@
       ]
     },
     "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/Helper.sol": {
-      "lastModificationDate": 1652861775586,
-      "contentHash": "83499dfa9441b8ea6b2afd0f1b573251",
+      "lastModificationDate": 1653788688694,
+      "contentHash": "3a863dc6ccdf83c330884f3fad80e307",
       "sourceName": "contracts/Helper.sol",
       "solcConfig": {
         "version": "0.5.12",
@@ -2817,7 +2817,7 @@
         }
       },
       "imports": [
-        "./LoanFactory.sol"
+        "./Loan.sol"
       ],
       "versionPragmas": [
         "^0.5.6"
@@ -2827,8 +2827,8 @@
       ]
     },
     "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/LoanFactory.sol": {
-      "lastModificationDate": 1653324230967,
-      "contentHash": "9f658de58a061b6183d07aa22ef06b28",
+      "lastModificationDate": 1653788667103,
+      "contentHash": "636ec6bfe37cf03c9ce0b131c083adc9",
       "sourceName": "contracts/LoanFactory.sol",
       "solcConfig": {
         "version": "0.5.12",
@@ -2856,14 +2856,12 @@
       "imports": [
         "./klay_contracts/token/KIP17/IKIP17.sol",
         "./klay_contracts/token/KIP17/IERC721Receiver.sol",
-        "./klay_contracts/token/KIP17/IKIP17Receiver.sol",
-        "./klay_contracts/math/SafeMath.sol"
+        "./klay_contracts/token/KIP17/IKIP17Receiver.sol"
       ],
       "versionPragmas": [
         "^0.5.6"
       ],
       "artifacts": [
-        "Loan",
         "LoanFactory"
       ]
     },
@@ -5018,8 +5016,8 @@
       ]
     },
     "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/TestNFT.sol": {
-      "lastModificationDate": 1653482476531,
-      "contentHash": "eab790753fa8d56c3953045e56181d0c",
+      "lastModificationDate": 1653624153923,
+      "contentHash": "1a85fb36f158d622a310e5ad90e2a0a9",
       "sourceName": "contracts/TestNFT.sol",
       "solcConfig": {
         "version": "0.5.12",
@@ -5812,6 +5810,46 @@
         "Roles",
         "SafeMath",
         "String"
+      ]
+    },
+    "/home/gunbos/projects/project3/lfg_contract/contracts/contracts/Loan.sol": {
+      "lastModificationDate": 1653788668283,
+      "contentHash": "1bd392029deb0f67da6eaf3564f1aa7c",
+      "sourceName": "contracts/Loan.sol",
+      "solcConfig": {
+        "version": "0.5.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./klay_contracts/token/KIP17/IKIP17.sol",
+        "./klay_contracts/token/KIP17/IERC721Receiver.sol",
+        "./klay_contracts/token/KIP17/IKIP17Receiver.sol",
+        "./klay_contracts/math/SafeMath.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.6"
+      ],
+      "artifacts": [
+        "Loan"
       ]
     }
   }
