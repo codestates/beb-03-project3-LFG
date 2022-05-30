@@ -115,6 +115,26 @@ const LoanForm = ({ edit, create, data }) => {
         )
         .call();
 
+      // const approveEncoded = window.caver.abi.encodeFunctionCall(
+      //   {
+      //     name: "approve",
+      //     type: "function",
+      //     inputs: [
+      //       { type: "address", name: "to" },
+      //       { type: "uint256", name: "tokenId" },
+      //     ],
+      //   },
+      //   [process.env.REACT_APP_LOAN_FACTORY_CONTRACT_ADDRESS, data.tokenId]
+      // );
+
+      // await window.caver.klay.sendTransaction({
+      //   type: "SMART_CONTRACT_EXECUTION",
+      //   from: user,
+      //   to: data.nftAddress,
+      //   data: approveEncoded,
+      //   gas: "10000000",
+      // });
+
       const safeTransferEncoded = window.caver.abi.encodeFunctionCall(
         {
           name: "safeTransferFrom",

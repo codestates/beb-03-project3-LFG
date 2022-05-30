@@ -2,9 +2,7 @@ import axios from "axios";
 import { checkClosed, getPossibleTokenIdToVote, getVotes } from "./vote";
 
 export const getVaults = async (setVaultList) => {
-  const response = await axios.get(
-    "http://ec2-3-101-79-116.us-west-1.compute.amazonaws.com:4002/vote/season"
-  );
+  const response = await axios.get("https://oasis-fi.xyz/vote/season");
 
   if (response.data.message === "succeed") {
     setVaultList((prev) => response.data.list);
@@ -14,9 +12,7 @@ export const getVaults = async (setVaultList) => {
 };
 
 export const getVault = async (id, setSeason) => {
-  const response = await axios.get(
-    `http://ec2-3-101-79-116.us-west-1.compute.amazonaws.com:4002/vote/season/${id}`
-  );
+  const response = await axios.get(`https://oasis-fi.xyz/vote/season/${id}`);
 
   if (response.data.message === "succeed") {
     setSeason((prev) => response.data.season);
@@ -24,19 +20,14 @@ export const getVault = async (id, setSeason) => {
 };
 
 export const voteToCandid = async (id, addr, user) => {
-  await axios.post(
-    `http://ec2-3-101-79-116.us-west-1.compute.amazonaws.com:4002/vote/season/${id}`,
-    {
-      userAddress: user.toLowerCase(),
-      nftAddress: addr,
-    }
-  );
+  await axios.post(`https://oasis-fi.xyz/vote/season/${id}`, {
+    userAddress: user.toLowerCase(),
+    nftAddress: addr,
+  });
 };
 
 export const getAgendas = async (setAgendaList) => {
-  const response = await axios.get(
-    "http://ec2-3-101-79-116.us-west-1.compute.amazonaws.com:4002/vote/agenda"
-  );
+  const response = await axios.get("https://oasis-fi.xyz/vote/agenda");
 
   if (response.data.message === "succeed") {
     setAgendaList((prev) => response.data.list);
@@ -54,12 +45,9 @@ export const getAgendaInformation = async (
   setIsClosed,
   setPossibleTokenIds
 ) => {
-  const response = await axios.post(
-    `http://ec2-3-101-79-116.us-west-1.compute.amazonaws.com:4002/vote/agenda/${id}`,
-    {
-      userAddress: user,
-    }
-  );
+  const response = await axios.post(`https://oasis-fi.xyz/vote/agenda/${id}`, {
+    userAddress: user,
+  });
 
   if (response.data.message === "succeed") {
     setAgenda((prev) => response.data.agenda);

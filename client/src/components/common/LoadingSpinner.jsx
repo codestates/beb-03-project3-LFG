@@ -20,6 +20,8 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
 
+  z-index: -999;
+
   & > div:first-child {
     position: absolute;
     top: 50%;

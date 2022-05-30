@@ -109,12 +109,9 @@ const AddNFTsModal = ({
     const get = async () => {
       const {
         data: { myNftList },
-      } = await axios.post(
-        "http://ec2-3-101-79-116.us-west-1.compute.amazonaws.com:4002/myPage",
-        {
-          userAddress: isReceive ? counterParty : user,
-        }
-      );
+      } = await axios.post("https://oasis-fi.xyz/myPage", {
+        userAddress: isReceive ? counterParty : user,
+      });
 
       const promises = myNftList.map((d) => setNFTData(d.tokenURI));
       Promise.all(promises).then((resolve) => {

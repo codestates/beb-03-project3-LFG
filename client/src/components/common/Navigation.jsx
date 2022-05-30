@@ -68,7 +68,7 @@ const Navigation = ({ dropdown, handleDropDown }) => {
   return (
     <NavBarWrapper>
       <NavBar>
-        <Logo>LFG</Logo>
+        <Logo />
         <Navs>
           <Nav
             onClick={() => {

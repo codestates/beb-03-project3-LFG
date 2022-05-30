@@ -66,9 +66,9 @@ const TradeApp = () => {
         <WalletMain>
           <div>Start a New P2P Trade</div>
           <div>
-            Welcome to the Safest place on Solana to trade NFTs P2P. Each trade
+            Welcome to the Safest place on Klaytn to trade NFTs P2P. Each trade
             can contain up to 6 NFTs in verified collections. To start a P2P
-            trade, enter the counterparty Solana wallet address below.
+            trade, enter the counterparty Klaytn wallet address below.
           </div>
           <div>Enter the Counterparty Wallet Address</div>
           <InputWrapper>
