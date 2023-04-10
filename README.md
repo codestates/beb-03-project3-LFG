@@ -1,5 +1,3 @@
-WhitePaper(가장 잘 설명되어있는 페이지) : https://alabaster-scent-0c5.notion.site/2-OASIS-831756a0ff014dc58e98f7398dd0494f
-
 # 홈페이지 
 <img width="1211" alt="스크린샷 2022-05-30 오후 4 16 36" src="https://user-images.githubusercontent.com/96699299/170937943-6fdce2bf-6916-46d2-ac82-5f9ccde8e2b1.png">
 배포 링크: https://unique-mousse-f9209e.netlify.app/
